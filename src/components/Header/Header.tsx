@@ -1,18 +1,25 @@
-import React from "react";
 import "./style.scss";
 import Logo from "../Logo/Logo";
-import { List } from "@chakra-ui/react";
+import Nav from "../Nav/Nav";
+import { Flex, Spacer } from "@chakra-ui/react";
+
+const data = [
+  { name: "home", path: "/" },
+  { name: "product", path: "/product" },
+  { name: "about us", path: "/aboutus" },
+  { name: "contact", path: "/contact" },
+];
 
 const Header = () => {
   return (
-    <header className="header">
+    <Flex>
       <div className="logo">
         <Logo />
       </div>
-      <List >
-        
-      </List>
-    </header>
+      <Spacer />
+      <Nav data={data} />
+      <Spacer />
+    </Flex>
   );
 };
 
