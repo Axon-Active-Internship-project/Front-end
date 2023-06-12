@@ -1,4 +1,4 @@
-import { Box, Flex, Spacer, Text } from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
 interface NavItemProps {
@@ -9,7 +9,7 @@ interface NavItemProps {
 const Nav = ({ data }: any) => {
   return (
     <Box>
-      <Flex gap={150} alignItems={"center"} justifyContent={"center"}>
+      <Flex gap={120} alignItems={"center"} justifyContent={"center"}>
         {data.map((item: NavItemProps, index: number) => {
           const { name, path } = item;
           return <NavItem key={index} name={name} path={path} />;
@@ -22,7 +22,13 @@ const Nav = ({ data }: any) => {
 const NavItem = ({ name, path }: NavItemProps) => {
   return (
     <Link to={path}>
-      <Text textAlign={"center"} textTransform={"capitalize"} fontSize={18}>
+      <Text
+        fontWeight={400}
+        textAlign={"center"}
+        textTransform={"capitalize"}
+        fontSize={18}
+        color={"black"}
+      >
         {name}
       </Text>
     </Link>
