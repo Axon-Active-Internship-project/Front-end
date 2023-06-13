@@ -1,10 +1,6 @@
 import { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 
 export const onRequest = (config: AxiosRequestConfig): any => {
-  const token: string = "";
-  if (!token) {
-    // config.headers?.Authorization = "bearer ${accessToken}";
-  }
   return config;
 };
 
