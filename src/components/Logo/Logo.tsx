@@ -9,6 +9,7 @@ const Logo = () => {
           src="https://redq.io/landing/_next/static/images/logo-61583e555188bd341d42dac2c04389aa.svg"
           boxSize={85}
           objectFit="contain"
+          alt="Logo"
         />
       </Box>
     </Link>

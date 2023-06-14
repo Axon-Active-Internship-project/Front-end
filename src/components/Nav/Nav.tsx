@@ -1,18 +1,14 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
+import { NavItemProps, NavProps } from "../../interfaces";
+import PropTypes from "prop-types";
 
-interface NavItemProps {
-  name: string;
-  path: string;
-}
-
-const Nav = ({ data }: any) => {
+const Nav = ({ data }: NavProps) => {
   return (
     <Box>
       <Flex gap={120} alignItems={"center"} justifyContent={"center"}>
         {data.map((item: NavItemProps, index: number) => {
-          const { name, path } = item;
-          return <NavItem key={index} name={name} path={path} />;
+          return <NavItem key={index} {...item} />;
         })}
       </Flex>
     </Box>
@@ -36,3 +32,12 @@ const NavItem = ({ name, path }: NavItemProps) => {
 };
 
 export default Nav;
+
+NavItem.PropTypes = {
+  name: PropTypes.string,
+  path: PropTypes.string,
+};
+
+Nav.PropTypes = {
+  data: PropTypes.string,
+};

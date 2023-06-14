@@ -5,7 +5,7 @@ import { Icon } from "@chakra-ui/icons";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { Link } from "react-router-dom";
 
-const header = [
+const data = [
   { name: "home", path: "/" },
   { name: "product", path: "/product" },
   { name: "about us", path: "/aboutus" },
@@ -18,7 +18,7 @@ const Header = ({ size = 0 }) => {
       <Flex justifyContent={"center"} alignItems={"center"}>
         <Logo />
         <Spacer />
-        <Nav data={header} />
+        <Nav data={data} />
         <Spacer />
         <Box>
           <Link to={"shopping-cart"}>
