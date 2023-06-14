@@ -6,28 +6,37 @@ import { useNavigate } from "react-router";
 const NotFound = () => {
   const navigate = useNavigate();
 
+  const handleClickBackHome = () => {
+    navigate("/");
+  };
+
   return (
     <Container maxW={1440} h={"100vh"}>
-      <Box width={"100%"} height={"100%"}>
+      <Box width={"100%"} height={"100%"} pos={"relative"}>
         <Image
           src="https://www.pngitem.com/pimgs/m/561-5616833_image-not-found-png-not-found-404-png.png"
+          alt="Not found"
           width={"100%"}
           height={"100%"}
           objectFit={"contain"}
         />
-        <Box pos={"relative"} top={-500}>
-          <Flex gap={10} flexDirection={"column"} alignItems={"center"}>
-            <Button
-              variant={"solid"}
-              color={"white"}
-              colorScheme="messenger"
-              onClick={() => navigate("/")}
-              maxW={140}
-            >
-              Back Home
-            </Button>
-          </Flex>
-        </Box>
+        <Flex
+          pos={"absolute"}
+          left={0}
+          right={0}
+          bottom={500}
+          justifyContent={"center"}
+        >
+          <Button
+            variant={"solid"}
+            color={"white"}
+            colorScheme="messenger"
+            onClick={handleClickBackHome}
+            maxW={140}
+          >
+            Back Home
+          </Button>
+        </Flex>
       </Box>
     </Container>
   );
