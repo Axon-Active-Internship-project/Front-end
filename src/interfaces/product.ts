@@ -21,4 +21,13 @@ interface ICategory {
   name: string;
 }
 
+export interface ProductProps {
+  data: IProduct[];
+}
+
+export interface CardProps {
+  data: IProduct;
+}
+
+
 export default IProduct;
