@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
-const MainLayuot = () => {
+const MainLayout = () => {
   return (
     <Container maxW={1440}>
       <Header />
@@ -13,4 +13,4 @@ const MainLayuot = () => {
   );
 };
 
-export default MainLayuot;
+export default MainLayout;
