@@ -16,7 +16,13 @@ import {
   FaSnapchatGhost,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
-const footerLeft: FooterGroupPros = {
+import {
+  FooterGroupProps,
+  FooterIconProps,
+  FooterItemProps,
+} from "../../interfaces";
+
+const footerLeft: FooterGroupProps = {
   title: "Customer Service",
   item: [
     { text: "Blog", path: "/" },
@@ -26,7 +32,7 @@ const footerLeft: FooterGroupPros = {
   ],
 };
 
-const footerRight: FooterGroupPros = {
+const footerRight: FooterGroupProps = {
   title: "Navigation",
   item: [
     { text: "Home", path: "/" },
@@ -45,27 +51,12 @@ const footerIcon = [
   { icon: FaSnapchatGhost, path: "/" },
 ];
 
-interface FooterGroupPros {
-  title: string;
-  item: FooterItemPros[];
-}
-
-interface FooterItemPros {
-  text: string;
-  path: string;
-}
-
-interface FooterIconPros {
-  icon: any;
-  path: string;
-}
-
 const Footer = () => {
   return (
     <Box>
       <Flex>
         <Box>
-          <FooterGroup title={footerLeft.title} item={footerLeft.item} />
+          <FooterGroup {...footerLeft} />
         </Box>
         <Spacer />
         <Box>
@@ -92,8 +83,7 @@ const Footer = () => {
               </Text>
               <HStack spacing={8} justifyContent={"center"}>
                 {footerIcon.map((item, index) => {
-                  const { icon, path } = item;
-                  return <FooterIcon key={index} icon={icon} path={path} />;
+                  return <FooterIcon key={index} {...item} />;
                 })}
               </HStack>
             </Flex>
@@ -101,7 +91,7 @@ const Footer = () => {
         </Box>
         <Spacer />
         <Box>
-          <FooterGroup title={footerRight.title} item={footerRight.item} />
+          <FooterGroup {...footerRight} />
         </Box>
       </Flex>
       <Flex
@@ -144,7 +134,7 @@ const FooterTitle = ({ title = "" }) => {
   );
 };
 
-const FooterItem = ({ text, path }: FooterItemPros) => {
+const FooterItem = ({ text, path }: FooterItemProps) => {
   return (
     <Link to={path}>
       <Text fontWeight={"400"} fontSize={18} textTransform={"capitalize"}>
@@ -154,19 +144,18 @@ const FooterItem = ({ text, path }: FooterItemPros) => {
   );
 };
 
-const FooterGroup = ({ title, item }: FooterGroupPros) => {
+const FooterGroup = ({ title, item }: FooterGroupProps) => {
   return (
     <Flex flexDirection={"column"} gap={18}>
       <FooterTitle title={title} />
       {item.map((item, index) => {
-        const { text, path } = item;
-        return <FooterItem key={index} text={text} path={path} />;
+        return <FooterItem key={index} {...item} />;
       })}
     </Flex>
   );
 };
 
-const FooterIcon = ({ icon, path }: FooterIconPros) => {
+const FooterIcon = ({ icon, path }: FooterIconProps) => {
   return (
     <Link to={path}>
       <Icon as={icon} boxSize={8} color={"#E89B93"} />
