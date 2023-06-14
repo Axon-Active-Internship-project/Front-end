@@ -4,7 +4,7 @@ import { RouteObject } from "react-router";
 import { NotFound, Error } from "../pages/";
 
 const Router = () => {
-  const router: RouteObject[] = [
+  const routers: RouteObject[] = [
     {
       path: "",
       element: <MainLayuot />,
@@ -16,7 +16,7 @@ const Router = () => {
     },
   ];
 
-  const context = useRoutes(router);
+  const context = useRoutes(routers);
 
   return context;
 };
