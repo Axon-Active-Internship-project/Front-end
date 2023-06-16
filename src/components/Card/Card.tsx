@@ -29,8 +29,8 @@ const MyCard = ({ data }: CardProps) => {
   const { name, price, sale_price, src } = data;
   return (
     <Card
-      maxW={330}
-      maxH={355}
+      maxW="sm"
+      maxH={"sm"}
       onMouseOver={handleMouseOver}
       onMouseOut={handleMouseOut}
     >
