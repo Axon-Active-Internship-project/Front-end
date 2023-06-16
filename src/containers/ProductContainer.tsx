@@ -1,20 +1,18 @@
 import { IProduct } from "../interfaces";
 import { Product } from "../pages";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { product } from "../services/apis";
 
 const data1: Array<IProduct> = [
   {
     id: 1,
     name: "nem cha",
-    price: "10000",
+    price: "10",
     sale_price: "9999",
     src: "https://s1.storage.5giay.vn/image/2016/10/20161021_b84b6337cc54488264598cf7e498eeff_1477033027.jpg",
   },
   {
     id: 2,
     name: "ca cua",
-    price: "10000",
+    price: "20",
     src: "https://s1.storage.5giay.vn/image/2016/10/20161021_b84b6337cc54488264598cf7e498eeff_1477033027.jpg",
   },
   {
@@ -39,13 +37,13 @@ const data1: Array<IProduct> = [
   },
 ];
 const ProductContainer = () => {
-  const queryClient = useQueryClient();
-  const { data, isLoading, isError, error } = useQuery({
-    queryKey: ["products"],
-    queryFn: product.getProduct,
-  });
+  // const queryClient = useQueryClient();
+  // const { data, isLoading, isError, error } = useQuery({
+  //   queryKey: ["products"],
+  //   queryFn: product.getProduct,
+  // });
 
-  console.log(data, isError, isLoading, error);
+  // console.log(data, isError, isLoading, error);
 
   return <Product data={data1} />;
 };
