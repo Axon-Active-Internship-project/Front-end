@@ -16,7 +16,7 @@ interface IImageProduct {
   name?: string;
 }
 
-interface ICategory {
+export interface ICategory {
   id: number;
   name: string;
 }
@@ -28,6 +28,5 @@ export interface ProductProps {
 export interface CardProps {
   data: IProduct;
 }
-
 
 export default IProduct;
