@@ -1,7 +1,7 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { Router } from "./utils";
+import { Router, theme } from "./utils";
 import { BrowserRouter } from "react-router-dom";
 
 const App = () => {
@@ -9,7 +9,7 @@ const App = () => {
 
   return (
     <>
-      <ChakraProvider>
+      <ChakraProvider theme={theme}>
         <QueryClientProvider client={queryClient}>
           <BrowserRouter>
             <Router />

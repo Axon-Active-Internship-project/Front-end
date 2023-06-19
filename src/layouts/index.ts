@@ -1,1 +1,1 @@
-export { default as MainLayuot } from "./MainLayuot";
+export { default as MainLayuot } from "./MainLayout";

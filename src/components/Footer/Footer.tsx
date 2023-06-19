@@ -3,7 +3,6 @@ import {
   Button,
   Flex,
   HStack,
-  Icon,
   Input,
   Spacer,
   Text,
@@ -15,8 +14,11 @@ import {
   FaPinterestP,
   FaSnapchatGhost,
 } from "react-icons/fa";
-import { Link } from "react-router-dom";
-const footerLeft: FooterGroupPros = {
+import { FooterGroupProps } from "../../interfaces";
+import FooterIcon from "./FooterIcon";
+import FooterGroup from "./FooterGroup";
+
+const footerLeft: FooterGroupProps = {
   title: "Customer Service",
   item: [
     { text: "Blog", path: "/" },
@@ -26,7 +28,7 @@ const footerLeft: FooterGroupPros = {
   ],
 };
 
-const footerRight: FooterGroupPros = {
+const footerRight: FooterGroupProps = {
   title: "Navigation",
   item: [
     { text: "Home", path: "/" },
@@ -45,55 +47,62 @@ const footerIcon = [
   { icon: FaSnapchatGhost, path: "/" },
 ];
 
-interface FooterGroupPros {
-  title: string;
-  item: FooterItemPros[];
-}
-
-interface FooterItemPros {
-  text: string;
-  path: string;
-}
-
-interface FooterIconPros {
-  icon: any;
-  path: string;
-}
+const policy = [
+  "Cookie Policy",
+  "Cookies Settings",
+  "Copyright 2021 Luxe Animal Spa, LLC. All rights reserved.",
+  "Terms",
+  "Privacy",
+  "Security",
+];
 
 const Footer = () => {
   return (
-    <Box>
-      <Flex>
+    <Box mt={12}>
+      <Flex mb={"75px"}>
         <Box>
-          <FooterGroup title={footerLeft.title} item={footerLeft.item} />
+          <FooterGroup {...footerLeft} />
         </Box>
         <Spacer />
         <Box>
           <Flex flexDirection={"column"} gap={4}>
-            <Text fontSize={"22"} fontWeight={"bold"}>
+            <Text fontSize={"26"} fontWeight={"700"} fontFamily={"Cormorant"}>
               Subscribe to our Newsletter
             </Text>
             <Spacer />
-            <HStack spacing={8}>
-              <Input placeholder="Email" size={"lg"} />
+            <HStack spacing={8} mb={"40px"}>
+              <Input
+                placeholder="Email"
+                size={"lg"}
+                fontFamily={"Cormorant"}
+                fontWeight={400}
+                fontSize={"14px"}
+              />
               <Button
                 size="lg"
                 backgroundColor={"black"}
                 color={"white"}
                 margin={4}
                 textTransform={"capitalize"}
+                fontFamily={"Cormorant"}
+                fontWeight={700}
+                fontSize={"20px"}
               >
                 subscribe
               </Button>
             </HStack>
-            <Flex flexDirection={"column"} gap={5}>
-              <Text fontSize={"22"} fontWeight={"bold"}>
+            <Flex flexDirection={"column"} gap={8}>
+              <Text
+                fontSize={"26"}
+                fontWeight={700}
+                fontFamily={"Cormorant"}
+                color={"#4C4C4B"}
+              >
                 Connect With Us On Social Media
               </Text>
-              <HStack spacing={8} justifyContent={"center"}>
+              <HStack spacing={8} justifyContent={"flex-start"}>
                 {footerIcon.map((item, index) => {
-                  const { icon, path } = item;
-                  return <FooterIcon key={index} icon={icon} path={path} />;
+                  return <FooterIcon key={index} {...item} />;
                 })}
               </HStack>
             </Flex>
@@ -101,75 +110,30 @@ const Footer = () => {
         </Box>
         <Spacer />
         <Box>
-          <FooterGroup title={footerRight.title} item={footerRight.item} />
+          <FooterGroup {...footerRight} />
         </Box>
       </Flex>
       <Flex
         justifyContent={"space-evenly"}
         alignItems={"center"}
-        h={45}
+        h={"52px"}
         background={"#D3D3D3"}
         mt={18}
       >
-        <Text fontSize={18} fontWeight={"450"} color={"#4C4C4B"}>
-          Cookie Policy
-        </Text>
-        <Text fontSize={18} fontWeight={"450"} color={"#4C4C4B"}>
-          Cookies Settings
-        </Text>
-        <Text fontSize={18} fontWeight={"450"} color={"#4C4C4B"}>
-          Copyright 2021 Luxe Animal Spa, LLC. All rights reserved.
-        </Text>
-        <Text fontSize={18} fontWeight={"450"} color={"#4C4C4B"}>
-          Terms
-        </Text>
-        <Text fontSize={18} fontWeight={"450"} color={"#4C4C4B"}>
-          Privacy
-        </Text>
-        <Text fontSize={18} fontWeight={"450"} color={"#4C4C4B"}>
-          Security
-        </Text>
+        {policy.map((item, index) => (
+          <Text
+            fontSize={22}
+            fontWeight={400}
+            color={"#4C4C4B"}
+            fontFamily={"Cormorant"}
+            key={index}
+          >
+            {item}
+          </Text>
+        ))}
       </Flex>
     </Box>
   );
 };
 
 export default Footer;
-
-const FooterTitle = ({ title = "" }) => {
-  return (
-    <Text fontWeight={"bold"} fontSize={22} textTransform={"capitalize"}>
-      {title}
-    </Text>
-  );
-};
-
-const FooterItem = ({ text, path }: FooterItemPros) => {
-  return (
-    <Link to={path}>
-      <Text fontWeight={"400"} fontSize={18} textTransform={"capitalize"}>
-        {text}
-      </Text>
-    </Link>
-  );
-};
-
-const FooterGroup = ({ title, item }: FooterGroupPros) => {
-  return (
-    <Flex flexDirection={"column"} gap={18}>
-      <FooterTitle title={title} />
-      {item.map((item, index) => {
-        const { text, path } = item;
-        return <FooterItem key={index} text={text} path={path} />;
-      })}
-    </Flex>
-  );
-};
-
-const FooterIcon = ({ icon, path }: FooterIconPros) => {
-  return (
-    <Link to={path}>
-      <Icon as={icon} boxSize={8} color={"#E89B93"} />
-    </Link>
-  );
-};

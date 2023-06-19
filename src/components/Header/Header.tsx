@@ -5,7 +5,7 @@ import { Icon } from "@chakra-ui/icons";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { Link } from "react-router-dom";
 
-const header = [
+const data = [
   { name: "home", path: "/" },
   { name: "product", path: "/product" },
   { name: "about us", path: "/aboutus" },
@@ -14,16 +14,23 @@ const header = [
 
 const Header = ({ size = 0 }) => {
   return (
-    <Box p={3} position={"sticky"}>
+    <Box p={3} position={"sticky"} mb={"24px"} w={"100%"} zIndex={100}>
       <Flex justifyContent={"center"} alignItems={"center"}>
         <Logo />
         <Spacer />
-        <Nav data={header} />
+        <Nav data={data} />
         <Spacer />
-        <Box>
+        <Box pos={"relative"}>
           <Link to={"shopping-cart"}>
             <Icon as={AiOutlineShoppingCart} boxSize={7} />
-            <Badge colorScheme="red" pos={"relative"} top={-5}>
+            <Badge
+              colorScheme="red"
+              background={"#FB7844"}
+              pos={"absolute"}
+              top={-2}
+              left={5}
+              borderRadius={"99px"}
+            >
               {size}
             </Badge>
           </Link>

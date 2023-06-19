@@ -5,7 +5,7 @@ import { NotFound, Error } from "../pages/";
 import { ProductContainer } from "../containers";
 
 const Router = () => {
-  const router: RouteObject[] = [
+  const routers: RouteObject[] = [
     {
       path: "",
       element: <MainLayuot />,
@@ -23,7 +23,7 @@ const Router = () => {
     },
   ];
 
-  const context = useRoutes(router);
+  const context = useRoutes(routers);
 
   return context;
 };

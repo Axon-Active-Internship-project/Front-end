@@ -2110,6 +2110,16 @@
   resolved "https://registry.yarnpkg.com/@eslint/js/-/js-8.41.0.tgz#080321c3b68253522f7646b55b577dd99d2950b3"
   integrity sha512-LxcyMGxwmTh2lY9FwHPGWOHmYFCZvbrFCBZL4FzSSsxsRPuhrYUg/49/0KDfW8tnIEaEHtfmn6+NPN+1DqaNmA==
 
+"@fontsource/cormorant-garamond@^5.0.3":
+  version "5.0.3"
+  resolved "https://registry.yarnpkg.com/@fontsource/cormorant-garamond/-/cormorant-garamond-5.0.3.tgz#2c728c48be2eb53e5abc303cae96b7740d26d9a9"
+  integrity sha512-KT+zr/dd4V9TUML9G0Y2z82yJ9UJciqYyUa+DUgWglvgcTxW9SwNMsxL6NdIej7cjwpWQG4wHbvqUzz9WVkBqA==
+
+"@fontsource/lekton@^5.0.3":
+  version "5.0.3"
+  resolved "https://registry.yarnpkg.com/@fontsource/lekton/-/lekton-5.0.3.tgz#6cb6c52c14041785094baca498c58accfe0ca06d"
+  integrity sha512-urVeboipJGdWGhaQ5ALpjtf+Cs6/XKqeMqTIpCTtnz/ySqjp3V1IqQGdZE2dFt+AfhKET2E+mql/BYsDJde55A==
+
 "@humanwhocodes/config-array@^0.11.8":
   version "0.11.10"
   resolved "https://registry.yarnpkg.com/@humanwhocodes/config-array/-/config-array-0.11.10.tgz#5a3ffe32cc9306365fb3fd572596cd602d5e12d2"
