@@ -37,11 +37,11 @@ const Product = ({ data }: ProductProps) => {
 
   return (
     <Flex flexDirection={"column"} gap={12}>
-      <Flex flexDirection={"column"} alignItems={"center"} gap={5}>
-        <Heading as={"h2"} fontSize={30}>
+      <Flex flexDirection={"column"} alignItems={"center"} gap={2}>
+        <Heading as={"h2"} fontSize={30} fontWeight={700}>
           Local specialty’s areas
         </Heading>
-        <Heading as={"h3"} fontSize={22}>
+        <Heading as={"h3"} fontSize={22} fontWeight={700}>
           The best offer that we offer to the world
         </Heading>
       </Flex>
@@ -51,13 +51,13 @@ const Product = ({ data }: ProductProps) => {
           {categories.map((item) => {
             const { id, name } = item;
             return (
-              <Text key={id} fontSize={16}>
+              <Text key={id} fontSize={18} fontWeight={400}>
                 {name}
               </Text>
             );
           })}
         </Flex>
-        <Box pos={"absolute"} right={53}>
+        <Box pos={"absolute"} right={0}>
           <InputGroup>
             <InputLeftElement pointerEvents="none">
               <SearchIcon color="black.300" />

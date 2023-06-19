@@ -42,7 +42,7 @@ const MyCard = ({ data }: CardProps) => {
             src={src}
             borderRadius={10}
             objectFit={"fill"}
-            opacity={isHovering ? 0.5 : 1}
+            opacity={isHovering ? 0.3 : 1}
           />
           <Box mx={4} pt={1}>
             <Heading as={"h5"} size={"md"} textTransform={"capitalize"}>
@@ -64,11 +64,12 @@ const MyCard = ({ data }: CardProps) => {
       {isHovering && (
         <Flex
           gap={5}
-          justifyContent={"center"}
+          justifyContent={"flex-end"}
           pos={"absolute"}
           bottom={55}
           right={0}
           left={0}
+          padding={"12px"}
         >
           <Button colorScheme="yellow">
             <Icon as={FaPlus} boxSize={"5"} />
