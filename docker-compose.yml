@@ -24,8 +24,12 @@ services:
     environment:
       MYSQL_DATABASE: ${WORDPRESS_DB_NAME}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_ALLOW_EMPTY_PASSWORD: ${MYSQL_ALLOW_EMPTY_PASSWORD}
+    env_file:
+      - .env
     networks:
       - nginx-network
+      
   wordpress:
     image: wordpress:latest
     container_name: wordpress
@@ -43,12 +47,6 @@ services:
       WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME}
     networks:
       - nginx-network
-  react:
-    container_name: react
-    build:
-      context: .
-    ports:
-      - "3000:3000"
 
 networks:
   nginx-network:
