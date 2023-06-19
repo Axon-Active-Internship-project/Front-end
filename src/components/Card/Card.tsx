@@ -14,6 +14,7 @@ import { CardProps } from "../../interfaces/product";
 import { FaCartPlus, FaPlus } from "react-icons/fa";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { currencyVND } from "../../utils";
 
 const MyCard = ({ data }: CardProps) => {
   const [isHovering, setIsHovering] = useState(false);
@@ -26,15 +27,16 @@ const MyCard = ({ data }: CardProps) => {
     setIsHovering(false);
   };
 
-  const { name, price, sale_price, src } = data;
+  const { id, name, price, sale_price, src } = data;
   return (
     <Card
       maxW="sm"
       maxH={"sm"}
+      variant={"outline"}
       onMouseOver={handleMouseOver}
       onMouseOut={handleMouseOut}
     >
-      <Link to={"/"}>
+      <Link to={`/product/${id}`}>
         <CardBody padding={1}>
           <Image
             w={"100%"}
@@ -45,16 +47,45 @@ const MyCard = ({ data }: CardProps) => {
             opacity={isHovering ? 0.3 : 1}
           />
           <Box mx={4} pt={1}>
-            <Heading as={"h5"} size={"md"} textTransform={"capitalize"}>
+            <Heading
+              as={"h5"}
+              size={"md"}
+              textTransform={"capitalize"}
+              fontFamily={"lekton"}
+              fontSize={20}
+              fontWeight={600}
+            >
               {name}
             </Heading>
             <Box>
               {!sale_price ? (
-                <Text>{price} đ</Text>
+                <Text
+                  fontSize={16}
+                  textTransform={"capitalize"}
+                  fontWeight={400}
+                  fontStyle={"normal"}
+                >
+                  {currencyVND(price)}
+                </Text>
               ) : (
                 <HStack spacing={5}>
-                  <Text>{sale_price} đ</Text>
-                  <Text as="s">{price} đ</Text>
+                  <Text
+                    fontSize={16}
+                    textTransform={"capitalize"}
+                    fontWeight={400}
+                    fontStyle={"normal"}
+                  >
+                    {currencyVND(sale_price)}
+                  </Text>
+                  <Text
+                    as="s"
+                    fontSize={16}
+                    textTransform={"capitalize"}
+                    fontWeight={400}
+                    fontStyle={"normal"}
+                  >
+                    {currencyVND(price)}
+                  </Text>
                 </HStack>
               )}
             </Box>

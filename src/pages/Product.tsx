@@ -9,18 +9,12 @@ import {
   InputLeftElement,
   Text,
 } from "@chakra-ui/react";
-import { ICategory, ProductProps } from "../interfaces";
+import { ProductProps } from "../interfaces";
 import { Filter, Card } from "../components";
 import { useFilter } from "../hooks";
 import { SearchIcon } from "@chakra-ui/icons";
-import { useState } from "react";
-
-const categories: ICategory[] = [
-  { id: 1, name: "Vegetables" },
-  { id: 1, name: "Dairy Products" },
-  { id: 1, name: "Pickled Products" },
-  { id: 1, name: "Dried Products" },
-];
+import { useMemo, useState } from "react";
+import { categories } from "../utils/FakeAPI";
 
 const Product = ({ data }: ProductProps) => {
   const { listFilter, handleFilter } = useFilter(data);
@@ -32,13 +26,19 @@ const Product = ({ data }: ProductProps) => {
     });
   };
 
-  const MAX = Math.max(...data.map((o) => Number(o.price)));
-  const MIN = Math.min(...data.map((o) => Number(o.price)));
+  const MAX = useMemo(
+    () => Math.max(...data.map((o) => Number(o.price))),
+    [data]
+  );
+  const MIN = useMemo(
+    () => Math.min(...data.map((o) => Number(o.price))),
+    [data]
+  );
 
   return (
     <Flex flexDirection={"column"} gap={12}>
       <Flex flexDirection={"column"} alignItems={"center"} gap={2}>
-        <Heading as={"h2"} fontSize={30} fontWeight={700}>
+        <Heading as={"h2"} fontSize={30} fontWeight={700} fontFamily={"lekton"}>
           Local specialty’s areas
         </Heading>
         <Heading as={"h3"} fontSize={22} fontWeight={700}>
@@ -51,7 +51,12 @@ const Product = ({ data }: ProductProps) => {
           {categories.map((item) => {
             const { id, name } = item;
             return (
-              <Text key={id} fontSize={18} fontWeight={400}>
+              <Text
+                key={id}
+                fontSize={18}
+                fontWeight={400}
+                fontFamily={"lekton"}
+              >
                 {name}
               </Text>
             );

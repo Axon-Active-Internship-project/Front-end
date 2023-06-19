@@ -47,14 +47,13 @@ const footerIcon = [
   { icon: FaSnapchatGhost, path: "/" },
 ];
 
-const policy = [
-  "Cookie Policy",
-  "Cookies Settings",
-  "Copyright 2021 Luxe Animal Spa, LLC. All rights reserved.",
-  "Terms",
-  "Privacy",
-  "Security",
-];
+const CookiesSettingTitle = "Cookie Policy";
+const CookiesPolicyTitle = "Cookies Settings";
+const CopyRightTitle =
+  "Copyright 2021 Luxe Animal Spa, LLC. All rights reserved.";
+const TermstTitle = "Terms";
+const PrivacyTitle = "Privacy";
+const SecurityTitle = "Security";
 
 const Footer = () => {
   return (
@@ -120,17 +119,54 @@ const Footer = () => {
         background={"#D3D3D3"}
         mt={18}
       >
-        {policy.map((item, index) => (
-          <Text
-            fontSize={22}
-            fontWeight={400}
-            color={"#4C4C4B"}
-            fontFamily={"Cormorant"}
-            key={index}
-          >
-            {item}
-          </Text>
-        ))}
+        <Text
+          fontSize={22}
+          fontWeight={400}
+          color={"#4C4C4B"}
+          fontFamily={"Cormorant"}
+        >
+          {CookiesPolicyTitle}
+        </Text>
+        <Text
+          fontSize={22}
+          fontWeight={400}
+          color={"#4C4C4B"}
+          fontFamily={"Cormorant"}
+        >
+          {CookiesSettingTitle}
+        </Text>
+        <Text
+          fontSize={22}
+          fontWeight={400}
+          color={"#4C4C4B"}
+          fontFamily={"Cormorant"}
+        >
+          {CopyRightTitle}
+        </Text>
+        <Text
+          fontSize={22}
+          fontWeight={400}
+          color={"#4C4C4B"}
+          fontFamily={"Cormorant"}
+        >
+          {TermstTitle}
+        </Text>
+        <Text
+          fontSize={22}
+          fontWeight={400}
+          color={"#4C4C4B"}
+          fontFamily={"Cormorant"}
+        >
+          {PrivacyTitle}
+        </Text>
+        <Text
+          fontSize={22}
+          fontWeight={400}
+          color={"#4C4C4B"}
+          fontFamily={"Cormorant"}
+        >
+          {SecurityTitle}
+        </Text>
       </Flex>
     </Box>
   );

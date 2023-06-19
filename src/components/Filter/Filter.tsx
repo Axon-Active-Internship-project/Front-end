@@ -11,6 +11,7 @@ import {
   Text,
   Kbd,
 } from "@chakra-ui/react";
+import { currencyVND } from "../../utils";
 
 const Filter = ({
   minValue,
@@ -47,9 +48,13 @@ const Filter = ({
         <RangeSliderThumb boxSize={5} index={1} />
       </RangeSlider>
       <HStack spacing={4}>
-        <Kbd fontSize={16}>{sliderValue[0]} đ</Kbd>
+        <Kbd fontSize={18} fontFamily={"lekton"} fontWeight={500}>
+          {currencyVND(`${sliderValue[0]}`)}
+        </Kbd>
         <Text>-</Text>
-        <Kbd fontSize={16}> {sliderValue[1]} đ</Kbd>
+        <Kbd fontSize={18} fontFamily={"lekton"} fontWeight={500}>
+          {currencyVND(`${sliderValue[1]}`)}
+        </Kbd>
       </HStack>
     </Flex>
   );
