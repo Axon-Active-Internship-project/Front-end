@@ -19,11 +19,12 @@ const NavItem = ({ name, path }: NavItemProps) => {
   return (
     <Link to={path}>
       <Text
-        fontWeight={400}
+        fontFamily={"lekton"}
+        fontWeight={700}
         textAlign={"center"}
         textTransform={"capitalize"}
-        fontSize={18}
-        color={"black"}
+        fontSize={27}
+        color={"rgba(0, 0, 0, 0.5)"}
       >
         {name}
       </Text>
@@ -33,11 +34,11 @@ const NavItem = ({ name, path }: NavItemProps) => {
 
 export default Nav;
 
-NavItem.PropTypes = {
+NavItem.propTypes = {
   name: PropTypes.string,
   path: PropTypes.string,
 };
 
-Nav.PropTypes = {
-  data: PropTypes.string,
+Nav.propTypes = {
+  data: PropTypes.array,
 };

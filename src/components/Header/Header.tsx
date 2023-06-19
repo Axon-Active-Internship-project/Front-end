@@ -14,16 +14,23 @@ const data = [
 
 const Header = ({ size = 0 }) => {
   return (
-    <Box p={3} position={"sticky"}>
+    <Box p={3} position={"sticky"} mb={"24px"} w={"100%"} zIndex={100}>
       <Flex justifyContent={"center"} alignItems={"center"}>
         <Logo />
         <Spacer />
         <Nav data={data} />
         <Spacer />
-        <Box>
+        <Box pos={"relative"}>
           <Link to={"shopping-cart"}>
             <Icon as={AiOutlineShoppingCart} boxSize={7} />
-            <Badge colorScheme="red" pos={"relative"} top={-5}>
+            <Badge
+              colorScheme="red"
+              background={"#FB7844"}
+              pos={"absolute"}
+              top={-2}
+              left={5}
+              borderRadius={"99px"}
+            >
               {size}
             </Badge>
           </Link>
