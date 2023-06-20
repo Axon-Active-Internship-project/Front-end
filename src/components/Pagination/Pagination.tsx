@@ -1,6 +1,6 @@
 import { DOTS, usePagnation } from "../../hooks";
-import { Box, Button, IconButton } from "@chakra-ui/react";
-import { FaEllipsisH } from "react-icons/fa";
+import { Box, Button, Flex, Icon, IconButton } from "@chakra-ui/react";
+import { FaEllipsisH, FaAngleRight, FaAngleLeft } from "react-icons/fa";
 import { PaginationProps } from "../../interfaces";
 
 const Pagination = ({
@@ -32,33 +32,43 @@ const Pagination = ({
   let lastPage = paginationRange[paginationRange?.length - 1];
 
   return (
-    <Box>
-      <Button onClick={onClickPrevious}>Previous</Button>
-      {paginationRange?.map((pageNumber, index) => {
-        if (pageNumber === DOTS) {
-          return (
-            <IconButton
-              key={index}
-              colorScheme="blue"
-              aria-label="Search database"
-              icon={<FaEllipsisH />}
-            />
-          );
-        }
-        return (
-          <Button
-            key={index}
-            isActive={pageNumber === currentPage}
-            onClick={() => onPageChange(pageNumber)}
-          >
-            {pageNumber}
-          </Button>
-        );
-      })}
-      <Button isDisabled={currentPage === lastPage} onClick={onClickNext}>
-        Next
+    <Flex mt={"9"} gap={4} justifyContent={"center"}>
+      <Button onClick={onClickPrevious} isDisabled={currentPage === 1}>
+        <Icon as={FaAngleLeft} />
       </Button>
-    </Box>
+      <Box>
+        {paginationRange?.map((pageNumber: number | string, index: number) => {
+          if (pageNumber === DOTS) {
+            return (
+              <IconButton
+                key={index}
+                aria-label="DOTS"
+                icon={<FaEllipsisH />}
+                colorScheme="blackAlpha"
+                variant="outline"
+                color={"black"}
+              />
+            );
+          }
+          return (
+            <Button
+              key={index}
+              colorScheme="blackAlpha"
+              variant="outline"
+              color={pageNumber === currentPage ? "blue" : "black"}
+              isActive={pageNumber === currentPage}
+              onClick={() => onPageChange(pageNumber)}
+              mx={"4px"}
+            >
+              {pageNumber}
+            </Button>
+          );
+        })}
+      </Box>
+      <Button isDisabled={currentPage === lastPage} onClick={onClickNext}>
+        <Icon as={FaAngleRight} />
+      </Button>
+    </Flex>
   );
 };
 

@@ -8,7 +8,7 @@ export interface UsePaginationProps {
 export interface PaginationProps {
   onPageChange: any;
   totalCount: number;
-  siblingCount: number;
+  siblingCount?: number;
   currentPage: number;
   pageSize: number;
 }

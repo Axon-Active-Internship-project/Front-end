@@ -15,10 +15,21 @@ import { useFilter } from "../hooks";
 import { SearchIcon } from "@chakra-ui/icons";
 import { useMemo, useState } from "react";
 import { categories } from "../utils/FakeAPI";
+import { Pagination } from "../components/Pagination";
+
+let PageSize = 9;
 
 const Product = ({ data }: ProductProps) => {
   const { listFilter, handleFilter } = useFilter(data);
   const [inputValue, setInputValue] = useState<String>("");
+
+  const [currentPage, setCurrentPage] = useState<number>(1);
+
+  const currentData = useMemo(() => {
+    const firstPageIndex = (currentPage - 1) * PageSize;
+    const lastPageIndex = firstPageIndex + PageSize;
+    return data.slice(firstPageIndex, lastPageIndex);
+  }, [currentPage]);
 
   const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(() => {
@@ -81,10 +92,16 @@ const Product = ({ data }: ProductProps) => {
         </GridItem>
         <GridItem colStart={2} colSpan={3}>
           <Grid templateColumns={"repeat(3, 1fr)"} gap={"30px"}>
-            {data.map((item) => (
+            {currentData.map((item) => (
               <Card data={item} key={item.id} />
             ))}
           </Grid>
+          <Pagination
+            currentPage={currentPage}
+            totalCount={data.length}
+            pageSize={PageSize}
+            onPageChange={(page: number) => setCurrentPage(page)}
+          />
         </GridItem>
       </Grid>
     </Flex>
