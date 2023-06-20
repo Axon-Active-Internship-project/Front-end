@@ -8,5 +8,5 @@ export type {
   FooterIconProps,
   FooterItemProps,
 } from "./footer";
-
 export type { NavItemProps, NavProps } from "./header";
+export type { UsePaginationProps, PaginationProps } from "./pagination";
