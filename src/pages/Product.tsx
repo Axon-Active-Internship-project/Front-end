@@ -96,12 +96,14 @@ const Product = ({ data }: ProductProps) => {
               <Card data={item} key={item.id} />
             ))}
           </Grid>
-          <Pagination
-            currentPage={currentPage}
-            totalCount={data.length}
-            pageSize={PageSize}
-            onPageChange={(page: number) => setCurrentPage(page)}
-          />
+          {currentData.length >= PageSize &&   (
+            <Pagination
+              currentPage={currentPage}
+              totalCount={data.length}
+              pageSize={PageSize}
+              onPageChange={(page: number) => setCurrentPage(page)}
+            />
+          )}
         </GridItem>
       </Grid>
     </Flex>
