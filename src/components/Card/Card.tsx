@@ -30,6 +30,9 @@ const MyCard = ({ data }: CardProps) => {
     <Card
       maxW="sm"
       maxH={"sm"}
+      w={"330px"}
+      h={"355px"}
+      p={0}
       variant={"outline"}
       onMouseOver={handleMouseOver}
       onMouseOut={handleMouseOut}
