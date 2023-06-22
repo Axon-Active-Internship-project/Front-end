@@ -9,14 +9,11 @@ const range = (start: number, end: number) => {
 };
 
 const usePagination = ({
-  totalCount,
-  pageSize,
   siblingCount = 1,
   currentPage,
+  totalPageCount,
 }: UsePaginationProps): Array<number | string> | any => {
   const paginationRange = useMemo(() => {
-    const totalPageCount = Math.ceil(totalCount / pageSize);
-
     const totalPageNumber = siblingCount + 5;
 
     if (totalPageNumber >= totalPageCount) {
@@ -54,7 +51,7 @@ const usePagination = ({
       let middleRange = range(leftSiblingIndex, rightSiblingIndex);
       return [firstPageIndex, DOTS, ...middleRange, DOTS, lastpageIndex];
     }
-  }, [totalCount, pageSize, siblingCount, currentPage]);
+  }, [totalPageCount, siblingCount, currentPage]);
 
   return paginationRange;
 };

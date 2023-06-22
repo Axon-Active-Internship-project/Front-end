@@ -33,6 +33,10 @@ export const authorize = (url: string, method: string) => {
 const instance = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
   timeout: 15000,
+  headers: {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+  },
 });
 
 instance.interceptors.request.use(onRequest, onRequestError);

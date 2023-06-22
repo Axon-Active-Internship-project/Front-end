@@ -10,12 +10,12 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { ProductProps } from "../interfaces";
-import { Filter, Card } from "../components";
+import { Filter, Card, Pagination } from "../components";
 import { SearchIcon } from "@chakra-ui/icons";
 import { useMemo, useState } from "react";
 import { categories } from "../utils/FakeAPI";
 
-const Product = ({ data }: ProductProps) => {
+const Product = ({ data, totalPages, onChange, currentPage }: ProductProps) => {
   const [inputValue, setInputValue] = useState<string>("");
 
   const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -83,6 +83,11 @@ const Product = ({ data }: ProductProps) => {
               <Card data={item} key={item.id} />
             ))}
           </Grid>
+          <Pagination
+            onPageChange={onChange}
+            currentPage={currentPage}
+            totalPageCount={totalPages}
+          />
         </GridItem>
       </Grid>
     </Flex>

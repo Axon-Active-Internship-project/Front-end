@@ -22,6 +22,9 @@ export interface ICategory {
 
 export interface ProductProps {
   data: IProduct[];
+  currentPage: number;
+  totalPages: number;
+  onChange: any;
 }
 
 export interface CardProps {
