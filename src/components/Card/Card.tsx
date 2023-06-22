@@ -8,10 +8,8 @@ import {
   HStack,
   Button,
   Flex,
-  Icon,
 } from "@chakra-ui/react";
 import { CardProps } from "../../interfaces/product";
-import { FaCartPlus, FaPlus } from "react-icons/fa";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { currencyVND } from "../../utils";
@@ -27,7 +25,7 @@ const MyCard = ({ data }: CardProps) => {
     setIsHovering(false);
   };
 
-  const { id, name, price, sale_price, src } = data;
+  const { id, name, price, sale_price, images } = data;
   return (
     <Card
       maxW="sm"
@@ -41,7 +39,7 @@ const MyCard = ({ data }: CardProps) => {
           <Image
             w={"100%"}
             h={"300"}
-            src={src}
+            src={images[0].src}
             borderRadius={10}
             objectFit={"fill"}
             opacity={isHovering ? 0.3 : 1}
@@ -102,12 +100,8 @@ const MyCard = ({ data }: CardProps) => {
           left={0}
           padding={"12px"}
         >
-          <Button colorScheme="yellow">
-            <Icon as={FaPlus} boxSize={"5"} />
-          </Button>
-          <Button colorScheme="green">
-            <Icon as={FaCartPlus} boxSize={"5"} />
-          </Button>
+          <Button colorScheme="yellow">Buy now</Button>
+          <Button colorScheme="green">Add to cart</Button>
         </Flex>
       )}
     </Card>

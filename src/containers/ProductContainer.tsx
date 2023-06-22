@@ -1,16 +1,22 @@
-import { Product } from "../pages";
-import { products } from "../utils/FakeAPI";
+import { useQuery } from "@tanstack/react-query";
+import { ErrorPage, Product } from "../pages";
+import { product } from "../services/apis";
 
 const ProductContainer = () => {
-  // const queryClient = useQueryClient();
-  // const { data, isLoading, isError, error } = useQuery({
-  //   queryKey: ["products"],
-  //   queryFn: product.getProduct,
-  // });
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["products"],
+    queryFn: product.getProduct,
+  });
 
-  // console.log(data, isError, isLoading, error);
+  if (isLoading) {
+    return <p> Loading</p>;
+  }
 
-  return <Product data={products} />;
+  if (isError) {
+    return <ErrorPage />;
+  }
+
+  return <Product data={data?.data} />;
 };
 
 export default ProductContainer;

@@ -13,12 +13,7 @@ import {
 } from "@chakra-ui/react";
 import { currencyVND } from "../../utils";
 
-const Filter = ({
-  minValue,
-  maxValue,
-  step = 5,
-  onHandleFilter,
-}: FilterProps) => {
+const Filter = ({ minValue, maxValue, step = 5 }: FilterProps) => {
   const [sliderValue, setSliderValue] = useState([minValue, maxValue]);
 
   return (
@@ -37,7 +32,6 @@ const Filter = ({
         max={maxValue}
         step={step}
         onChange={(v) => {
-          onHandleFilter(v[0], v[1]);
           setSliderValue(v);
         }}
       >

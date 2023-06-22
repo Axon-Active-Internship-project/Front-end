@@ -1,7 +1,7 @@
 import { Box, Heading, Text } from "@chakra-ui/layout";
 import { useRouteError } from "react-router";
 
-const Error = () => {
+const ErrorPage = () => {
   const error: any = useRouteError();
   return (
     <Box>
@@ -14,4 +14,4 @@ const Error = () => {
   );
 };
 
-export default Error;
+export default ErrorPage;
