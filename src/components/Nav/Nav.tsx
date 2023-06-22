@@ -1,5 +1,5 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { NavItemProps, NavProps } from "../../interfaces";
 import PropTypes from "prop-types";
 
@@ -16,6 +16,8 @@ const Nav = ({ data }: NavProps) => {
 };
 
 const NavItem = ({ name, path }: NavItemProps) => {
+  const location = useLocation();
+
   return (
     <Link to={path}>
       <Text
@@ -24,7 +26,7 @@ const NavItem = ({ name, path }: NavItemProps) => {
         textAlign={"center"}
         textTransform={"capitalize"}
         fontSize={27}
-        color={"rgba(0, 0, 0, 0.5)"}
+        color={location.pathname === path ? "" : "rgba(0, 0, 0, 0.5)"}
       >
         {name}
       </Text>
