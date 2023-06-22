@@ -1,24 +1,24 @@
 import { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
+import { authorize } from "./axiosInstance";
 
 export const onRequest = (config: AxiosRequestConfig): any => {
-  const token: string = "";
-  if (!token) {
-    // config.headers?.Authorization = "bearer ${accessToken}";
-  }
+  const url = `${config.baseURL}${config?.url}`;
+  const method = `${config.method}`;
+  config.headers = authorize(url, method);
+
   return config;
 };
 
 export const onRequestError = (error: AxiosError): Promise<AxiosError> => {
-  console.error(`[request error] [${JSON.stringify(error)}]`);
+  console.log(`[request error] [${JSON.stringify(error)}]`);
   return Promise.reject(error);
 };
 
 export const onResponse = (response: AxiosResponse): AxiosResponse => {
-  console.info(`[response] [${JSON.stringify(response)}]`);
   return response;
 };
 
 export const onResponseError = (error: AxiosError): Promise<AxiosError> => {
-  console.error(`[response error] [${JSON.stringify(error)}]`);
+  console.log(`[response error] [${JSON.stringify(error)}]`);
   return Promise.reject(error);
 };

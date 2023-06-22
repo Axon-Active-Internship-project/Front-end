@@ -2,19 +2,20 @@ import { Button } from "@chakra-ui/button";
 import { Image } from "@chakra-ui/image";
 import { Box, Container, Flex } from "@chakra-ui/layout";
 import { useNavigate } from "react-router";
+import { NOT_FOUND_IMAGE } from "../utils";
 
 const NotFound = () => {
   const navigate = useNavigate();
 
   const handleClickBackHome = () => {
-    navigate("/");
+    navigate("..");
   };
 
   return (
     <Container maxW={1440} h={"100vh"}>
       <Box width={"100%"} height={"100%"} pos={"relative"}>
         <Image
-          src="https://www.pngitem.com/pimgs/m/561-5616833_image-not-found-png-not-found-404-png.png"
+          src={NOT_FOUND_IMAGE}
           alt="Not found"
           width={"100%"}
           height={"100%"}

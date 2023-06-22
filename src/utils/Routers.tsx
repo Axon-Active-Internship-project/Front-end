@@ -1,14 +1,21 @@
 import { useRoutes } from "react-router-dom";
 import { MainLayuot } from "../layouts";
 import { RouteObject } from "react-router";
-import { NotFound, Error } from "../pages/";
+import { NotFound, ErrorPage } from "../pages/";
+import { ProductContainer } from "../containers";
 
 const Router = () => {
   const routers: RouteObject[] = [
     {
       path: "",
       element: <MainLayuot />,
-      errorElement: <Error />,
+      errorElement: <ProductContainer />,
+      children: [
+        {
+          path: "/product",
+          element: <ProductContainer />,
+        },
+      ],
     },
     {
       path: "*",
