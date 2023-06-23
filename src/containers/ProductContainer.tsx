@@ -2,6 +2,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { ErrorPage, Product } from "../pages";
 import { product } from "../services/apis";
 import { useEffect, useState } from "react";
+import { HeaderOptions } from "../utils";
 
 const ProductContainer = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -14,7 +15,7 @@ const ProductContainer = () => {
     keepPreviousData: true,
   });
 
-  const totalPages = Number(data?.headers["x-wp-totalpages"]);
+  const totalPages = Number(data?.headers[HeaderOptions.totalPages]);
 
   useEffect(() => {
     const nextPage = currentPage + 1;

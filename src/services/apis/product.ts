@@ -1,15 +1,10 @@
+import { PRODUCT_PER_PAGE } from "../../utils";
 import instance from "../axiosInstance";
 
 const product = {
-  getProduct: async ({
-    per_page = 9,
-    page = 1,
-  }: {
-    per_page?: number;
-    page: number;
-  }) => {
+  getProduct: async ({ page = 1 }: { page: number }) => {
     const result = await instance.get(
-      `products?per_page=${per_page}&page=${page}`
+      `products?per_page=${PRODUCT_PER_PAGE}&page=${page}`
     );
 
     return result;
