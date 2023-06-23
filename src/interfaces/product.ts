@@ -24,7 +24,8 @@ export interface ProductProps {
   data: IProduct[];
   currentPage: number;
   totalPages: number;
-  onChange: any;
+  onHandleChangePagination: any;
+  onHandleChangeInput: any;
 }
 
 export interface CardProps {

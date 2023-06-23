@@ -15,15 +15,13 @@ import { SearchIcon } from "@chakra-ui/icons";
 import { useMemo, useState } from "react";
 import { categories } from "../utils/FakeAPI";
 
-const Product = ({ data, totalPages, onChange, currentPage }: ProductProps) => {
-  const [inputValue, setInputValue] = useState<string>("");
-
-  const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(() => {
-      return e.target.value;
-    });
-  };
-
+const Product = ({
+  data,
+  totalPages,
+  onHandleChangePagination,
+  currentPage,
+  onHandleChangeInput,
+}: ProductProps) => {
   const MAX = useMemo(
     () => Math.max(...data.map((o) => Number(o.price))),
     [data]
@@ -68,7 +66,7 @@ const Product = ({ data, totalPages, onChange, currentPage }: ProductProps) => {
             <Input
               type="text"
               placeholder="Search"
-              onChange={(e) => handleChangeInput(e)}
+              onChange={(e) => onHandleChangeInput(e)}
             />
           </InputGroup>
         </Box>
@@ -84,7 +82,7 @@ const Product = ({ data, totalPages, onChange, currentPage }: ProductProps) => {
             ))}
           </Grid>
           <Pagination
-            onPageChange={onChange}
+            onPageChange={onHandleChangePagination}
             currentPage={currentPage}
             totalPageCount={totalPages}
           />

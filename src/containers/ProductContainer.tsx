@@ -6,6 +6,9 @@ import { HeaderOptions } from "../utils";
 
 const ProductContainer = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [inputValue, setInputValue] = useState<string>("");
+
+  console.log("input =>", inputValue);
 
   const queryClient = useQueryClient();
 
@@ -25,6 +28,12 @@ const ProductContainer = () => {
     );
   }, [currentPage]);
 
+  const onHandleChangeInput = (value: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(() => {
+      return value.target.value;
+    });
+  };
+
   if (isLoading) {
     return <p> Loading</p>;
   }
@@ -37,8 +46,9 @@ const ProductContainer = () => {
     <Product
       data={data?.data}
       totalPages={totalPages}
-      onChange={(page: number) => setCurrentPage(page)}
+      onHandleChangePagination={(page: number) => setCurrentPage(page)}
       currentPage={currentPage}
+      onHandleChangeInput={onHandleChangeInput}
     />
   );
 };
