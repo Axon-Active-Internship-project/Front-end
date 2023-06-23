@@ -66,6 +66,7 @@ const MyCard = ({ data }: CardProps) => {
                   textTransform={"capitalize"}
                   fontWeight={400}
                   fontStyle={"normal"}
+                  isTruncated
                 >
                   {currencyVND(regular_price)}
                 </Text>
@@ -76,6 +77,7 @@ const MyCard = ({ data }: CardProps) => {
                     textTransform={"capitalize"}
                     fontWeight={400}
                     fontStyle={"normal"}
+                    isTruncated
                   >
                     {currencyVND(sale_price)}
                   </Text>
@@ -85,6 +87,7 @@ const MyCard = ({ data }: CardProps) => {
                     textTransform={"capitalize"}
                     fontWeight={400}
                     fontStyle={"normal"}
+                    isTruncated
                   >
                     {currencyVND(regular_price)}
                   </Text>
