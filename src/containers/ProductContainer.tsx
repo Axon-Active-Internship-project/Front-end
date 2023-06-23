@@ -1,12 +1,29 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { ErrorPage, Product } from "../pages";
 import { product } from "../services/apis";
+import { useEffect, useState } from "react";
+import { HeaderOptions } from "../utils";
 
 const ProductContainer = () => {
+  const [currentPage, setCurrentPage] = useState<number>(1);
+
+  const queryClient = useQueryClient();
+
   const { data, isLoading, isError } = useQuery({
-    queryKey: ["products"],
-    queryFn: product.getProduct,
+    queryKey: ["products", currentPage],
+    queryFn: () => product.getProduct({ page: currentPage }),
+    keepPreviousData: true,
   });
+
+  const totalPages = Number(data?.headers[HeaderOptions.totalPages]);
+
+  useEffect(() => {
+    const nextPage = currentPage + 1;
+
+    queryClient.prefetchQuery(["products", nextPage], () =>
+      product.getProduct({ page: nextPage })
+    );
+  }, [currentPage]);
 
   if (isLoading) {
     return <p> Loading</p>;
@@ -16,7 +33,14 @@ const ProductContainer = () => {
     return <ErrorPage />;
   }
 
-  return <Product data={data?.data} />;
+  return (
+    <Product
+      data={data?.data}
+      totalPages={totalPages}
+      onChange={(page: number) => setCurrentPage(page)}
+      currentPage={currentPage}
+    />
+  );
 };
 
 export default ProductContainer;

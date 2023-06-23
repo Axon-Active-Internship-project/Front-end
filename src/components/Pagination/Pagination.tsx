@@ -5,16 +5,14 @@ import { PaginationProps } from "../../interfaces";
 
 const Pagination = ({
   onPageChange,
-  totalCount,
   siblingCount = 1,
   currentPage,
-  pageSize,
+  totalPageCount,
 }: PaginationProps) => {
   const paginationRange = usePagnation({
     currentPage,
-    totalCount,
     siblingCount,
-    pageSize,
+    totalPageCount,
   });
 
   if (currentPage === 0 || paginationRange?.length < 2) {
@@ -32,8 +30,13 @@ const Pagination = ({
   let lastPage = paginationRange[paginationRange?.length - 1];
 
   return (
-    <Flex mt={"9"} gap={4} justifyContent={"center"}>
-      <Button onClick={onClickPrevious} isDisabled={currentPage === 1}>
+    <Flex mt={"9"} gap={1} justifyContent={"center"}>
+      <Button
+        onClick={onClickPrevious}
+        isDisabled={currentPage === 1}
+        size={"sm"}
+        p={0}
+      >
         <Icon as={FaAngleLeft} />
       </Button>
       <Box>
@@ -47,6 +50,8 @@ const Pagination = ({
                 colorScheme="blackAlpha"
                 variant="outline"
                 color={"black"}
+                size={"sm"}
+                p={0}
               />
             );
           }
@@ -59,13 +64,20 @@ const Pagination = ({
               isActive={pageNumber === currentPage}
               onClick={() => onPageChange(pageNumber)}
               mx={"4px"}
+              size={"sm"}
+              p={0}
             >
               {pageNumber}
             </Button>
           );
         })}
       </Box>
-      <Button isDisabled={currentPage === lastPage} onClick={onClickNext}>
+      <Button
+        isDisabled={currentPage === lastPage}
+        onClick={onClickNext}
+        size={"sm"}
+        p={0}
+      >
         <Icon as={FaAngleRight} />
       </Button>
     </Flex>
