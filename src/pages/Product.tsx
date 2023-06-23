@@ -25,11 +25,11 @@ const Product = ({ data }: ProductProps) => {
   };
 
   const MAX = useMemo(
-    () => Math.max(...data.map((o) => Number(o.price))),
+    () => Math.max(...data.map((o) => Number(o.regular_price))),
     [data]
   );
   const MIN = useMemo(
-    () => Math.min(...data.map((o) => Number(o.price))),
+    () => Math.min(...data.map((o) => Number(o.regular_price))),
     [data]
   );
 

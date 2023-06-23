@@ -25,7 +25,7 @@ const MyCard = ({ data }: CardProps) => {
     setIsHovering(false);
   };
 
-  const { id, name, price, sale_price, images } = data;
+  const { id, name, regular_price, sale_price, images } = data;
   return (
     <Card
       maxW="sm"
@@ -55,6 +55,7 @@ const MyCard = ({ data }: CardProps) => {
               fontFamily={"lekton"}
               fontSize={20}
               fontWeight={600}
+              isTruncated
             >
               {name}
             </Heading>
@@ -66,7 +67,7 @@ const MyCard = ({ data }: CardProps) => {
                   fontWeight={400}
                   fontStyle={"normal"}
                 >
-                  {currencyVND(price)}
+                  {currencyVND(regular_price)}
                 </Text>
               ) : (
                 <HStack spacing={5}>
@@ -85,7 +86,7 @@ const MyCard = ({ data }: CardProps) => {
                     fontWeight={400}
                     fontStyle={"normal"}
                   >
-                    {currencyVND(price)}
+                    {currencyVND(regular_price)}
                   </Text>
                 </HStack>
               )}
