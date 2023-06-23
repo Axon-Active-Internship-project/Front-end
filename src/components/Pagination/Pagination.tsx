@@ -29,8 +29,6 @@ const Pagination = ({
 
   let lastPage = paginationRange[paginationRange?.length - 1];
 
-  console.log("paginationRange =>", paginationRange);
-
   return (
     <Flex mt={"9"} gap={1} justifyContent={"center"}>
       <Button

@@ -14,11 +14,10 @@ const ProductContainer = () => {
     keepPreviousData: true,
   });
 
-  const totalPages = data?.headers["x-wp-totalpages"];
+  const totalPages = Number(data?.headers["x-wp-totalpages"]);
 
   useEffect(() => {
     const nextPage = currentPage + 1;
-    console.log("hi =>", nextPage, nextPage <= totalPages);
 
     queryClient.prefetchQuery(["products", nextPage], () =>
       product.getProduct({ page: nextPage })
