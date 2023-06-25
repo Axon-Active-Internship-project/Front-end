@@ -12,7 +12,7 @@ import {
 import { ProductProps } from "../interfaces";
 import { Filter, Card, Pagination } from "../components";
 import { SearchIcon } from "@chakra-ui/icons";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { categories } from "../utils/FakeAPI";
 
 const Product = ({

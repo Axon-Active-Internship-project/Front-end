@@ -9,6 +9,14 @@ const product = {
 
     return result;
   },
+
+  searchProduct: async ({ searchKey }: { searchKey: string }) => {
+    const result = await instance.get(
+      `products?per_page=${PRODUCT_PER_PAGE}&search=${searchKey}`
+    );
+
+    return result;
+  },
 };
 
 export default product;
