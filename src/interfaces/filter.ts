@@ -1,5 +1,12 @@
 export interface FilterProps {
-  maxValue: number;
-  minValue: number;
-  step?: number;
+  onHandleChangeFilter: IOnHandleChangeFilter;
+  filterRange: { min: string; max: string };
 }
+
+type IOnHandleChangeFilter = ({
+  min,
+  max,
+}: {
+  min: string;
+  max: string;
+}) => any;

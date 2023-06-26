@@ -7,15 +7,24 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
-  Text,
+  Button,
 } from "@chakra-ui/react";
 import { ProductProps } from "../interfaces";
 import { Filter, Card, Pagination } from "../components";
 import { SearchIcon } from "@chakra-ui/icons";
 import { useMemo, useState } from "react";
-import { categories } from "../utils/FakeAPI";
 
-const Product = ({ data, totalPages, onChange, currentPage }: ProductProps) => {
+const Product = ({
+  data,
+  totalPages,
+  onChange,
+  currentPage,
+  onHandleChangeCategory,
+  categories,
+  categoriId,
+  onHandleChangeFilter,
+  filterRange,
+}: ProductProps) => {
   const [inputValue, setInputValue] = useState<string>("");
 
   const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -23,15 +32,6 @@ const Product = ({ data, totalPages, onChange, currentPage }: ProductProps) => {
       return e.target.value;
     });
   };
-
-  const MAX = useMemo(
-    () => Math.max(...data.map((o) => Number(o.price))),
-    [data]
-  );
-  const MIN = useMemo(
-    () => Math.min(...data.map((o) => Number(o.price))),
-    [data]
-  );
 
   return (
     <Flex flexDirection={"column"} gap={12}>
@@ -46,17 +46,28 @@ const Product = ({ data, totalPages, onChange, currentPage }: ProductProps) => {
 
       <Flex justifyContent={"center"} alignItems={"center"} pos={"relative"}>
         <Flex justifyContent={"center"} gap={100}>
+          <Button
+            fontSize={18}
+            fontWeight={!categoriId ? 700 : 400}
+            variant={"unstyled"}
+            textTransform={"capitalize"}
+            onClick={() => onHandleChangeCategory("")}
+          >
+            all
+          </Button>
           {categories.map((item) => {
             const { id, name } = item;
             return (
-              <Text
+              <Button
                 key={id}
                 fontSize={18}
-                fontWeight={400}
-                fontFamily={"lekton"}
+                fontWeight={categoriId === String(id) ? 700 : 400}
+                textTransform={"capitalize"}
+                variant={"unstyled"}
+                onClick={() => onHandleChangeCategory(String(id))}
               >
                 {name}
-              </Text>
+              </Button>
             );
           })}
         </Flex>
@@ -75,7 +86,10 @@ const Product = ({ data, totalPages, onChange, currentPage }: ProductProps) => {
       </Flex>
       <Grid gap={12} templateColumns={"repeat(4, 1fr)"}>
         <GridItem>
-          <Filter minValue={MIN} maxValue={MAX} />
+          <Filter
+            onHandleChangeFilter={onHandleChangeFilter}
+            filterRange={filterRange}
+          />
         </GridItem>
         <GridItem colStart={2} colSpan={3}>
           <Grid templateColumns={"repeat(3, 1fr)"} gap={"30px"}>

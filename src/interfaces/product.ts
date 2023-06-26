@@ -25,6 +25,11 @@ export interface ProductProps {
   currentPage: number;
   totalPages: number;
   onChange: any;
+  onHandleChangeCategory: any;
+  onHandleChangeFilter: any;
+  categories: ICategory[];
+  categoriId: string;
+  filterRange: { min: string; max: string };
 }
 
 export interface CardProps {
