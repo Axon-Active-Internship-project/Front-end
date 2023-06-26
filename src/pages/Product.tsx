@@ -21,6 +21,7 @@ const Product = ({
   onHandleChangePagination,
   currentPage,
   onHandleChangeInput,
+  searchKey,
 }: ProductProps) => {
   const MAX = useMemo(
     () => Math.max(...data.map((o) => Number(o.price))),
@@ -66,6 +67,7 @@ const Product = ({
             <Input
               type="text"
               placeholder="Search"
+              defaultValue={searchKey}
               onChange={(e) => onHandleChangeInput(e)}
             />
           </InputGroup>
@@ -76,16 +78,26 @@ const Product = ({
           <Filter minValue={MIN} maxValue={MAX} />
         </GridItem>
         <GridItem colStart={2} colSpan={3}>
-          <Grid templateColumns={"repeat(3, 1fr)"} gap={"30px"}>
-            {data?.map((item) => (
-              <Card data={item} key={item.id} />
-            ))}
-          </Grid>
-          <Pagination
-            onPageChange={onHandleChangePagination}
-            currentPage={currentPage}
-            totalPageCount={totalPages}
-          />
+          {data.length > 0 ? (
+            <>
+              <Grid templateColumns={"repeat(3, 1fr)"} gap={"30px"}>
+                {data?.map((item) => (
+                  <Card data={item} key={item.id} />
+                ))}
+              </Grid>
+              <Pagination
+                onPageChange={onHandleChangePagination}
+                currentPage={currentPage}
+                totalPageCount={totalPages}
+              />
+            </>
+          ) : (
+            <Flex justifyContent={"flex-start"} alignItems={"center"}>
+              <Text fontSize={24} fontWeight={700}>
+                No product matching with keyword: {searchKey}
+              </Text>
+            </Flex>
+          )}
         </GridItem>
       </Grid>
     </Flex>

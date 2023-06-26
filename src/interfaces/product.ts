@@ -24,6 +24,7 @@ export interface ProductProps {
   data: IProduct[];
   currentPage: number;
   totalPages: number;
+  searchKey: string;
   onHandleChangePagination: any;
   onHandleChangeInput: any;
 }

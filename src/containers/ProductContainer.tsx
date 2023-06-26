@@ -1,4 +1,4 @@
-import { useQueries, useQueryClient } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { ErrorPage, Product } from "../pages";
 import { product } from "../services/apis";
 import { useEffect, useRef, useState } from "react";
@@ -11,54 +11,22 @@ const ProductContainer = () => {
 
   const queryClient = useQueryClient();
 
-  const result = useQueries({
-    queries: [
-      {
-        queryKey: ["products", currentPage, searchKey],
-        queryFn: () => product.searchProduct({ searchKey: searchKey }),
-        keepPreviousData: true,
-        enabled: !!searchKey,
-      },
-      {
-        queryKey: ["products", currentPage],
-        queryFn: () => product.getProduct({ page: currentPage }),
-        keepPreviousData: true,
-        enabled: !searchKey,
-      },
-    ],
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["products", currentPage, searchKey],
+    queryFn: () =>
+      product.getProduct({ searchKey: searchKey, page: currentPage }),
+    keepPreviousData: true,
   });
 
-  const products = searchKey ? result[0].data?.data : result[1].data?.data;
-
-  const isLoading = searchKey ? result[0].isLoading : result[1].isLoading;
-
-  const isError = searchKey ? result[0].isError : result[1].isError;
-
-  const totalPages = Number(
-    !!searchKey
-      ? result[0].data?.headers[HeaderOptions.totalPages]
-      : result[1].data?.headers[HeaderOptions.totalPages]
-  );
+  const totalPages = Number(data?.headers[HeaderOptions.totalPages]);
 
   useEffect(() => {
-    if (!searchKey) {
-      const nextPage = currentPage + 1;
+    const nextPage = currentPage + 1;
 
-      queryClient.prefetchQuery(["products", nextPage], () =>
-        product.getProduct({ page: nextPage })
-      );
-    }
+    queryClient.prefetchQuery(["products", nextPage, searchKey], () =>
+      product.getProduct({ page: nextPage, searchKey: searchKey })
+    );
   }, [currentPage]);
-
-  useEffect(() => {
-    if (!!searchKey) {
-      const nextPage = currentPage + 1;
-
-      queryClient.prefetchQuery(["products", nextPage, searchKey], () =>
-        product.searchProduct({ searchKey: searchKey })
-      );
-    }
-  }, [currentPage, searchKey]);
 
   const onHandleChangeInput = (value: React.ChangeEvent<HTMLInputElement>) => {
     const timerId = timer.current;
@@ -69,6 +37,7 @@ const ProductContainer = () => {
       setSearchKey(() => {
         return value.target.value;
       });
+      setCurrentPage(() => 1);
     }, 1500);
 
     timer.current = newTimerId;
@@ -84,11 +53,12 @@ const ProductContainer = () => {
 
   return (
     <Product
-      data={products}
+      data={data.data}
       totalPages={totalPages}
       onHandleChangePagination={(page: number) => setCurrentPage(page)}
       currentPage={currentPage}
       onHandleChangeInput={onHandleChangeInput}
+      searchKey={searchKey}
     />
   );
 };
