@@ -1,8 +1,4 @@
 import {
-  Alert,
-  AlertDescription,
-  AlertIcon,
-  AlertTitle,
   Box,
   Flex,
   Grid,
@@ -18,6 +14,7 @@ import { Filter, Card, Pagination } from "../components";
 import { SearchIcon } from "@chakra-ui/icons";
 import { useMemo } from "react";
 import { categories } from "../utils/FakeAPI";
+import { useAlert } from "react-alert";
 
 const Product = ({
   data,
@@ -38,11 +35,15 @@ const Product = ({
     [data]
   );
 
+  const alert = useAlert();
+
+  isErrorInput && alert.error(errorInputMessage);
+
   return (
     <Flex flexDirection={"column"} gap={12}>
       <Flex flexDirection={"column"} alignItems={"center"} gap={2}>
         <Heading as={"h2"} fontSize={30} fontWeight={700} fontFamily={"lekton"}>
-          Local specialty’s areas
+          Local specialty's areas
         </Heading>
         <Heading as={"h3"} fontSize={22} fontWeight={700}>
           The best offer that we offer to the world
@@ -80,13 +81,6 @@ const Product = ({
             />
           </InputGroup>
         </Box>
-        {isErrorInput && (
-          <Alert status="error" pos={"absolute"} right={0} top={0} w={"50%"}>
-            <AlertIcon />
-            <AlertTitle>Error input</AlertTitle>
-            <AlertDescription>{errorInputMessage}</AlertDescription>
-          </Alert>
-        )}
       </Flex>
       <Grid gap={12} templateColumns={"repeat(4, 1fr)"}>
         <GridItem>

@@ -85,8 +85,6 @@ const ProductContainer = () => {
     timer.current = newTimerId;
   };
 
-  console.log(errorInput);
-
   if (isLoading) {
     return <p> Loading</p>;
   }
