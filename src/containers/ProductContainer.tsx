@@ -1,16 +1,20 @@
 import { useQueries, useQueryClient } from "@tanstack/react-query";
 import { ErrorPage, Product } from "../pages";
 import { product } from "../services/apis";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { FILTER_RANGE, HeaderOptions } from "../utils";
 
 const ProductContainer = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [categoriId, setCategoriId] = useState<string>("");
-  const [filterRange, setFilterRange] = useState<{ min: string; max: string }>({
-    min: "",
-    max: "",
-  });
+  const [priceSelect, setPriceSelect] = useState<string>("");
+
+  const filterRange = useMemo(() => {
+    if (priceSelect) {
+      return { ...FILTER_RANGE[Number(priceSelect)] };
+    }
+    return { min: "", max: "" };
+  }, [priceSelect]);
 
   const queryClient = useQueryClient();
 
@@ -34,8 +38,6 @@ const ProductContainer = () => {
     ],
   });
 
-  console.log(filterRange);
-
   const totalPages = Number(result[0].data?.headers[HeaderOptions.totalPages]);
 
   useEffect(() => {
@@ -54,28 +56,12 @@ const ProductContainer = () => {
 
   const onHandleChangeCategoryId = (id: string) => {
     setCategoriId(id);
+    setCurrentPage(1);
   };
 
-  const onHandleChangeFilter = ({ min, max }: { min: string; max: string }) => {
-    setFilterRange((range) => {
-      if (min === FILTER_RANGE.min && max === FILTER_RANGE.max) {
-        return { min: "", max: "" };
-      }
-
-      if (min === FILTER_RANGE.max && max === FILTER_RANGE.max) {
-        return { ...range, max: "", min: min };
-      }
-
-      if (min === FILTER_RANGE.min && max === FILTER_RANGE.min) {
-        return { ...range, max: max, min: "" };
-      }
-
-      if (min === FILTER_RANGE.min && max !== FILTER_RANGE.max) {
-        console.log("ok");
-      }
-
-      return { ...range, min: min, max: max };
-    });
+  const onHandleChangePriceRange = (id: string) => {
+    setPriceSelect(id);
+    setCurrentPage(1);
   };
 
   if (result[0].isLoading || result[1].isLoading) {
@@ -95,8 +81,8 @@ const ProductContainer = () => {
       onHandleChangeCategory={onHandleChangeCategoryId}
       categories={result[1].data?.data}
       categoriId={categoriId}
-      onHandleChangeFilter={onHandleChangeFilter}
-      filterRange={filterRange}
+      onHandleChangePriceRange={onHandleChangePriceRange}
+      priceSelect={priceSelect}
     />
   );
 };

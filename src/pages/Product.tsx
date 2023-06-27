@@ -12,7 +12,7 @@ import {
 import { ProductProps } from "../interfaces";
 import { Filter, Card, Pagination } from "../components";
 import { SearchIcon } from "@chakra-ui/icons";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 
 const Product = ({
   data,
@@ -22,8 +22,8 @@ const Product = ({
   onHandleChangeCategory,
   categories,
   categoriId,
-  onHandleChangeFilter,
-  filterRange,
+  onHandleChangePriceRange,
+  priceSelect,
 }: ProductProps) => {
   const [inputValue, setInputValue] = useState<string>("");
 
@@ -87,8 +87,8 @@ const Product = ({
       <Grid gap={12} templateColumns={"repeat(4, 1fr)"}>
         <GridItem>
           <Filter
-            onHandleChangeFilter={onHandleChangeFilter}
-            filterRange={filterRange}
+            onHandleChangePriceRange={onHandleChangePriceRange}
+            priceSelect={priceSelect}
           />
         </GridItem>
         <GridItem colStart={2} colSpan={3}>

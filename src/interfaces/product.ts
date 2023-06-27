@@ -26,12 +26,13 @@ export interface ProductProps {
   totalPages: number;
   onChange: any;
   onHandleChangeCategory: any;
-  onHandleChangeFilter: any;
   categories: ICategory[];
   categoriId: string;
-  filterRange: { min: string; max: string };
+  onHandleChangePriceRange: onHandleChangePriceRange;
+  priceSelect: string;
 }
 
+type onHandleChangePriceRange = (id: string) => void;
 export interface CardProps {
   data: IProduct;
 }

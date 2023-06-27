@@ -1,53 +1,15 @@
-import { FilterProps } from "../../interfaces";
 import {
-  RangeSlider,
-  RangeSliderTrack,
-  RangeSliderFilledTrack,
-  RangeSliderThumb,
   Heading,
   Flex,
-  HStack,
+  Stack,
   Text,
-  Kbd,
+  RadioGroup,
+  Radio,
 } from "@chakra-ui/react";
-import { FILTER_RANGE, currencyVND } from "../../utils";
+import { FILTER_RANGE } from "../../utils";
+import { FilterProps } from "../../interfaces";
 
-const Filter = ({ filterRange, onHandleChangeFilter }: FilterProps) => {
-  let minValue = filterRange.min;
-  let maxValue = filterRange.max;
-
-  if (!minValue && !maxValue) {
-    minValue = FILTER_RANGE.min;
-    maxValue = FILTER_RANGE.max;
-  }
-
-  let rangePriceBar = (
-    <HStack spacing={4}>
-      <Kbd fontSize={18} fontFamily={"lekton"} fontWeight={500}>
-        {currencyVND(`${minValue}`)}
-      </Kbd>
-      <Text>-</Text>
-      <Kbd fontSize={18} fontFamily={"lekton"} fontWeight={500}>
-        {currencyVND(`${maxValue}`)}
-      </Kbd>
-    </HStack>
-  );
-
-  if (!minValue && maxValue) {
-    rangePriceBar = (
-      <Text fontSize={18} fontWeight={500}>
-        Less than {currencyVND(FILTER_RANGE.min)}
-      </Text>
-    );
-  }
-
-  if (minValue && !maxValue) {
-    rangePriceBar = (
-      <Text fontSize={18} fontWeight={500}>
-        More than {currencyVND(FILTER_RANGE.max)}
-      </Text>
-    );
-  }
+const Filter = ({ priceSelect, onHandleChangePriceRange }: FilterProps) => {
   return (
     <Flex
       flexDirection={"column"}
@@ -58,22 +20,43 @@ const Filter = ({ filterRange, onHandleChangeFilter }: FilterProps) => {
       <Heading as={"h3"} fontSize={22}>
         Filter
       </Heading>
-      <RangeSlider
-        defaultValue={[Number(FILTER_RANGE.min), Number(FILTER_RANGE.max)]}
-        min={Number(FILTER_RANGE.min)}
-        max={Number(FILTER_RANGE.max)}
-        step={FILTER_RANGE.step}
-        onChange={(v) => {
-          onHandleChangeFilter({ min: String(v[0]), max: String(v[1]) });
-        }}
-      >
-        <RangeSliderTrack bg="red.100" boxSize={1.5} borderRadius={15}>
-          <RangeSliderFilledTrack bg="tomato" />
-        </RangeSliderTrack>
-        <RangeSliderThumb boxSize={5} index={0} />
-        <RangeSliderThumb boxSize={5} index={1} />
-      </RangeSlider>
-      {rangePriceBar}
+      <RadioGroup name="price" defaultValue={priceSelect}>
+        <Stack>
+          <Radio value="" onChange={() => onHandleChangePriceRange("")}>
+            <Text fontSize={18} fontWeight={500}>
+              All
+            </Text>
+          </Radio>
+          {FILTER_RANGE.map((item, index) => {
+            const { min, max } = item;
+            let label;
+
+            if (!min && max) {
+              label = `Less than ${max} `;
+            }
+
+            if (min && !max) {
+              label = `More than ${min}  `;
+            }
+
+            if (min && max) {
+              label = `From ${min} to ${max} `;
+            }
+
+            return (
+              <Radio
+                value={String(index)}
+                key={index}
+                onChange={() => onHandleChangePriceRange(String(index))}
+              >
+                <Text fontSize={18} fontWeight={500}>
+                  {label}
+                </Text>
+              </Radio>
+            );
+          })}
+        </Stack>
+      </RadioGroup>
     </Flex>
   );
 };

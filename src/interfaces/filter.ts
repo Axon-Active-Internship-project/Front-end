@@ -1,12 +1,4 @@
 export interface FilterProps {
-  onHandleChangeFilter: IOnHandleChangeFilter;
-  filterRange: { min: string; max: string };
+  priceSelect: string;
+  onHandleChangePriceRange: any;
 }
-
-type IOnHandleChangeFilter = ({
-  min,
-  max,
-}: {
-  min: string;
-  max: string;
-}) => any;
