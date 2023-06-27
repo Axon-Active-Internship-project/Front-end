@@ -1,4 +1,8 @@
 import {
+  Alert,
+  AlertDescription,
+  AlertIcon,
+  AlertTitle,
   Box,
   Flex,
   Grid,
@@ -22,6 +26,8 @@ const Product = ({
   currentPage,
   onHandleChangeInput,
   searchKey,
+  isErrorInput,
+  errorInputMessage,
 }: ProductProps) => {
   const MAX = useMemo(
     () => Math.max(...data.map((o) => Number(o.price))),
@@ -69,9 +75,18 @@ const Product = ({
               placeholder="Search"
               defaultValue={searchKey}
               onChange={(e) => onHandleChangeInput(e)}
+              isInvalid={isErrorInput}
+              errorBorderColor={isErrorInput ? "crimson" : ""}
             />
           </InputGroup>
         </Box>
+        {isErrorInput && (
+          <Alert status="error" pos={"absolute"} right={0} top={0} w={"50%"}>
+            <AlertIcon />
+            <AlertTitle>Error input</AlertTitle>
+            <AlertDescription>{errorInputMessage}</AlertDescription>
+          </Alert>
+        )}
       </Flex>
       <Grid gap={12} templateColumns={"repeat(4, 1fr)"}>
         <GridItem>

@@ -27,6 +27,8 @@ export interface ProductProps {
   searchKey: string;
   onHandleChangePagination: any;
   onHandleChangeInput: any;
+  isErrorInput: boolean;
+  errorInputMessage: string;
 }
 
 export interface CardProps {
