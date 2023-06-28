@@ -1,17 +1,24 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { ErrorPage, Product } from "../pages";
 import { product } from "../services/apis";
-import { useEffect, useState } from "react";
-import { HeaderOptions } from "../utils";
+import { useEffect, useRef, useState } from "react";
+import { ErrorInputMessage, HeaderOptions, REG_HTML_TAGS } from "../utils";
 
 const ProductContainer = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [searchKey, setSearchKey] = useState<string>("");
+  const [errorInput, setErrorInput] = useState<{
+    isError: boolean;
+    message: string;
+  }>({ isError: false, message: "" });
+  const timer = useRef<any>(null);
 
   const queryClient = useQueryClient();
 
   const { data, isLoading, isError } = useQuery({
-    queryKey: ["products", currentPage],
-    queryFn: () => product.getProduct({ page: currentPage }),
+    queryKey: ["products", currentPage, searchKey],
+    queryFn: () =>
+      product.getProduct({ searchKey: searchKey, page: currentPage }),
     keepPreviousData: true,
   });
 
@@ -20,10 +27,69 @@ const ProductContainer = () => {
   useEffect(() => {
     const nextPage = currentPage + 1;
 
-    queryClient.prefetchQuery(["products", nextPage], () =>
-      product.getProduct({ page: nextPage })
+    queryClient.prefetchQuery(["products", nextPage, searchKey], () =>
+      product.getProduct({ page: nextPage, searchKey: searchKey })
     );
   }, [currentPage]);
+
+  const onHandleChangeInput = (input: React.ChangeEvent<HTMLInputElement>) => {
+    const timerId = timer.current;
+
+    clearTimeout(timerId);
+
+    const newTimerId = setTimeout(() => {
+      const value = input.target.value;
+      if (value.length === 1) {
+        setSearchKey(() => "");
+        setCurrentPage(() => 1);
+        return setErrorInput((preError) => {
+          return {
+            ...preError,
+            isError: true,
+            message: ErrorInputMessage.tooFewer,
+          };
+        });
+      }
+
+      if (value.length >= 100) {
+        setSearchKey(() => "");
+        setCurrentPage(() => 1);
+        return setErrorInput((preError) => {
+          return {
+            ...preError,
+            isError: true,
+            message: ErrorInputMessage.tooLong,
+          };
+        });
+      }
+
+      if (REG_HTML_TAGS.test(value)) {
+        setSearchKey(() => "");
+        setCurrentPage(() => 1);
+        return setErrorInput((preError) => {
+          return {
+            ...preError,
+            isError: true,
+            message: ErrorInputMessage.htmlTag,
+          };
+        });
+      }
+
+      setErrorInput((preError) => {
+        return {
+          ...preError,
+          isError: false,
+          message: "",
+        };
+      });
+      setSearchKey(() => {
+        return value.trim();
+      });
+      setCurrentPage(() => 1);
+    }, 1500);
+
+    timer.current = newTimerId;
+  };
 
   if (isLoading) {
     return <p> Loading</p>;
@@ -35,10 +101,14 @@ const ProductContainer = () => {
 
   return (
     <Product
-      data={data?.data}
+      data={data.data}
       totalPages={totalPages}
-      onChange={(page: number) => setCurrentPage(page)}
+      onHandleChangePagination={(page: number) => setCurrentPage(page)}
       currentPage={currentPage}
+      onHandleChangeInput={onHandleChangeInput}
+      searchKey={searchKey}
+      isErrorInput={errorInput.isError}
+      errorInputMessage={errorInput.message}
     />
   );
 };
