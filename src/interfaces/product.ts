@@ -2,7 +2,7 @@ interface IProduct {
   id: number;
   name: string;
   description?: string;
-  price: string;
+  regular_price: string;
   sale_price?: string;
   categories?: [ICategory];
   images: [IImageProduct];
