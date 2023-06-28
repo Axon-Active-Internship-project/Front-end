@@ -119,7 +119,7 @@ const Product = ({
             <Flex justifyContent={"flex-start"} alignItems={"center"}>
               <Text fontSize={24} fontWeight={700}>
                 There is no result found
-                {searchKey ? ` with keyword: ${searchKey}` : ""}
+                {searchKey && ` with keyword: ${searchKey}`}{" "}
               </Text>
             </Flex>
           )}

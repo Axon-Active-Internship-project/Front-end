@@ -12,7 +12,7 @@ import {
 const ProductContainer = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [categoriId, setCategoriId] = useState<string>("");
-  const [priceSelect, setPriceSelect] = useState<string>("");
+  const [priceSelect, setPriceSelect] = useState<string>("0");
   const [searchKey, setSearchKey] = useState<string>("");
   const [errorInput, setErrorInput] = useState<{
     isError: boolean;
@@ -21,10 +21,7 @@ const ProductContainer = () => {
   const timer = useRef<any>(null);
 
   const filterRange = useMemo(() => {
-    if (priceSelect) {
-      return { ...FILTER_RANGE[Number(priceSelect)] };
-    }
-    return { min: "", max: "" };
+    return { ...FILTER_RANGE[Number(priceSelect)] };
   }, [priceSelect]);
 
   const queryClient = useQueryClient();
@@ -87,6 +84,8 @@ const ProductContainer = () => {
       if (value.length === 1) {
         setSearchKey(() => "");
         setCurrentPage(() => 1);
+        setCategoriId(() => "");
+        setPriceSelect(() => "0");
         return setErrorInput((preError) => {
           return {
             ...preError,
@@ -99,6 +98,8 @@ const ProductContainer = () => {
       if (value.length >= 100) {
         setSearchKey(() => "");
         setCurrentPage(() => 1);
+        setCategoriId(() => "");
+        setPriceSelect(() => "0");
         return setErrorInput((preError) => {
           return {
             ...preError,
@@ -111,6 +112,8 @@ const ProductContainer = () => {
       if (REG_HTML_TAGS.test(value)) {
         setSearchKey(() => "");
         setCurrentPage(() => 1);
+        setCategoriId(() => "");
+        setPriceSelect(() => "0");
         return setErrorInput((preError) => {
           return {
             ...preError,
@@ -131,6 +134,8 @@ const ProductContainer = () => {
         return value.trim();
       });
       setCurrentPage(() => 1);
+      setCategoriId(() => "");
+      setPriceSelect(() => "0");
     }, 1500);
 
     timer.current = newTimerId;

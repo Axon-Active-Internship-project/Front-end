@@ -6,7 +6,7 @@ import {
   RadioGroup,
   Radio,
 } from "@chakra-ui/react";
-import { FILTER_RANGE } from "../../utils";
+import { FILTER_RANGE, currencyVND } from "../../utils";
 import { FilterProps } from "../../interfaces";
 
 const Filter = ({ priceSelect, onHandleChangePriceRange }: FilterProps) => {
@@ -20,35 +20,35 @@ const Filter = ({ priceSelect, onHandleChangePriceRange }: FilterProps) => {
       <Heading as={"h3"} fontSize={22}>
         Filter
       </Heading>
-      <RadioGroup name="price" defaultValue={priceSelect}>
+      <RadioGroup
+        name="price"
+        defaultValue={priceSelect}
+        onChange={onHandleChangePriceRange}
+        value={priceSelect}
+      >
         <Stack>
-          <Radio value="" onChange={() => onHandleChangePriceRange("")}>
-            <Text fontSize={18} fontWeight={500}>
-              All
-            </Text>
-          </Radio>
           {FILTER_RANGE.map((item, index) => {
             const { min, max } = item;
             let label;
 
+            if (!min && !max) {
+              label = `All`;
+            }
+
             if (!min && max) {
-              label = `Less than ${max} `;
+              label = `Less than ${currencyVND(String(Number(max) + 1))}`;
             }
 
             if (min && !max) {
-              label = `More than ${min}  `;
+              label = `More than ${currencyVND(String(Number(min) - 1))}`;
             }
 
             if (min && max) {
-              label = `From ${min} to ${max} `;
+              label = `From ${currencyVND(min)} to ${currencyVND(max)} `;
             }
 
             return (
-              <Radio
-                value={String(index)}
-                key={index}
-                onChange={() => onHandleChangePriceRange(String(index))}
-              >
+              <Radio value={String(index)} key={index}>
                 <Text fontSize={18} fontWeight={500}>
                   {label}
                 </Text>
