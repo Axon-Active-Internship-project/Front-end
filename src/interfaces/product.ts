@@ -24,12 +24,16 @@ export interface ProductProps {
   data: IProduct[];
   currentPage: number;
   totalPages: number;
-  onChange: any;
   onHandleChangeCategory: any;
   categories: ICategory[];
   categoriId: string;
   onHandleChangePriceRange: onHandleChangePriceRange;
   priceSelect: string;
+  searchKey: string;
+  onHandleChangePagination: any;
+  onHandleChangeInput: any;
+  isErrorInput: boolean;
+  errorInputMessage: string;
 }
 
 type onHandleChangePriceRange = (id: string) => void;

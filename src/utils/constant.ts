@@ -7,3 +7,4 @@ export const FILTER_RANGE = [
   { min: "300000", max: "800000" },
   { min: "800000", max: "" },
 ];
+export const REG_HTML_TAGS = /<[^>]*>/g;
