@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 const data = [
   { name: "home", path: "/" },
-  { name: "product", path: "/product" },
+  { name: "product", path: "/products" },
   { name: "about us", path: "/aboutus" },
   { name: "contact", path: "/contact" },
 ];
