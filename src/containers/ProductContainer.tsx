@@ -2,12 +2,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { ErrorPage, Product } from "../pages";
 import { product } from "../services/apis";
 import { useEffect, useRef, useState } from "react";
-import {
-  BLACK_LIST_CHARACTERS,
-  ErrorInputMessage,
-  HeaderOptions,
-  REG_HTML_TAGS,
-} from "../utils";
+import { ErrorInputMessage, HeaderOptions, REG_HTML_TAGS } from "../utils";
 
 const ProductContainer = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -64,18 +59,6 @@ const ProductContainer = () => {
             ...preError,
             isError: true,
             message: ErrorInputMessage.tooLong,
-          };
-        });
-      }
-
-      if (BLACK_LIST_CHARACTERS.some((key) => value.includes(key))) {
-        setSearchKey(() => "");
-        setCurrentPage(() => 1);
-        return setErrorInput((preError) => {
-          return {
-            ...preError,
-            isError: true,
-            message: ErrorInputMessage.specailKey,
           };
         });
       }

@@ -11,8 +11,10 @@ const product = {
   }) => {
     let url = `products?per_page=${PRODUCT_PER_PAGE}&page=${page}`;
     if (searchKey) {
-      url += `&search=${searchKey}`;
+      url += `&search=${encodeURIComponent(searchKey)}`;
     }
+
+    console.log(url);
 
     const result = await instance.get(url);
 

@@ -76,7 +76,7 @@ const Product = ({
             />
           </InputGroup>
           {isErrorInput && (
-            <Text 
+            <Text
               maxW={"250px"}
               pt={"4px"}
               fontSize={14}
@@ -109,7 +109,8 @@ const Product = ({
           ) : (
             <Flex justifyContent={"flex-start"} alignItems={"center"}>
               <Text fontSize={24} fontWeight={700}>
-                There is no result found with keyword: {searchKey}
+                There is no result found
+                {searchKey ? ` with keyword: ${searchKey}` : ""}
               </Text>
             </Flex>
           )}
