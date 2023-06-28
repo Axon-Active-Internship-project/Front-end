@@ -4,7 +4,7 @@ export {
   BASE_URL,
   NOT_FOUND_IMAGE,
   PRODUCT_PER_PAGE,
-  BLACK_LIST_CHARACTERS ,
+  BLACK_LIST_CHARACTERS,
 } from "./constant";
 export { currencyVND } from "./format";
-export { HeaderOptions } from "./enum";
+export { HeaderOptions, ErrorInputMessage } from "./enum";

@@ -2,7 +2,11 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { ErrorPage, Product } from "../pages";
 import { product } from "../services/apis";
 import { useEffect, useRef, useState } from "react";
-import { BLACK_LIST_CHARACTERS, HeaderOptions } from "../utils";
+import {
+  BLACK_LIST_CHARACTERS,
+  ErrorInputMessage,
+  HeaderOptions,
+} from "../utils";
 
 const ProductContainer = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -34,6 +38,7 @@ const ProductContainer = () => {
 
   const onHandleChangeInput = (input: React.ChangeEvent<HTMLInputElement>) => {
     const timerId = timer.current;
+    const htmlTags = /<[^>]*>/g;
 
     clearTimeout(timerId);
 
@@ -44,27 +49,37 @@ const ProductContainer = () => {
           return {
             ...preError,
             isError: true,
-            message: "Search keywords must be more than 1 character",
+            message: ErrorInputMessage.tooFewer,
           };
         });
       }
 
-      if (value.length >= 100) {
-        return setErrorInput((preError) => {
-          return {
-            ...preError,
-            isError: true,
-            message: "Search keywords must be less than 100 characters",
-          };
-        });
-      }
+      // if (value.length >= 100) {
+      //   return setErrorInput((preError) => {
+      //     return {
+      //       ...preError,
+      //       isError: true,
+      //       message: ErrorInputMessage.tooLong,
+      //     };
+      //   });
+      // }
 
       if (BLACK_LIST_CHARACTERS.some((key) => value.includes(key))) {
         return setErrorInput((preError) => {
           return {
             ...preError,
             isError: true,
-            message: "Search keywords must be avoided contain special keywords",
+            message: ErrorInputMessage.specailKey,
+          };
+        });
+      }
+
+      if (htmlTags.test(value)) {
+        return setErrorInput((preError) => {
+          return {
+            ...preError,
+            isError: true,
+            message: ErrorInputMessage.htmlTag,
           };
         });
       }

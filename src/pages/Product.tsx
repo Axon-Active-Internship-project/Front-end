@@ -14,7 +14,6 @@ import { Filter, Card, Pagination } from "../components";
 import { SearchIcon } from "@chakra-ui/icons";
 import { useMemo } from "react";
 import { categories } from "../utils/FakeAPI";
-import { useAlert } from "react-alert";
 
 const Product = ({
   data,
@@ -34,10 +33,6 @@ const Product = ({
     () => Math.min(...data.map((o) => Number(o.price))),
     [data]
   );
-
-  const alert = useAlert();
-
-  isErrorInput && alert.error(errorInputMessage);
 
   return (
     <Flex flexDirection={"column"} gap={12}>
@@ -72,7 +67,7 @@ const Product = ({
               <SearchIcon color="black.300" />
             </InputLeftElement>
             <Input
-              type="text"
+              type="search"
               placeholder="Search"
               defaultValue={searchKey}
               onChange={(e) => onHandleChangeInput(e)}
@@ -80,6 +75,17 @@ const Product = ({
               errorBorderColor={isErrorInput ? "crimson" : ""}
             />
           </InputGroup>
+          {isErrorInput && (
+            <Text 
+              maxW={"250px"}
+              pt={"4px"}
+              fontSize={14}
+              fontWeight={300}
+              color={"red"}
+            >
+              {errorInputMessage}
+            </Text>
+          )}
         </Box>
       </Flex>
       <Grid gap={12} templateColumns={"repeat(4, 1fr)"}>
@@ -103,7 +109,7 @@ const Product = ({
           ) : (
             <Flex justifyContent={"flex-start"} alignItems={"center"}>
               <Text fontSize={24} fontWeight={700}>
-                No product matching with keyword: {searchKey}
+                There is no result found with keyword: {searchKey}
               </Text>
             </Flex>
           )}
