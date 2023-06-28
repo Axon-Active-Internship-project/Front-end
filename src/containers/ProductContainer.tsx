@@ -6,6 +6,7 @@ import {
   BLACK_LIST_CHARACTERS,
   ErrorInputMessage,
   HeaderOptions,
+  REG_HTML_TAGS,
 } from "../utils";
 
 const ProductContainer = () => {
@@ -38,13 +39,14 @@ const ProductContainer = () => {
 
   const onHandleChangeInput = (input: React.ChangeEvent<HTMLInputElement>) => {
     const timerId = timer.current;
-    const htmlTags = /<[^>]*>/g;
 
     clearTimeout(timerId);
 
     const newTimerId = setTimeout(() => {
       const value = input.target.value;
       if (value.length === 1) {
+        setSearchKey(() => "");
+        setCurrentPage(() => 1);
         return setErrorInput((preError) => {
           return {
             ...preError,
@@ -55,6 +57,8 @@ const ProductContainer = () => {
       }
 
       if (value.length >= 100) {
+        setSearchKey(() => "");
+        setCurrentPage(() => 1);
         return setErrorInput((preError) => {
           return {
             ...preError,
@@ -65,6 +69,8 @@ const ProductContainer = () => {
       }
 
       if (BLACK_LIST_CHARACTERS.some((key) => value.includes(key))) {
+        setSearchKey(() => "");
+        setCurrentPage(() => 1);
         return setErrorInput((preError) => {
           return {
             ...preError,
@@ -74,7 +80,9 @@ const ProductContainer = () => {
         });
       }
 
-      if (htmlTags.test(value)) {
+      if (REG_HTML_TAGS.test(value)) {
+        setSearchKey(() => "");
+        setCurrentPage(() => 1);
         return setErrorInput((preError) => {
           return {
             ...preError,
