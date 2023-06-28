@@ -14,8 +14,6 @@ const product = {
       url += `&search=${encodeURIComponent(searchKey)}`;
     }
 
-    console.log(url);
-
     const result = await instance.get(url);
 
     return result;
