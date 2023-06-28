@@ -54,15 +54,15 @@ const ProductContainer = () => {
         });
       }
 
-      // if (value.length >= 100) {
-      //   return setErrorInput((preError) => {
-      //     return {
-      //       ...preError,
-      //       isError: true,
-      //       message: ErrorInputMessage.tooLong,
-      //     };
-      //   });
-      // }
+      if (value.length >= 100) {
+        return setErrorInput((preError) => {
+          return {
+            ...preError,
+            isError: true,
+            message: ErrorInputMessage.tooLong,
+          };
+        });
+      }
 
       if (BLACK_LIST_CHARACTERS.some((key) => value.includes(key))) {
         return setErrorInput((preError) => {
