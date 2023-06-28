@@ -12,7 +12,7 @@ const Router = () => {
       errorElement: <ProductContainer />,
       children: [
         {
-          path: "/products",
+          path: "/product",
           element: <ProductContainer />,
         },
       ],
