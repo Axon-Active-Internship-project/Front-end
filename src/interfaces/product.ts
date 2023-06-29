@@ -2,13 +2,17 @@ interface IProduct {
   id: number;
   name: string;
   description?: string;
+  short_description?: string;
   regular_price: string;
   sale_price?: string;
-  categories?: [ICategory];
-  images: [IImageProduct];
+  tags: ITag[];
+  categories?: ICategory[];
+  images: IImageProduct[];
+  stock_status?: string;
+  stock_quantity?: number;
 }
 
-interface IImageProduct {
+export interface IImageProduct {
   id: number;
   src: string;
   alt?: string;
@@ -17,6 +21,11 @@ interface IImageProduct {
 
 export interface ICategory {
   id: number;
+  name: string;
+}
+
+interface ITag {
+  id: string;
   name: string;
 }
 
@@ -39,6 +48,12 @@ export interface ProductProps {
 type onHandleChangePriceRange = (id: string) => void;
 export interface CardProps {
   data: IProduct;
+}
+
+export interface ProductDetailProps {
+  data: IProduct;
+  quantity: number;
+  onHandleChangequantity: any;
 }
 
 export default IProduct;
