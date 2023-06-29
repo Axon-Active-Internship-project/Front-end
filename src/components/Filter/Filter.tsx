@@ -1,21 +1,15 @@
-import { FilterProps } from "../../interfaces";
-import { useState } from "react";
 import {
-  RangeSlider,
-  RangeSliderTrack,
-  RangeSliderFilledTrack,
-  RangeSliderThumb,
   Heading,
   Flex,
-  HStack,
+  Stack,
   Text,
-  Kbd,
+  RadioGroup,
+  Radio,
 } from "@chakra-ui/react";
-import { currencyVND } from "../../utils";
+import { FILTER_RANGE, currencyVND } from "../../utils";
+import { FilterProps } from "../../interfaces";
 
-const Filter = ({ minValue, maxValue, step = 5 }: FilterProps) => {
-  const [sliderValue, setSliderValue] = useState([minValue, maxValue]);
-
+const Filter = ({ priceSelect, onHandleChangePriceRange }: FilterProps) => {
   return (
     <Flex
       flexDirection={"column"}
@@ -24,32 +18,45 @@ const Filter = ({ minValue, maxValue, step = 5 }: FilterProps) => {
       alignItems={"center"}
     >
       <Heading as={"h3"} fontSize={22}>
-        Fillter By Price
+        Filter
       </Heading>
-      <RangeSlider
-        defaultValue={[minValue, maxValue]}
-        min={minValue}
-        max={maxValue}
-        step={step}
-        onChange={(v) => {
-          setSliderValue(v);
-        }}
+      <RadioGroup
+        name="price"
+        defaultValue={priceSelect}
+        onChange={onHandleChangePriceRange}
+        value={priceSelect}
       >
-        <RangeSliderTrack bg="red.100" boxSize={1.5} borderRadius={15}>
-          <RangeSliderFilledTrack bg="tomato" />
-        </RangeSliderTrack>
-        <RangeSliderThumb boxSize={5} index={0} />
-        <RangeSliderThumb boxSize={5} index={1} />
-      </RangeSlider>
-      <HStack spacing={4}>
-        <Kbd fontSize={18} fontFamily={"lekton"} fontWeight={500}>
-          {currencyVND(`${sliderValue[0]}`)}
-        </Kbd>
-        <Text>-</Text>
-        <Kbd fontSize={18} fontFamily={"lekton"} fontWeight={500}>
-          {currencyVND(`${sliderValue[1]}`)}
-        </Kbd>
-      </HStack>
+        <Stack>
+          {FILTER_RANGE.map((item, index) => {
+            const { min, max } = item;
+            let label;
+
+            if (!min && !max) {
+              label = `All`;
+            }
+
+            if (!min && max) {
+              label = `Less than ${currencyVND(String(Number(max) + 1))}`;
+            }
+
+            if (min && !max) {
+              label = `More than ${currencyVND(String(Number(min) - 1))}`;
+            }
+
+            if (min && max) {
+              label = `From ${currencyVND(min)} to ${currencyVND(max)} `;
+            }
+
+            return (
+              <Radio value={String(index)} key={index}>
+                <Text fontSize={18} fontWeight={500}>
+                  {label}
+                </Text>
+              </Radio>
+            );
+          })}
+        </Stack>
+      </RadioGroup>
     </Flex>
   );
 };

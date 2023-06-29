@@ -7,33 +7,28 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
+  Button,
   Text,
 } from "@chakra-ui/react";
 import { ProductProps } from "../interfaces";
 import { Filter, Card, Pagination } from "../components";
 import { SearchIcon } from "@chakra-ui/icons";
-import { useMemo } from "react";
-import { categories } from "../utils/FakeAPI";
 
 const Product = ({
   data,
   totalPages,
-  onHandleChangePagination,
   currentPage,
+  onHandleChangeCategory,
+  categories,
+  categoriId,
+  onHandleChangePriceRange,
+  priceSelect,
   onHandleChangeInput,
   searchKey,
   isErrorInput,
   errorInputMessage,
+  onHandleChangePagination,
 }: ProductProps) => {
-  const MAX = useMemo(
-    () => Math.max(...data.map((o) => Number(o.regular_price))),
-    [data]
-  );
-  const MIN = useMemo(
-    () => Math.min(...data.map((o) => Number(o.regular_price))),
-    [data]
-  );
-
   return (
     <Flex flexDirection={"column"} gap={12}>
       <Flex flexDirection={"column"} alignItems={"center"} gap={2}>
@@ -47,17 +42,28 @@ const Product = ({
 
       <Flex justifyContent={"center"} alignItems={"center"} pos={"relative"}>
         <Flex justifyContent={"center"} gap={100}>
+          <Button
+            fontSize={18}
+            fontWeight={!categoriId ? 700 : 400}
+            variant={"unstyled"}
+            textTransform={"capitalize"}
+            onClick={() => onHandleChangeCategory("")}
+          >
+            all
+          </Button>
           {categories.map((item) => {
             const { id, name } = item;
             return (
-              <Text
+              <Button
                 key={id}
                 fontSize={18}
-                fontWeight={400}
-                fontFamily={"lekton"}
+                fontWeight={categoriId === String(id) ? 700 : 400}
+                textTransform={"capitalize"}
+                variant={"unstyled"}
+                onClick={() => onHandleChangeCategory(String(id))}
               >
                 {name}
-              </Text>
+              </Button>
             );
           })}
         </Flex>
@@ -90,7 +96,10 @@ const Product = ({
       </Flex>
       <Grid gap={12} templateColumns={"repeat(4, 1fr)"}>
         <GridItem>
-          <Filter minValue={MIN} maxValue={MAX} />
+          <Filter
+            onHandleChangePriceRange={onHandleChangePriceRange}
+            priceSelect={priceSelect}
+          />
         </GridItem>
         <GridItem colStart={2} colSpan={3}>
           {data.length > 0 ? (
@@ -110,7 +119,7 @@ const Product = ({
             <Flex justifyContent={"flex-start"} alignItems={"center"}>
               <Text fontSize={24} fontWeight={700}>
                 There is no result found
-                {searchKey ? ` with keyword: ${searchKey}` : ""}
+                {searchKey && ` with keyword: ${searchKey}`}{" "}
               </Text>
             </Flex>
           )}

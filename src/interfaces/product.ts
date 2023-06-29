@@ -24,6 +24,11 @@ export interface ProductProps {
   data: IProduct[];
   currentPage: number;
   totalPages: number;
+  onHandleChangeCategory: any;
+  categories: ICategory[];
+  categoriId: string;
+  onHandleChangePriceRange: onHandleChangePriceRange;
+  priceSelect: string;
   searchKey: string;
   onHandleChangePagination: any;
   onHandleChangeInput: any;
@@ -31,6 +36,7 @@ export interface ProductProps {
   errorInputMessage: string;
 }
 
+type onHandleChangePriceRange = (id: string) => void;
 export interface CardProps {
   data: IProduct;
 }

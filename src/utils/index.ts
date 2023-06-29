@@ -4,6 +4,7 @@ export {
   BASE_URL,
   NOT_FOUND_IMAGE,
   PRODUCT_PER_PAGE,
+  FILTER_RANGE,
   REG_HTML_TAGS,
 } from "./constant";
 export { currencyVND } from "./format";

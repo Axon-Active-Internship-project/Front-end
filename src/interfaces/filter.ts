@@ -1,5 +1,4 @@
 export interface FilterProps {
-  maxValue: number;
-  minValue: number;
-  step?: number;
+  priceSelect: string;
+  onHandleChangePriceRange: any;
 }
