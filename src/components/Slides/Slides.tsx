@@ -9,6 +9,8 @@ import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
 
+import "./stytes.css";
+
 const Slides = ({ images }: { images: IImageProduct[] }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   return (
@@ -59,6 +61,7 @@ const Slides = ({ images }: { images: IImageProduct[] }) => {
           freeMode={true}
           watchSlidesProgress={true}
           modules={[FreeMode, Navigation, Thumbs]}
+          className="mySwiper"
         >
           {images.map((image) => {
             const { id, src, alt } = image;

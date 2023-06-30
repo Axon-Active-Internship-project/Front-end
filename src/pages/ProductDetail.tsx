@@ -14,14 +14,9 @@ import {
 import { ProductDetailProps } from "../interfaces/product";
 import { Slides } from "../components";
 import { currencyVND } from "../utils";
-import {
-  AddIcon,
-  MinusIcon,
-  TriangleDownIcon,
-  TriangleUpIcon,
-} from "@chakra-ui/icons";
+import { AddIcon, MinusIcon } from "@chakra-ui/icons";
 import parse from "html-react-parser";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 
 const ProductDetail = ({
   data,
@@ -41,7 +36,23 @@ const ProductDetail = ({
     stock_quantity,
   } = data;
 
-  const [isReadMore, setIsReadMore] = useState(true);
+  const [lines, setLines] = useState<number>(0);
+  const [isReadMore, setIsReadMore] = useState<boolean>(false);
+  const descriptionRef = useRef<HTMLParagraphElement>(null);
+
+  useEffect(() => {
+    const divHeight = descriptionRef.current?.offsetHeight;
+
+    const lineHeightString = window
+      .getComputedStyle(descriptionRef.current, null)
+      .getPropertyValue("line-height");
+
+    const lineHeight = parseInt(lineHeightString);
+
+    setLines(() => divHeight / lineHeight);
+    console.log(lines);
+  }, [lines]);
+
   const toggleReadMore = () => {
     setIsReadMore(!isReadMore);
   };
@@ -133,7 +144,9 @@ const ProductDetail = ({
                 <Text
                   fontSize={20}
                   textTransform={"capitalize"}
-                  noOfLines={isReadMore ? 2 : undefined}
+                  noOfLines={isReadMore ? 5 : undefined}
+                  lineHeight={"30px"}
+                  ref={descriptionRef}
                 >
                   {short_description
                     ? parse(short_description)
@@ -144,8 +157,9 @@ const ProductDetail = ({
                   pos={"absolute"}
                   right={0}
                   bottom={0}
+                  cursor={"pointer"}
                 >
-                  {isReadMore ? <TriangleDownIcon /> : <TriangleUpIcon />}
+                  <Text>{isReadMore ? "Show more" : "Show more"}</Text>
                 </Box>
               </Box>
             ) : null}
@@ -245,7 +259,17 @@ const ProductDetail = ({
               >
                 Add to cart
               </Button>
-              <Button fontSize={"26px"} backgroundColor={"#000"} color={"#FFF"}>
+              <Button
+                fontSize={"26px"}
+                backgroundColor={"#000"}
+                color={"#FFF"}
+                css={`
+                  &:hover {
+                    color: black;
+                    backgroundcolor: red;
+                  }
+                `}
+              >
                 Buy now
               </Button>
             </HStack>
