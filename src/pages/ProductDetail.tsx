@@ -75,7 +75,7 @@ const ProductDetail = ({
   };
 
   const preventMinus = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "-") {
+    if (e.key === "-" || e.key === "+") {
       e.preventDefault();
     }
   };
