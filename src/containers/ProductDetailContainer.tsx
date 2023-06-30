@@ -26,8 +26,6 @@ const ProductDetailContainer = () => {
     return <NotFound />;
   }
 
-  console.log(quantity);
-
   return (
     <ProductDetail
       data={data?.data}

@@ -14,7 +14,14 @@ import {
 import { ProductDetailProps } from "../interfaces/product";
 import { Slides } from "../components";
 import { currencyVND } from "../utils";
-import { AddIcon, MinusIcon } from "@chakra-ui/icons";
+import {
+  AddIcon,
+  MinusIcon,
+  TriangleDownIcon,
+  TriangleUpIcon,
+} from "@chakra-ui/icons";
+import parse from "html-react-parser";
+import { useState } from "react";
 
 const ProductDetail = ({
   data,
@@ -33,6 +40,11 @@ const ProductDetail = ({
     stock_status,
     stock_quantity,
   } = data;
+
+  const [isReadMore, setIsReadMore] = useState(true);
+  const toggleReadMore = () => {
+    setIsReadMore(!isReadMore);
+  };
 
   const onHandleIncrementQuantity = () => {
     onHandleChangequantity((quantity: number) => quantity + 1);
@@ -56,12 +68,16 @@ const ProductDetail = ({
       return onHandleChangequantity(() => Number(value));
     }
 
-    if (Number(value) <= 0) {
-      console.log("oc");
-
+    if (Math.abs(Number(value)) <= 0) {
       return onHandleChangequantity(() => 1);
     }
     return onHandleChangequantity(() => 1);
+  };
+
+  const preventMinus = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "-") {
+      e.preventDefault();
+    }
   };
 
   return (
@@ -112,11 +128,27 @@ const ProductDetail = ({
                 </HStack>
               )}
             </Box>
-            <Box mb={"48px"}>
-              <Text fontSize={20} textTransform={"capitalize"}>
-                {short_description ? short_description : description}
-              </Text>
-            </Box>
+            {!!short_description || !!description ? (
+              <Box mb={"48px"} pos={"relative"}>
+                <Text
+                  fontSize={20}
+                  textTransform={"capitalize"}
+                  noOfLines={isReadMore ? 2 : undefined}
+                >
+                  {short_description
+                    ? parse(short_description)
+                    : parse(description || "")}
+                </Text>
+                <Box
+                  onClick={toggleReadMore}
+                  pos={"absolute"}
+                  right={0}
+                  bottom={0}
+                >
+                  {isReadMore ? <TriangleDownIcon /> : <TriangleUpIcon />}
+                </Box>
+              </Box>
+            ) : null}
             <HStack mb={"24px"}>
               <Text fontSize={20} textTransform={"capitalize"} fontWeight={700}>
                 Category:
@@ -189,6 +221,7 @@ const ProductDetail = ({
                   value={quantity}
                   fontSize={"20px"}
                   min={1}
+                  onKeyDown={preventMinus}
                 />
                 <AddIcon
                   w={"20px"}
@@ -231,7 +264,7 @@ const ProductDetail = ({
           </TabList>
           <TabPanels>
             <TabPanel paddingY={0}>
-              <Text fontSize={"16px"}>{description}</Text>
+              <Text fontSize={"16px"}>{parse(description || "")}</Text>
             </TabPanel>
             <TabPanel paddingY={0}>
               <p>two!</p>

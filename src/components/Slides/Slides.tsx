@@ -6,19 +6,28 @@ import { Box, Image } from "@chakra-ui/react";
 
 import "swiper/css";
 import "swiper/css/free-mode";
+import "swiper/css/navigation";
 import "swiper/css/thumbs";
 
 const Slides = ({ images }: { images: IImageProduct[] }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   return (
-    <Box w={"450px"}>
+    <Box maxW={"450px"}>
       <Swiper
         loop={true}
         spaceBetween={10}
         navigation={true}
         thumbs={{ swiper: thumbsSwiper }}
         modules={[FreeMode, Navigation, Thumbs]}
-        // className="mySwiper2"
+        style={{
+          width: "100%",
+          height: "500px",
+          marginBottom: "32px",
+          "--swiper-navigation-color": "#fff",
+          "--swiper-pagination-color": "#fff",
+          "--swiper-navigation-size": "26px",
+          "--swiper-pagination-size": "26px",
+        }}
       >
         {images.map((image) => {
           const { id, src, alt } = image;
@@ -29,34 +38,53 @@ const Slides = ({ images }: { images: IImageProduct[] }) => {
               style={{
                 width: "100%",
                 height: "100%",
-                color: "red",
               }}
             >
-              <Image src={src} alt={alt} className="swiper_image" />
+              <Image
+                src={src}
+                alt={alt}
+                width={"100%"}
+                height={"100%"}
+                objectFit={"cover"}
+              />
             </SwiperSlide>
           );
         })}
       </Swiper>
-      <Swiper
-        onSwiper={(swiper) => setThumbsSwiper(swiper)}
-        loop={true}
-        spaceBetween={24}
-        slidesPerView={4}
-        freeMode={true}
-        watchSlidesProgress={true}
-        modules={[FreeMode, Navigation, Thumbs]}
-        className="mySwiper "
-      >
-        {images.map((image) => {
-          const { id, src, alt } = image;
+      {images.length > 1 && (
+        <Swiper
+          onSwiper={setThumbsSwiper}
+          loop={true}
+          slidesPerView={3}
+          freeMode={true}
+          watchSlidesProgress={true}
+          modules={[FreeMode, Navigation, Thumbs]}
+        >
+          {images.map((image) => {
+            const { id, src, alt } = image;
 
-          return (
-            <SwiperSlide key={id} className="swiper_image_perview_container">
-              <Image src={src} alt={alt} className="swiper_image_perview" />
-            </SwiperSlide>
-          );
-        })}
-      </Swiper>
+            return (
+              <SwiperSlide
+                key={id}
+                style={{
+                  width: "125px",
+                  height: "125px",
+                  // padding: 0,
+                }}
+              >
+                <Image
+                  src={src}
+                  alt={alt}
+                  w={"100%"}
+                  h={"100%"}
+                  paddingX={"12px"}
+                  objectFit={"cover"}
+                />
+              </SwiperSlide>
+            );
+          })}
+        </Swiper>
+      )}
     </Box>
   );
 };
