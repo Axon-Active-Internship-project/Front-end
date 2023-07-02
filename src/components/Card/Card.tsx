@@ -12,7 +12,7 @@ import {
 import { CardProps } from "../../interfaces/product";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { currencyVND } from "../../utils";
+import { NO_IMAGE, currencyVND } from "../../utils";
 
 const MyCard = ({ data }: CardProps) => {
   const [isHovering, setIsHovering] = useState(false);
@@ -26,6 +26,7 @@ const MyCard = ({ data }: CardProps) => {
   };
 
   const { id, name, regular_price, sale_price, images } = data;
+
   return (
     <Card
       maxW="sm"
@@ -42,7 +43,7 @@ const MyCard = ({ data }: CardProps) => {
           <Image
             w={"100%"}
             h={"300"}
-            src={images[0].src}
+            src={images[0]?.src || NO_IMAGE}
             borderRadius={10}
             objectFit={"fill"}
             opacity={isHovering ? 0.3 : 1}

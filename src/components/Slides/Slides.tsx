@@ -10,6 +10,7 @@ import "swiper/css/navigation";
 import "swiper/css/thumbs";
 
 import "./stytes.css";
+import { NO_IMAGE } from "../../utils";
 
 const Slides = ({ images }: { images: IImageProduct[] }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
@@ -31,27 +32,44 @@ const Slides = ({ images }: { images: IImageProduct[] }) => {
           "--swiper-pagination-size": "26px",
         }}
       >
-        {images.map((image) => {
-          const { id, src, alt } = image;
+        {images.length === 0 ? (
+          <SwiperSlide
+            style={{
+              width: "100%",
+              height: "100%",
+            }}
+          >
+            <Image
+              src={NO_IMAGE}
+              alt={"Product no image"}
+              width={"100%"}
+              height={"100%"}
+              objectFit={"cover"}
+            />
+          </SwiperSlide>
+        ) : (
+          images.map((image) => {
+            const { id, src, alt } = image;
 
-          return (
-            <SwiperSlide
-              key={id}
-              style={{
-                width: "100%",
-                height: "100%",
-              }}
-            >
-              <Image
-                src={src}
-                alt={alt}
-                width={"100%"}
-                height={"100%"}
-                objectFit={"cover"}
-              />
-            </SwiperSlide>
-          );
-        })}
+            return (
+              <SwiperSlide
+                key={id}
+                style={{
+                  width: "100%",
+                  height: "100%",
+                }}
+              >
+                <Image
+                  src={src || NO_IMAGE}
+                  alt={alt}
+                  width={"100%"}
+                  height={"100%"}
+                  objectFit={"cover"}
+                />
+              </SwiperSlide>
+            );
+          })
+        )}
       </Swiper>
       {images.length > 1 && (
         <Swiper

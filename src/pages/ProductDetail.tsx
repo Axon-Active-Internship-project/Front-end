@@ -37,24 +37,27 @@ const ProductDetail = ({
   } = data;
 
   const [lines, setLines] = useState<number>(0);
-  const [isReadMore, setIsReadMore] = useState<boolean>(false);
+  const [isShowReadMore, setIsShowReadMore] = useState<boolean>(false);
   const descriptionRef = useRef<HTMLParagraphElement>(null);
 
   useEffect(() => {
     const divHeight = descriptionRef.current?.offsetHeight;
 
-    const lineHeightString = window
-      .getComputedStyle(descriptionRef.current, null)
-      .getPropertyValue("line-height");
+    let lineHeight = 0;
 
-    const lineHeight = parseInt(lineHeightString);
+    if (descriptionRef.current) {
+      lineHeight = parseInt(
+        window
+          .getComputedStyle(descriptionRef.current, null)
+          .getPropertyValue("line-height")
+      );
+    }
 
     setLines(() => divHeight / lineHeight);
-    console.log(lines);
-  }, [lines]);
+  }, []);
 
   const toggleReadMore = () => {
-    setIsReadMore(!isReadMore);
+    setIsShowReadMore(!isShowReadMore);
   };
 
   const onHandleIncrementQuantity = () => {
@@ -144,7 +147,7 @@ const ProductDetail = ({
                 <Text
                   fontSize={20}
                   textTransform={"capitalize"}
-                  noOfLines={isReadMore ? 5 : undefined}
+                  noOfLines={isShowReadMore ? undefined : 3}
                   lineHeight={"30px"}
                   ref={descriptionRef}
                 >
@@ -152,15 +155,17 @@ const ProductDetail = ({
                     ? parse(short_description)
                     : parse(description || "")}
                 </Text>
-                <Box
-                  onClick={toggleReadMore}
-                  pos={"absolute"}
-                  right={0}
-                  bottom={0}
-                  cursor={"pointer"}
-                >
-                  <Text>{isReadMore ? "Show more" : "Show more"}</Text>
-                </Box>
+                {lines < 3 ? null : (
+                  <Box
+                    onClick={toggleReadMore}
+                    pos={"absolute"}
+                    right={0}
+                    bottom={-5}
+                    cursor={"pointer"}
+                  >
+                    <Text>{isShowReadMore ? "Show less" : "Show more"}</Text>
+                  </Box>
+                )}
               </Box>
             ) : null}
             <HStack mb={"24px"}>
