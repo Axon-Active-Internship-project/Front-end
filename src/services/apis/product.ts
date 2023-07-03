@@ -34,7 +34,28 @@ const product = {
 
     const result = await instance.get(url);
 
+    result.data = result?.data.sort((a: any, b: any) => {
+      const nameA = a.name.toUpperCase();
+      const nameB = b.name.toUpperCase();
+      if (nameA < nameB) {
+        return -1;
+      }
+      if (nameA > nameB) {
+        return 1;
+      }
+      return 0;
+    });
+
     return result;
+  },
+
+  getProductById: async (id: string | undefined) => {
+    if (id) {
+      const result = await instance.get(`products/${id}`);
+
+      return result;
+    }
+    return null;
   },
 
   getCategoryProduct: async () => {

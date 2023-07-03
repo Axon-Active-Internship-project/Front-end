@@ -6,6 +6,7 @@ export {
   PRODUCT_PER_PAGE,
   FILTER_RANGE,
   REG_HTML_TAGS,
+  NO_IMAGE,
 } from "./constant";
 export { currencyVND } from "./format";
 export { HeaderOptions, ErrorInputMessage } from "./enum";
