@@ -7,6 +7,7 @@ export {
   FILTER_RANGE,
   REG_HTML_TAGS,
   NO_IMAGE,
+  TABLE_HEADER,
 } from "./constant";
 export { currencyVND } from "./format";
 export { HeaderOptions, ErrorInputMessage } from "./enum";

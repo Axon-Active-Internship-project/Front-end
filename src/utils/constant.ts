@@ -11,3 +11,10 @@ export const FILTER_RANGE = [
   { min: "800001", max: "" },
 ];
 export const REG_HTML_TAGS = /<[^>]*>/g;
+export const TABLE_HEADER = [
+  "Image",
+  "Product name",
+  "Unit price",
+  "Quantity",
+  "Total",
+];
