@@ -155,7 +155,7 @@ const ProductDetail = ({
                     ? parse(short_description)
                     : parse(description || "")}
                 </Text>
-                {lines <= 3 ? null : (
+                {lines < 3 ? null : (
                   <Box
                     onClick={toggleReadMore}
                     pos={"absolute"}
@@ -240,6 +240,7 @@ const ProductDetail = ({
                   value={quantity}
                   fontSize={"20px"}
                   min={1}
+                  max={stock_quantity}
                   onKeyDown={preventMinus}
                 />
                 <AddIcon
