@@ -155,7 +155,7 @@ const ProductDetail = ({
                     ? parse(short_description)
                     : parse(description || "")}
                 </Text>
-                {lines < 3 ? null : (
+                {lines <= 3 ? null : (
                   <Box
                     onClick={toggleReadMore}
                     pos={"absolute"}
@@ -293,10 +293,10 @@ const ProductDetail = ({
           </TabList>
           <TabPanels>
             <TabPanel paddingY={0}>
-              <Text fontSize={"16px"}>{parse(description || "")}</Text>
+              <Text fontSize={"20px"}>{parse(description || "")}</Text>
             </TabPanel>
             <TabPanel paddingY={0}>
-              <p>two!</p>
+              <Text fontSize={"20px"}>review</Text>
             </TabPanel>
           </TabPanels>
         </Tabs>

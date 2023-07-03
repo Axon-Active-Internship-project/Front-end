@@ -41,7 +41,7 @@ const Product = ({
       </Flex>
 
       <Flex justifyContent={"center"} alignItems={"center"} pos={"relative"}>
-        <Flex justifyContent={"center"} gap={100}>
+        <Flex justifyContent={"flex-start"} gap={100}>
           <Button
             fontSize={18}
             fontWeight={!categoriId ? 700 : 400}
@@ -53,6 +53,10 @@ const Product = ({
           </Button>
           {categories.map((item) => {
             const { id, name } = item;
+
+            if (name === "Uncategorized") {
+              return null;
+            }
             return (
               <Button
                 key={id}
