@@ -18,3 +18,8 @@ export const TABLE_HEADER = [
   "Quantity",
   "Total",
 ];
+
+export const CART = {
+  KEY_WORD: "CART",
+  ACTION: {},
+};

@@ -11,3 +11,4 @@ export {
 } from "./constant";
 export { currencyVND } from "./format";
 export { HeaderOptions, ErrorInputMessage } from "./enum";
+export { default } from "./Storage";

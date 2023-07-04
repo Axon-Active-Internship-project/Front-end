@@ -1,5 +1,4 @@
 import {
-  Box,
   Flex,
   Heading,
   Image,
@@ -40,6 +39,7 @@ const ShoppingCart = () => {
             </Tr>
           </Thead>
           <Tbody>
+            <Tr>category</Tr>
             {SHOPPING_CART_DATA.map((item) => {
               const { id, image, name, unit_price, quantity } = item;
 
