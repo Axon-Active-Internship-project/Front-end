@@ -53,7 +53,7 @@ const product = {
     if (id) {
       const result = await instance.get(`products/${id}`);
 
-      return result;
+      return result.data;
     }
     return null;
   },

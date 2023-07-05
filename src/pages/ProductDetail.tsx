@@ -13,7 +13,7 @@ import {
 } from "@chakra-ui/react";
 import { ProductDetailProps } from "../interfaces/product";
 import { Slides } from "../components";
-import { currencyVND } from "../utils";
+import { addToCart, currencyVND } from "../utils";
 import { AddIcon, MinusIcon } from "@chakra-ui/icons";
 import parse from "html-react-parser";
 import { useState, useRef, useEffect } from "react";
@@ -24,6 +24,7 @@ const ProductDetail = ({
   quantity,
 }: ProductDetailProps) => {
   const {
+    id,
     name,
     sale_price,
     regular_price,
@@ -261,6 +262,7 @@ const ProductDetail = ({
                     backgroundcolor: white;
                   }
                 `}
+                onClick={() => addToCart(id, quantity)}
               >
                 Add to cart
               </Button>

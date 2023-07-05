@@ -28,7 +28,7 @@ const ProductDetailContainer = () => {
 
   return (
     <ProductDetail
-      data={data?.data}
+      data={data}
       onHandleChangequantity={(quantity: number) => setQuantity(quantity)}
       quantity={quantity}
     />
