@@ -5,7 +5,6 @@ import { Icon } from "@chakra-ui/icons";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { useMemo } from "react";
-import { getSessionItems } from "../../utils";
 
 const data = [
   { name: "home", path: "/" },
@@ -16,9 +15,8 @@ const data = [
 
 const Header = () => {
   const size = useMemo(() => {
-    const sessionItems = getSessionItems();
-    return sessionItems.length;
-  }, [sessionStorage]);
+    return 0;
+  }, []);
 
   return (
     <Box p={3} position={"sticky"} mb={"24px"} w={"100%"} zIndex={100}>

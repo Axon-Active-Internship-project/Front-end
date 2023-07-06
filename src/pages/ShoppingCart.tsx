@@ -13,10 +13,16 @@ import {
   Tr,
 } from "@chakra-ui/react";
 import { AddIcon, MinusIcon } from "@chakra-ui/icons";
-import { TABLE_HEADER, currencyVND, removeCartItem } from "../utils";
-import { SHOPPING_CART_DATA } from "../utils/FakeAPI";
+import { TABLE_HEADER, currencyVND } from "../utils";
+import { ShoppingCartProps } from "../interfaces";
 
-const ShoppingCart = ({ data }: any) => {
+const ShoppingCart = ({
+  data,
+  onDelete,
+  onIncrementQuantity,
+  onReduceQuantity,
+  onHandleChangeQuantity,
+}: ShoppingCartProps) => {
   return (
     <Flex paddingX={"136px"} flexDirection={"column"}>
       <Heading mb={"48px"}>Shopping cart</Heading>
@@ -41,119 +47,104 @@ const ShoppingCart = ({ data }: any) => {
           </Thead>
           <Tbody>
             {data?.map((item, index) => {
+              const { id, image, name, regular_price, sale_price, quantity } =
+                item;
+              const totalPrice = quantity * Number(sale_price || regular_price);
               return (
-                <>
-                  <Tr
-                    key={index}
-                    fontSize={"24px"}
-                    fontWeight={700}
-                    textTransform={"capitalize"}
+                <Tr
+                  key={id}
+                  borderWidth={"1px"}
+                  borderColor={"black"}
+                  color={"black"}
+                  fontSize={"20px"}
+                  fontWeight={400}
+                  textTransform={"capitalize"}
+                >
+                  <Td borderWidth={"1px"} borderColor={"black"} color={"black"}>
+                    <Image
+                      src={image}
+                      w={"200px"}
+                      h={"200px"}
+                      objectFit={"cover"}
+                    />
+                  </Td>
+                  <Td
+                    borderWidth={"1px"}
+                    borderColor={"black"}
+                    color={"black"}
+                    textAlign={"center"}
                   >
-                    <Td borderWidth={"1px"} borderColor={"black"} colSpan={5}>
-                      {item[0]}
-                    </Td>
-                  </Tr>
-                  {item[1].map((subItem) => {
-                    return (
-                      <Tr
-                        key={subItem?.data?.id}
-                        borderWidth={"1px"}
-                        borderColor={"black"}
-                        color={"black"}
+                    {name}
+                  </Td>
+                  <Td
+                    borderWidth={"1px"}
+                    borderColor={"black"}
+                    color={"black"}
+                    textAlign={"center"}
+                  >
+                    {(sale_price || regular_price) &&
+                      currencyVND(sale_price ? sale_price : regular_price)}
+                  </Td>
+                  <Td
+                    borderWidth={"1px"}
+                    borderColor={"black"}
+                    color={"black"}
+                    textAlign={"center"}
+                  >
+                    <Flex
+                      justifyContent={"space-between"}
+                      alignItems={"center"}
+                      w={"160px"}
+                      h={"50px"}
+                      borderRadius={"15px"}
+                      borderColor={"black"}
+                      borderWidth="1px"
+                      paddingX={"12px"}
+                      m={0}
+                    >
+                      <MinusIcon
+                        w={"20px"}
+                        h={"20px"}
+                        cursor={"pointer"}
+                        onClick={() => onReduceQuantity(id)}
+                      />
+                      <Input
+                        border={"none"}
+                        paddingY={"2px"}
+                        textAlign={"center"}
+                        w={"auto"}
+                        focusBorderColor={"transparent"}
+                        type="number"
                         fontSize={"20px"}
-                        fontWeight={400}
-                        textTransform={"capitalize"}
-                      >
-                        <Td
-                          borderWidth={"1px"}
-                          borderColor={"black"}
-                          color={"black"}
-                        >
-                          <Image
-                            src={subItem?.data?.images[0].src}
-                            w={"200px"}
-                            h={"200px"}
-                            objectFit={"cover"}
-                          />
-                        </Td>
-                        <Td
-                          borderWidth={"1px"}
-                          borderColor={"black"}
-                          color={"black"}
-                          textAlign={"center"}
-                        >
-                          {subItem?.data?.name}
-                        </Td>
-                        <Td
-                          borderWidth={"1px"}
-                          borderColor={"black"}
-                          color={"black"}
-                          textAlign={"center"}
-                        >
-                          {subItem?.data?.sale_price
-                            ? subItem?.data?.sale_price
-                            : subItem?.data?.regular_price}
-                        </Td>
-                        <Td
-                          borderWidth={"1px"}
-                          borderColor={"black"}
-                          color={"black"}
-                          textAlign={"center"}
-                        >
-                          <Flex
-                            justifyContent={"space-between"}
-                            alignItems={"center"}
-                            w={"160px"}
-                            h={"50px"}
-                            borderRadius={"15px"}
-                            borderColor={"black"}
-                            borderWidth="1px"
-                            paddingX={"12px"}
-                            m={0}
-                          >
-                            <MinusIcon
-                              w={"20px"}
-                              h={"20px"}
-                              cursor={"pointer"}
-                            />
-                            <Input
-                              border={"none"}
-                              paddingY={"2px"}
-                              textAlign={"center"}
-                              w={"auto"}
-                              focusBorderColor={"transparent"}
-                              type="number"
-                              fontSize={"20px"}
-                              min={1}
-                              defaultValue={subItem?.data?.quantity}
-                            />
-                            <AddIcon w={"20px"} h={"20px"} cursor={"pointer"} />
-                          </Flex>
-                        </Td>
-                        <Td
-                          borderWidth={"1px"}
-                          borderColor={"black"}
-                          color={"black"}
-                          textAlign={"center"}
-                        >
-                          111
-                        </Td>
-                        <Td
-                          borderWidth={"1px"}
-                          borderColor={"black"}
-                          color={"black"}
-                          textAlign={"center"}
-                        >
-                          <Button
-                            onClick={() => removeCartItem(subItem?.data?.id)}
-                          >
-                            Remove
-                          </Button>
-                        </Td>
-                      </Tr>
-                    );
-                  })}
-                </>
+                        min={1}
+                        value={quantity}
+                        onChange={(e) => onHandleChangeQuantity(id, e)}
+                      />
+                      <AddIcon
+                        w={"20px"}
+                        h={"20px"}
+                        cursor={"pointer"}
+                        onClick={() => onIncrementQuantity(id)}
+                      />
+                    </Flex>
+                  </Td>
+                  <Td
+                    borderWidth={"1px"}
+                    borderColor={"black"}
+                    color={"black"}
+                    textAlign={"center"}
+                  >
+                    {!!totalPrice && currencyVND(String(totalPrice))}
+                  </Td>
+                  <Td
+                    borderWidth={"1px"}
+                    borderColor={"black"}
+                    color={"black"}
+                    textAlign={"center"}
+                  >
+                    <Button onClick={() => onDelete(id)}>Remove</Button>
+                  </Td>
+                </Tr>
               );
             })}
           </Tbody>

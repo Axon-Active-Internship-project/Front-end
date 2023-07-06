@@ -12,7 +12,7 @@ import {
 import { CardProps } from "../../interfaces/product";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { NO_IMAGE, currencyVND } from "../../utils";
+import { NO_IMAGE, addToCart, currencyVND } from "../../utils";
 
 const MyCard = ({ data }: CardProps) => {
   const [isHovering, setIsHovering] = useState(false);
@@ -109,7 +109,14 @@ const MyCard = ({ data }: CardProps) => {
           padding={"12px"}
         >
           <Button colorScheme="yellow">Buy now</Button>
-          <Button colorScheme="green">Add to cart</Button>
+          <Button
+            colorScheme="green"
+            onClick={() =>
+              addToCart({ ...data, quantity: 1, image: images?.[0].src || "" })
+            }
+          >
+            Add to cart
+          </Button>
         </Flex>
       )}
     </Card>

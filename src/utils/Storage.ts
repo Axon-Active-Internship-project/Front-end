@@ -5,7 +5,7 @@ const Storage = {
    */
 
   getItem: (key: string) => {
-    return sessionStorage.getItem(key);
+    return localStorage.getItem(key);
   },
 
   /**
@@ -14,11 +14,11 @@ const Storage = {
    * @param value
    */
   setItem: (key: string, value: any) => {
-    sessionStorage.setItem(key, value);
+    localStorage.setItem(key, value);
   },
 
   clearItem: (key: string) => {
-    sessionStorage.removeItem(key);
+    localStorage.removeItem(key);
   },
 };
 

@@ -6,7 +6,7 @@ interface IProduct {
   regular_price: string;
   sale_price?: string;
   tags: ITag[];
-  categories?: ICategory[];
+  categories: ICategory[];
   images: IImageProduct[];
   stock_status?: string;
   stock_quantity?: number;

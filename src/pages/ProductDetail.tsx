@@ -24,7 +24,6 @@ const ProductDetail = ({
   quantity,
 }: ProductDetailProps) => {
   const {
-    id,
     name,
     sale_price,
     regular_price,
@@ -262,7 +261,13 @@ const ProductDetail = ({
                     backgroundcolor: white;
                   }
                 `}
-                onClick={() => addToCart(id, quantity)}
+                onClick={() =>
+                  addToCart({
+                    ...data,
+                    image: images?.[0].src || "",
+                    quantity,
+                  })
+                }
               >
                 Add to cart
               </Button>

@@ -10,4 +10,10 @@ export type {
 } from "./footer";
 export type { NavItemProps, NavProps } from "./header";
 export type { UsePaginationProps, PaginationProps } from "./pagination";
-export type { IShoppingCartItem } from "./shoppingCart";
+export type {
+  IShoppingCartItem,
+  ShoppingCartProps,
+  IShoppingCartData,
+  ISessionStorage,
+  ILocalStorageItem,
+} from "./shoppingCart";

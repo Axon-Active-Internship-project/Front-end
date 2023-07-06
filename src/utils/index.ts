@@ -12,4 +12,4 @@ export {
 export { currencyVND } from "./format";
 export { HeaderOptions, ErrorInputMessage } from "./enum";
 export { default } from "./Storage";
-export { addToCart, removeCartItem, getSessionItems } from "./cart";
+export { addToCart, getLocalStorageItems, isExistItem } from "./cart";

@@ -1,72 +1,52 @@
+import { ILocalStorageItem } from "../interfaces";
 import Storage from "./Storage";
 import { CART } from "./constant";
 
-export const getSessionItems = () => {
-  let sessionItems = [];
+export const getLocalStorageItems = () => {
+  let localStorageItems = [];
   const session = Storage.getItem(CART.KEY_WORD);
 
   if (typeof session !== undefined && session !== null) {
-    sessionItems = JSON.parse(session);
+    localStorageItems = JSON.parse(session);
   }
 
-  return sessionItems;
+  return localStorageItems;
 };
 
-export const addToCart = (id: number, quantity = 1) => {
+export const addToCart = (props: ILocalStorageItem) => {
   const session = Storage.getItem(CART.KEY_WORD);
-  let sessionItems = [];
+  let localStorageItems = [];
 
   if (typeof session !== undefined && session !== null) {
-    sessionItems = JSON.parse(session);
+    localStorageItems = JSON.parse(session);
   }
 
-  if (!isExistItem(id)) {
+  if (!isExistItem(props.id)) {
     const item = {
-      id,
-      quantity,
+      ...props,
     };
-    sessionItems.push(item);
+    localStorageItems.unshift(item);
   } else {
-    sessionItems?.map((item: any) => {
-      if (item.id === id) {
-        item.quantity += quantity;
+    localStorageItems?.map((item: any) => {
+      if (item.id === props.id) {
+        item.quantity += props.quantity;
       }
     });
   }
-  Storage.setItem(CART.KEY_WORD, JSON.stringify(sessionItems));
+  Storage.setItem(CART.KEY_WORD, JSON.stringify(localStorageItems));
 };
 
-const isExistItem = (id: number) => {
-  const sessionItems = Storage.getItem(CART.KEY_WORD);
+export const isExistItem = (id: number) => {
+  const localStorageItems = Storage.getItem(CART.KEY_WORD);
 
-  if (sessionItems === null) {
+  if (localStorageItems === null) {
     return false;
   }
 
-  if (typeof sessionItems === undefined) {
+  if (typeof localStorageItems === undefined) {
     return false;
   }
 
-  const sessionItemsParse = JSON.parse(sessionItems);
+  const sessionItemsParse = JSON.parse(localStorageItems);
   return sessionItemsParse.some((item: any) => item?.id === id);
-};
-
-export const removeCartItem = (id: number) => {
-  const session = Storage.getItem(CART.KEY_WORD);
-  let sessionItems = [];
-
-  if (typeof session !== undefined && session !== null) {
-    sessionItems = JSON.parse(session);
-  }
-
-  if (isExistItem(id)) {
-    Storage.setItem(
-      CART.KEY_WORD,
-      JSON.stringify(sessionItems?.filter((item) => item.id !== id))
-    );
-  }
-};
-
-export const clearCartItem = () => {
-  Storage.clearItem(CART.KEY_WORD);
 };
