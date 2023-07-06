@@ -264,7 +264,7 @@ const ProductDetail = ({
                 onClick={() =>
                   addToCart({
                     ...data,
-                    image: images?.[0].src || "",
+                    image: images?.[0].src || NO_IMAGE,
                     quantity,
                   })
                 }

@@ -18,9 +18,10 @@ export interface IShoppingCartItem {
 export interface ShoppingCartProps {
   data: ILocalStorageItem[] | [];
   onDelete: any;
-  onIncrementQuantity: any;
-  onReduceQuantity: any;
-  onHandleChangeQuantity: any
+  // onIncrementQuantity: any;
+  // onReduceQuantity: any;
+  // onHandleChangeQuantity: any
+  onHandleChange: any;
 }
 
 export interface ISessionStorage {

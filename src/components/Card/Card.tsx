@@ -112,7 +112,11 @@ const MyCard = ({ data }: CardProps) => {
           <Button
             colorScheme="green"
             onClick={() =>
-              addToCart({ ...data, quantity: 1, image: images?.[0].src || "" })
+              addToCart({
+                ...data,
+                quantity: 1,
+                image: images?.[0]?.src || NO_IMAGE,
+              })
             }
           >
             Add to cart
