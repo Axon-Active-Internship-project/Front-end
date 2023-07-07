@@ -1,4 +1,5 @@
 import { ICategory, IImageProduct } from "./product";
+import { ICouponData, IErrorCoupon } from "./coupon";
 
 export interface IShoppingCartData {
   title: string;
@@ -17,11 +18,15 @@ export interface IShoppingCartItem {
 
 export interface ShoppingCartProps {
   data: ILocalStorageItem[] | [];
+  couponData: ICouponData | undefined;
+  errorCoupon: IErrorCoupon;
+  couponInput: string;
   onDelete: any;
-  // onIncrementQuantity: any;
-  // onReduceQuantity: any;
-  // onHandleChangeQuantity: any
-  onHandleChange: any;
+  onHandleChangeQuantity: any;
+  onHandleChangeCoupon: any;
+  onHandleApplyCoupon: any;
+  onHandleRemoveCoupon: any;
+  onFocusInputCoupon: any;
 }
 
 export interface ISessionStorage {
@@ -30,6 +35,7 @@ export interface ISessionStorage {
 }
 
 export interface ILocalStorageItem {
+  stock_quantity: boolean;
   id: number;
   quantity: number;
   image: string;

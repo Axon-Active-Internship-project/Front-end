@@ -8,6 +8,8 @@ export {
   REG_HTML_TAGS,
   NO_IMAGE,
   TABLE_HEADER,
+  COUPON_ERROR_MESSAGE,
+  CART,
 } from "./constant";
 export { currencyVND } from "./format";
 export { HeaderOptions, ErrorInputMessage } from "./enum";

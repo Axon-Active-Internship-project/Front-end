@@ -26,8 +26,12 @@ const useLocalStorage = (
     } catch (err) {
       console.log("err => ", err);
     }
-    setStoredValue(newValue);
+    return setStoredValue(() => newValue);
   };
+
+  const localStorageListener = (callback: any) => {
+    // win
+  }
 
   return [storedValue, setValue];
 };

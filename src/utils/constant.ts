@@ -17,9 +17,15 @@ export const TABLE_HEADER = [
   "Unit price",
   "Quantity",
   "Total",
+  "Action",
 ];
 
 export const CART = {
   KEY_WORD: "CART",
   ACTION: {},
+};
+
+export const COUPON_ERROR_MESSAGE = {
+  NO_COUPON: "Enter your coupon code",
+  IS_NOT_VALID_COUPON: "Your coupon isn't valid",
 };

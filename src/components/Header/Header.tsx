@@ -4,7 +4,9 @@ import { Badge, Box, Flex, Spacer } from "@chakra-ui/react";
 import { Icon } from "@chakra-ui/icons";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { Link } from "react-router-dom";
-import { useMemo } from "react";
+import { useMemo, useState, useEffect } from "react";
+import { useLocalStorage } from "../../hooks";
+import { CART } from "../../utils";
 
 const data = [
   { name: "home", path: "/" },
@@ -14,9 +16,7 @@ const data = [
 ];
 
 const Header = () => {
-  const size = useMemo(() => {
-    return 0;
-  }, []);
+  const [size, setSize] = useState<number>(0);
 
   return (
     <Box p={3} position={"sticky"} mb={"24px"} w={"100%"} zIndex={100}>

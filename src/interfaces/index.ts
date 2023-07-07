@@ -17,3 +17,5 @@ export type {
   ISessionStorage,
   ILocalStorageItem,
 } from "./shoppingCart";
+
+export type { ICouponData, IErrorCoupon } from "./coupon";
