@@ -225,7 +225,7 @@ const ShoppingCart = ({
                         <Flex
                           justifyContent={"space-between"}
                           alignItems={"center"}
-                          w={"160px"}
+                          w={"140px"}
                           h={"50px"}
                           borderRadius={"15px"}
                           borderColor={"black"}
