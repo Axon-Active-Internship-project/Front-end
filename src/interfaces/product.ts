@@ -44,12 +44,14 @@ export interface ProductProps {
   isErrorInput: boolean;
   errorInputMessage: string;
   onHandleAddToCart: any;
+  onHandleBuyNow: any;
 }
 
 type onHandleChangePriceRange = (id: string) => void;
 export interface CardProps {
   data: IProduct;
   handleAddToCart: any;
+  handleBuyNow: any;
 }
 
 export interface ProductDetailProps {
@@ -57,6 +59,7 @@ export interface ProductDetailProps {
   quantity: number;
   onHandleChangequantity: any;
   onHandleAddToCart: any;
+  onHandleBuyNow: any;
 }
 
 export default IProduct;

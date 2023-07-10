@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { NotFound, ProductDetail } from "../pages";
 import { useQuery } from "@tanstack/react-query";
 import { product } from "../services/apis";
@@ -9,6 +9,8 @@ import { addToCart } from "../utils";
 const ProductDetailContainer = () => {
   const { id } = useParams();
 
+  const navigate = useNavigate();
+
   const [quantity, setQuantity] = useState<number>(1);
 
   const { data, isLoading, isError } = useQuery({
@@ -18,6 +20,11 @@ const ProductDetailContainer = () => {
 
   const onHandleAddToCart = (item: ILocalStorageItem) => {
     addToCart(item);
+  };
+
+  const onHandleBuyNow = (item: ILocalStorageItem) => {
+    addToCart(item);
+    navigate("../shopping-cart");
   };
 
   if (isLoading) {
@@ -38,6 +45,7 @@ const ProductDetailContainer = () => {
       onHandleChangequantity={(quantity: number) => setQuantity(quantity)}
       quantity={quantity}
       onHandleAddToCart={onHandleAddToCart}
+      onHandleBuyNow={onHandleBuyNow}
     />
   );
 };

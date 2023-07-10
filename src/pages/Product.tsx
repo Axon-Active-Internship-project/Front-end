@@ -29,6 +29,7 @@ const Product = ({
   errorInputMessage,
   onHandleChangePagination,
   onHandleAddToCart,
+  onHandleBuyNow
 }: ProductProps) => {
   return (
     <Flex flexDirection={"column"} gap={12}>
@@ -110,7 +111,8 @@ const Product = ({
                   <Card
                     data={item}
                     key={item.id}
-                    handleAddToCart={onHandleAddToCart}
+                    handleAddToCart={onHandleAddToCart} 
+                    handleBuyNow = {onHandleBuyNow}
                   />
                 ))}
               </Grid>

@@ -10,6 +10,7 @@ import {
   addToCart,
 } from "../utils";
 import { ILocalStorageItem } from "../interfaces";
+import { useNavigate } from "react-router-dom";
 
 const ProductContainer = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -21,6 +22,8 @@ const ProductContainer = () => {
     message: string;
   }>({ isError: false, message: "" });
   const timer = useRef<any>(null);
+
+  const navigate = useNavigate();
 
   const filterRange = useMemo(() => {
     return { ...FILTER_RANGE[Number(priceSelect)] };
@@ -147,6 +150,11 @@ const ProductContainer = () => {
     addToCart(item);
   };
 
+  const onHandleBuyNow = (item: ILocalStorageItem) => {
+    addToCart(item);
+    navigate("../shopping-cart");
+  };
+
   if (result[0].isLoading || result[1].isLoading) {
     return <p> Loading</p>;
   }
@@ -171,6 +179,7 @@ const ProductContainer = () => {
       isErrorInput={errorInput.isError}
       errorInputMessage={errorInput.message}
       onHandleAddToCart={onHandleAddToCart}
+      onHandleBuyNow= {onHandleBuyNow}
     />
   );
 };

@@ -13,7 +13,7 @@ import {
 } from "@chakra-ui/react";
 import { ProductDetailProps } from "../interfaces/product";
 import { Slides } from "../components";
-import { addToCart, currencyVND } from "../utils";
+import { currencyVND } from "../utils";
 import { AddIcon, MinusIcon } from "@chakra-ui/icons";
 import parse from "html-react-parser";
 import { useState, useRef, useEffect } from "react";
@@ -23,6 +23,7 @@ const ProductDetail = ({
   onHandleChangequantity,
   quantity,
   onHandleAddToCart,
+  onHandleBuyNow,
 }: ProductDetailProps) => {
   const {
     name,
@@ -282,6 +283,13 @@ const ProductDetail = ({
                     backgroundcolor: red;
                   }
                 `}
+                onClick={() =>
+                  onHandleBuyNow({
+                    ...data,
+                    image: images?.[0].src || NO_IMAGE,
+                    quantity,
+                  })
+                }
               >
                 Buy now
               </Button>
