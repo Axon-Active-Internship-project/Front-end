@@ -27,5 +27,5 @@ export const CART = {
 
 export const COUPON_ERROR_MESSAGE = {
   NO_COUPON: "Enter your coupon code",
-  IS_NOT_VALID_COUPON: "Your coupon isn't valid",
+  IS_NOT_VALID_COUPON: "Your coupon is invalid",
 };

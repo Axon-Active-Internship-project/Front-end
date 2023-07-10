@@ -5,6 +5,7 @@ import { CART, COUPON_ERROR_MESSAGE } from "../utils/";
 import { isExistItem } from "../utils";
 import { ICouponData, IErrorCoupon } from "../interfaces";
 import { coupon } from "../services/apis";
+import { useToast } from "@chakra-ui/react";
 
 const ShoppingCartContainer = () => {
   const [cartItems, setCartItems] = useLocalStorage(CART.KEY_WORD, []);
@@ -16,6 +17,11 @@ const ShoppingCartContainer = () => {
   const [errorCoupon, setErrorCoupon] = useState<IErrorCoupon>({
     isError: false,
     message: "",
+  });
+
+  const toast = useToast({
+    position: "top",
+    duration: 3000,
   });
 
   // const timer = useRef<any>(null);
@@ -50,6 +56,12 @@ const ShoppingCartContainer = () => {
 
   const onHandleApplyCoupon = async () => {
     if (!couponInput) {
+      toast({
+        title: "Fail",
+        description: "Enter your voucher",
+        status: "error",
+        isClosable: true,
+      });
       setCouponData(() => {});
       return setErrorCoupon(() => ({
         isError: true,
@@ -60,6 +72,12 @@ const ShoppingCartContainer = () => {
     const data = await coupon.getCouponByCode(couponInput);
 
     if (data.data.length === 0) {
+      toast({
+        title: "Fail",
+        description: "Your voucher is invalid",
+        status: "error",
+        isClosable: true,
+      });
       setCouponData(() => {});
       return setErrorCoupon(() => ({
         isError: true,
@@ -72,6 +90,12 @@ const ShoppingCartContainer = () => {
       isError: false,
       message: "",
     }));
+    toast({
+      title: "Successfully",
+      description: "You item already in shopping cart",
+      status: "success",
+      isClosable: true,
+    });
     return setCouponData(() => data.data[0]);
   };
 

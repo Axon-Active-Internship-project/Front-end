@@ -21,6 +21,7 @@ import { TABLE_HEADER, currencyVND, isExistItem } from "../utils";
 import { ShoppingCartProps } from "../interfaces";
 import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const ShoppingCart = ({
   data,
@@ -114,7 +115,7 @@ const ShoppingCart = ({
           ) {
             return { ...item, quantity: item?.stock_quantity };
           }
-          return { ...item, quantity: e.target.value };
+          return { ...item, quantity: Number(e.target.value) };
         }
         return item;
       })
@@ -122,7 +123,7 @@ const ShoppingCart = ({
   };
 
   const preventMinus = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "-" || e.key === "+") {
+    if (e.key === "-" || e.key === "+" || e.key === ".") {
       e.preventDefault();
     }
   };
@@ -173,9 +174,11 @@ const ShoppingCart = ({
                     regular_price,
                     sale_price,
                     quantity,
+                    stock_quantity,
                   } = item;
                   const totalPrice =
                     quantity * Number(sale_price || regular_price);
+
                   return (
                     <Tr
                       key={id}
@@ -191,28 +194,32 @@ const ShoppingCart = ({
                         borderColor={"black"}
                         color={"black"}
                       >
-                        <Image
-                          src={image}
-                          w={"200px"}
-                          h={"200px"}
-                          minW={"200px"}
-                          minH={"200px"}
-                          objectFit={"cover"}
-                        />
+                        <Link to={`/product/${id}`}>
+                          <Image
+                            src={image}
+                            w={"200px"}
+                            h={"200px"}
+                            minW={"200px"}
+                            minH={"200px"}
+                            objectFit={"cover"}
+                          />
+                        </Link>
                       </Td>
                       <Td
                         borderWidth={"1px"}
                         borderColor={"black"}
                         color={"black"}
                         textAlign={"center"}
+                        whiteSpace={"break-spaces"}
                       >
-                        {name}
+                        <Link to={`/product/${id}`}>{name}</Link>
                       </Td>
                       <Td
                         borderWidth={"1px"}
                         borderColor={"black"}
                         color={"black"}
                         textAlign={"center"}
+                        whiteSpace={"break-spaces"}
                       >
                         {currencyVND(sale_price || regular_price || "0")}
                       </Td>
@@ -238,6 +245,7 @@ const ShoppingCart = ({
                             h={"20px"}
                             cursor={"pointer"}
                             onClick={() => onHandleReduceQuantity(id)}
+                            opacity={quantity !== 1 && quantity > 1 ? 1 : 0.3}
                           />
                           <Input
                             border={"none"}
@@ -257,6 +265,7 @@ const ShoppingCart = ({
                             h={"20px"}
                             cursor={"pointer"}
                             onClick={() => onHandleIncrementQuantity(id)}
+                            opacity={quantity > stock_quantity ? 1 : 0.3}
                           />
                         </Flex>
                       </Td>
@@ -265,6 +274,9 @@ const ShoppingCart = ({
                         borderColor={"black"}
                         color={"black"}
                         textAlign={"center"}
+                        whiteSpace={"break-spaces"}
+                        wordBreak={"break-all"}
+                        minW={"155px"}
                       >
                         {currencyVND(String(totalPrice))}
                       </Td>
@@ -301,6 +313,7 @@ const ShoppingCart = ({
                     isInvalid={errorCoupon.isError}
                     fontSize={20}
                     borderColor={"black"}
+                    placeholder="Your voucher"
                   />
 
                   <Button
@@ -427,6 +440,15 @@ const ShoppingCart = ({
                     fontSize={24}
                     fontWeight={600}
                     textTransform={"capitalize"}
+                    backgroundColor={"red"}
+                    color={"white"}
+                    css={`
+                      &:hover {
+                        color: red;
+                        background-color: white;
+                        border: 1px solid red;
+                      }
+                    `}
                   >
                     Proceed to Checkout
                   </Button>

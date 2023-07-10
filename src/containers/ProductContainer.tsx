@@ -11,6 +11,7 @@ import {
 } from "../utils";
 import { ILocalStorageItem } from "../interfaces";
 import { useNavigate } from "react-router-dom";
+import { useToast } from "@chakra-ui/react";
 
 const ProductContainer = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -24,6 +25,11 @@ const ProductContainer = () => {
   const timer = useRef<any>(null);
 
   const navigate = useNavigate();
+
+  const toast = useToast({
+    position: "top",
+    duration: 3000,
+  });
 
   const filterRange = useMemo(() => {
     return { ...FILTER_RANGE[Number(priceSelect)] };
@@ -148,6 +154,12 @@ const ProductContainer = () => {
 
   const onHandleAddToCart = (item: ILocalStorageItem) => {
     addToCart(item);
+    toast({
+      title: "Successfully",
+      description: "You item already in shopping cart",
+      status: "success",
+      isClosable: true,
+    });
   };
 
   const onHandleBuyNow = (item: ILocalStorageItem) => {
@@ -179,7 +191,7 @@ const ProductContainer = () => {
       isErrorInput={errorInput.isError}
       errorInputMessage={errorInput.message}
       onHandleAddToCart={onHandleAddToCart}
-      onHandleBuyNow= {onHandleBuyNow}
+      onHandleBuyNow={onHandleBuyNow}
     />
   );
 };

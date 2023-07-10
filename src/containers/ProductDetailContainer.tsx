@@ -5,11 +5,17 @@ import { product } from "../services/apis";
 import { useState } from "react";
 import { ILocalStorageItem } from "../interfaces";
 import { addToCart } from "../utils";
+import { useToast } from "@chakra-ui/react";
 
 const ProductDetailContainer = () => {
   const { id } = useParams();
 
   const navigate = useNavigate();
+
+  const toast = useToast({
+    position: "top",
+    duration: 3000,
+  });
 
   const [quantity, setQuantity] = useState<number>(1);
 
@@ -20,6 +26,12 @@ const ProductDetailContainer = () => {
 
   const onHandleAddToCart = (item: ILocalStorageItem) => {
     addToCart(item);
+    toast({
+      title: "Successfully",
+      description: "You item already in shopping cart",
+      status: "success",
+      isClosable: true,
+    });
   };
 
   const onHandleBuyNow = (item: ILocalStorageItem) => {
