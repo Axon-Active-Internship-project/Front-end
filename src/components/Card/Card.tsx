@@ -14,7 +14,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { NO_IMAGE, addToCart, currencyVND } from "../../utils";
 
-const MyCard = ({ data }: CardProps) => {
+const MyCard = ({ data, handleAddToCart }: CardProps) => {
   const [isHovering, setIsHovering] = useState(false);
 
   const handleMouseOver = () => {
@@ -112,7 +112,7 @@ const MyCard = ({ data }: CardProps) => {
           <Button
             colorScheme="green"
             onClick={() =>
-              addToCart({
+              handleAddToCart({
                 ...data,
                 quantity: 1,
                 image: images?.[0]?.src || NO_IMAGE,

@@ -7,7 +7,9 @@ import {
   ErrorInputMessage,
   HeaderOptions,
   REG_HTML_TAGS,
+  addToCart,
 } from "../utils";
+import { ILocalStorageItem } from "../interfaces";
 
 const ProductContainer = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -141,6 +143,10 @@ const ProductContainer = () => {
     timer.current = newTimerId;
   };
 
+  const onHandleAddToCart = (item: ILocalStorageItem) => {
+    addToCart(item);
+  };
+
   if (result[0].isLoading || result[1].isLoading) {
     return <p> Loading</p>;
   }
@@ -164,6 +170,7 @@ const ProductContainer = () => {
       searchKey={searchKey}
       isErrorInput={errorInput.isError}
       errorInputMessage={errorInput.message}
+      onHandleAddToCart={onHandleAddToCart}
     />
   );
 };
