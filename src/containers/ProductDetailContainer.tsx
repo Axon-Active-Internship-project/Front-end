@@ -3,6 +3,8 @@ import { NotFound, ProductDetail } from "../pages";
 import { useQuery } from "@tanstack/react-query";
 import { product } from "../services/apis";
 import { useState } from "react";
+import { ILocalStorageItem } from "../interfaces";
+import { addToCart } from "../utils";
 
 const ProductDetailContainer = () => {
   const { id } = useParams();
@@ -13,6 +15,10 @@ const ProductDetailContainer = () => {
     queryKey: ["product_detail", id],
     queryFn: () => product.getProductById(id),
   });
+
+  const onHandleAddToCart = (item: ILocalStorageItem) => {
+    addToCart(item);
+  };
 
   if (isLoading) {
     return <p>Loading</p>;
@@ -31,6 +37,7 @@ const ProductDetailContainer = () => {
       data={data}
       onHandleChangequantity={(quantity: number) => setQuantity(quantity)}
       quantity={quantity}
+      onHandleAddToCart={onHandleAddToCart}
     />
   );
 };

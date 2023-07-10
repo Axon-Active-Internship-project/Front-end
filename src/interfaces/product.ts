@@ -56,6 +56,7 @@ export interface ProductDetailProps {
   data: IProduct;
   quantity: number;
   onHandleChangequantity: any;
+  onHandleAddToCart: any;
 }
 
 export default IProduct;

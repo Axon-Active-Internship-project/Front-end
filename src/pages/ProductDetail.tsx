@@ -22,6 +22,7 @@ const ProductDetail = ({
   data,
   onHandleChangequantity,
   quantity,
+  onHandleAddToCart,
 }: ProductDetailProps) => {
   const {
     name,
@@ -262,7 +263,7 @@ const ProductDetail = ({
                   }
                 `}
                 onClick={() =>
-                  addToCart({
+                  onHandleAddToCart({
                     ...data,
                     image: images?.[0].src || NO_IMAGE,
                     quantity,
