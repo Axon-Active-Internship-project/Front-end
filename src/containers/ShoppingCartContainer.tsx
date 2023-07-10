@@ -18,7 +18,7 @@ const ShoppingCartContainer = () => {
     message: "",
   });
 
-  const timer = useRef<any>(null);
+  // const timer = useRef<any>(null);
 
   const onHandleDeleteItem = useCallback(
     (id: number) => {
@@ -34,18 +34,18 @@ const ShoppingCartContainer = () => {
   const onHandleChangeInputCoupon = (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
-    const timerId = timer.current;
+    // const timerId = timer.current;
 
-    console.log("value => ", e.target.value);
-    clearTimeout(timerId);
+    // console.log("value => ", e.target.value);
+    // clearTimeout(timerId);
 
-    const newTimerId = setTimeout(() => {
-      const value = e.target.value;
+    // const newTimerId = setTimeout(() => {
 
-      setCouponInput(() => value);
-    }, 300);
+    // }, 300);
+    const value = e.target.value;
+    setCouponInput(() => value);
 
-    timer.current = newTimerId;
+    // timer.current = newTimerId;
   };
 
   const onHandleApplyCoupon = async () => {
