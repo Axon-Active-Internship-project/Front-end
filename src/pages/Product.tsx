@@ -7,8 +7,8 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
-  Button,
   Text,
+  Select,
 } from "@chakra-ui/react";
 import { ProductProps } from "../interfaces";
 import { Filter, Card, Pagination } from "../components";
@@ -20,7 +20,6 @@ const Product = ({
   currentPage,
   onHandleChangeCategory,
   categories,
-  categoriId,
   onHandleChangePriceRange,
   priceSelect,
   onHandleChangeInput,
@@ -29,7 +28,8 @@ const Product = ({
   errorInputMessage,
   onHandleChangePagination,
   onHandleAddToCart,
-  onHandleBuyNow
+  onHandleBuyNow,
+  onHandlePressEnter,
 }: ProductProps) => {
   return (
     <Flex flexDirection={"column"} gap={12}>
@@ -42,66 +42,91 @@ const Product = ({
         </Heading>
       </Flex>
 
-      <Flex justifyContent={"center"} alignItems={"center"} pos={"relative"}>
-        <Flex justifyContent={"center"} gap={100}>
-          <Button
-            fontSize={18}
-            fontWeight={!categoriId ? 700 : 400}
-            variant={"unstyled"}
-            textTransform={"capitalize"}
-            onClick={() => onHandleChangeCategory("")}
+      <Flex
+        justifyContent={"flex-end"}
+        flexDirection={"column"}
+        alignItems={"flex-end"}
+        pos={"relative"}
+      >
+        <InputGroup maxW={"250px"}>
+          <InputLeftElement pointerEvents="none">
+            <SearchIcon color="black.300" />
+          </InputLeftElement>
+          <Input
+            type="search"
+            placeholder="Search"
+            defaultValue={searchKey}
+            onChange={(e) => onHandleChangeInput(e)}
+            isInvalid={isErrorInput}
+            errorBorderColor={isErrorInput ? "crimson" : ""}
+            onKeyDown={(e) => onHandlePressEnter(e)}
+          />
+        </InputGroup>
+        {isErrorInput && (
+          <Text
+            pos={"absolute"}
+            bottom={-12}
+            maxW={"250px"}
+            pt={"4px"}
+            fontSize={14}
+            fontWeight={300}
+            color={"red"}
           >
-            all
-          </Button>
-          {categories.map((item) => {
-            const { id, name } = item;
-            return (
-              <Button
-                key={id}
-                fontSize={18}
-                fontWeight={categoriId === String(id) ? 700 : 400}
-                textTransform={"capitalize"}
-                variant={"unstyled"}
-                onClick={() => onHandleChangeCategory(String(id))}
-              >
-                {name}
-              </Button>
-            );
-          })}
-        </Flex>
-        <Box pos={"absolute"} right={0}>
-          <InputGroup>
-            <InputLeftElement pointerEvents="none">
-              <SearchIcon color="black.300" />
-            </InputLeftElement>
-            <Input
-              type="search"
-              placeholder="Search"
-              defaultValue={searchKey}
-              onChange={(e) => onHandleChangeInput(e)}
-              isInvalid={isErrorInput}
-              errorBorderColor={isErrorInput ? "crimson" : ""}
-            />
-          </InputGroup>
-          {isErrorInput && (
-            <Text
-              maxW={"250px"}
-              pt={"4px"}
-              fontSize={14}
-              fontWeight={300}
-              color={"red"}
-            >
-              {errorInputMessage}
-            </Text>
-          )}
-        </Box>
+            {errorInputMessage}
+          </Text>
+        )}
       </Flex>
       <Grid gap={12} templateColumns={"repeat(4, 1fr)"}>
         <GridItem>
-          <Filter
-            onHandleChangePriceRange={onHandleChangePriceRange}
-            priceSelect={priceSelect}
-          />
+          <Heading as={"h3"} fontSize={26} mb={"24px"}>
+            Filter
+          </Heading>
+
+          <Box paddingLeft={"12px"} mb={"24px"}>
+            <Heading
+              as={"h3"}
+              fontSize={22}
+              mb={"24px"}
+              textTransform={"capitalize"}
+            >
+              by price
+            </Heading>
+            <Filter
+              onHandleChangePriceRange={onHandleChangePriceRange}
+              priceSelect={priceSelect}
+            />
+          </Box>
+          <Box paddingLeft={"12px"}>
+            {" "}
+            <Heading
+              as={"h3"}
+              fontSize={22}
+              mb={"24px"}
+              textTransform={"capitalize"}
+            >
+              by category
+            </Heading>
+            <Select
+              onChange={(e) => onHandleChangeCategory(String(e.target.value))}
+              fontSize={18}
+              fontWeight={400}
+              textTransform={"capitalize"}
+            >
+              <option value={""}>all</option>
+              {categories.map((item) => {
+                const { id, name } = item;
+
+                if (name === "Uncategorized") {
+                  return;
+                }
+                return (
+                  <option key={id} value={id}>
+                    {name}
+                  </option>
+                );
+              })}
+            </Select>
+          </Box>
         </GridItem>
         <GridItem colStart={2} colSpan={3}>
           {data.length > 0 ? (
@@ -111,8 +136,8 @@ const Product = ({
                   <Card
                     data={item}
                     key={item.id}
-                    handleAddToCart={onHandleAddToCart} 
-                    handleBuyNow = {onHandleBuyNow}
+                    handleAddToCart={onHandleAddToCart}
+                    handleBuyNow={onHandleBuyNow}
                   />
                 ))}
               </Grid>
@@ -126,7 +151,7 @@ const Product = ({
             <Flex justifyContent={"flex-start"} alignItems={"center"}>
               <Text fontSize={24} fontWeight={700}>
                 There is no result found
-                {searchKey && ` with keyword: ${searchKey}`}{" "}
+                {searchKey && ` with keyword: ${searchKey}`}
               </Text>
             </Flex>
           )}

@@ -87,10 +87,6 @@ const ProductContainer = () => {
     const newTimerId = setTimeout(() => {
       const value = input.target.value;
       if (value.length === 1) {
-        setSearchKey(() => "");
-        setCurrentPage(() => 1);
-        setCategoriId(() => "");
-        setPriceSelect(() => "0");
         return setErrorInput((preError) => {
           return {
             ...preError,
@@ -101,10 +97,6 @@ const ProductContainer = () => {
       }
 
       if (value.length >= 100) {
-        setSearchKey(() => "");
-        setCurrentPage(() => 1);
-        setCategoriId(() => "");
-        setPriceSelect(() => "0");
         return setErrorInput((preError) => {
           return {
             ...preError,
@@ -115,10 +107,6 @@ const ProductContainer = () => {
       }
 
       if (REG_HTML_TAGS.test(value)) {
-        setSearchKey(() => "");
-        setCurrentPage(() => 1);
-        setCategoriId(() => "");
-        setPriceSelect(() => "0");
         return setErrorInput((preError) => {
           return {
             ...preError,
@@ -139,11 +127,15 @@ const ProductContainer = () => {
         return value.trim();
       });
       setCurrentPage(() => 1);
-      setCategoriId(() => "");
-      setPriceSelect(() => "0");
-    }, 1500);
+    }, 300);
 
     timer.current = newTimerId;
+  };
+
+  const onHandlePressEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      setSearchKey(() => e.target?.value);
+    }
   };
 
   const onHandleAddToCart = (item: ILocalStorageItem) => {
@@ -179,7 +171,8 @@ const ProductContainer = () => {
       isErrorInput={errorInput.isError}
       errorInputMessage={errorInput.message}
       onHandleAddToCart={onHandleAddToCart}
-      onHandleBuyNow= {onHandleBuyNow}
+      onHandleBuyNow={onHandleBuyNow}
+      onHandlePressEnter={onHandlePressEnter}
     />
   );
 };

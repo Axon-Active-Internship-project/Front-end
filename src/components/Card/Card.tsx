@@ -100,8 +100,8 @@ const MyCard = ({ data, handleAddToCart, handleBuyNow }: CardProps) => {
       </Link>
       {isHovering && (
         <Flex
-          gap={5}
-          justifyContent={"flex-end"}
+          gap={2}
+          justifyContent={"center"}
           pos={"absolute"}
           bottom={55}
           right={0}
@@ -110,6 +110,7 @@ const MyCard = ({ data, handleAddToCart, handleBuyNow }: CardProps) => {
         >
           <Button
             colorScheme="yellow"
+            minW={"140px"}
             onClick={() =>
               handleBuyNow({
                 ...data,
@@ -122,6 +123,7 @@ const MyCard = ({ data, handleAddToCart, handleBuyNow }: CardProps) => {
           </Button>
           <Button
             colorScheme="green"
+            minW={"140px"}
             onClick={() =>
               handleAddToCart({
                 ...data,

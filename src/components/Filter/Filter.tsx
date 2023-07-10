@@ -1,25 +1,10 @@
-import {
-  Heading,
-  Flex,
-  Stack,
-  Text,
-  RadioGroup,
-  Radio,
-} from "@chakra-ui/react";
+import { Flex, Stack, Text, RadioGroup, Radio } from "@chakra-ui/react";
 import { FILTER_RANGE, currencyVND } from "../../utils";
 import { FilterProps } from "../../interfaces";
 
 const Filter = ({ priceSelect, onHandleChangePriceRange }: FilterProps) => {
   return (
-    <Flex
-      flexDirection={"column"}
-      gap={4}
-      justifyContent={"center"}
-      alignItems={"center"}
-    >
-      <Heading as={"h3"} fontSize={22}>
-        Filter
-      </Heading>
+    <Flex flexDirection={"column"} justifyContent={"center"}>
       <RadioGroup
         name="price"
         defaultValue={priceSelect}

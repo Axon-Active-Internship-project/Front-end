@@ -45,6 +45,7 @@ export interface ProductProps {
   errorInputMessage: string;
   onHandleAddToCart: any;
   onHandleBuyNow: any;
+  onHandlePressEnter: any;
 }
 
 type onHandleChangePriceRange = (id: string) => void;

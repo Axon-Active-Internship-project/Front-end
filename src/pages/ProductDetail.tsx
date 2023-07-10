@@ -252,15 +252,40 @@ const ProductDetail = ({
                 />
               </Flex>
             </Flex>
-            <HStack spacing={"30px"}>
+            <HStack spacing={"12px"}>
               <Button
-                fontSize={"26px"}
-                backgroundColor={"#000"}
+                backgroundColor={"red"}
                 color={"#FFF"}
                 css={`
                   &:hover {
-                    color: black;
-                    backgroundcolor: white;
+                    color: red;
+                    background-color: white;
+                    border: 1px solid red;
+                  }
+                `}
+                variant={"solid"}
+                fontSize={"26px"}
+                minW={"210px"}
+                onClick={() =>
+                  onHandleBuyNow({
+                    ...data,
+                    image: images?.[0].src || NO_IMAGE,
+                    quantity,
+                  })
+                }
+              >
+                Buy now
+              </Button>
+              <Button
+                fontSize={"26px"}
+                minW={"210px"}
+                variant={"outline"}
+                borderColor={"red"}
+                color={"red"}
+                css={`
+                  &:hover {
+                    color: white;
+                    background-color: red;
                   }
                 `}
                 onClick={() =>
@@ -272,26 +297,6 @@ const ProductDetail = ({
                 }
               >
                 Add to cart
-              </Button>
-              <Button
-                fontSize={"26px"}
-                backgroundColor={"#000"}
-                color={"#FFF"}
-                css={`
-                  &:hover {
-                    color: black;
-                    backgroundcolor: red;
-                  }
-                `}
-                onClick={() =>
-                  onHandleBuyNow({
-                    ...data,
-                    image: images?.[0].src || NO_IMAGE,
-                    quantity,
-                  })
-                }
-              >
-                Buy now
               </Button>
             </HStack>
           </Flex>
