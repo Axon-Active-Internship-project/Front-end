@@ -21,6 +21,7 @@ export interface ShoppingCartProps {
   couponData: ICouponData | undefined;
   errorCoupon: IErrorCoupon;
   couponInput: string;
+  isLoadingCoupon: boolean;
   onDelete: any;
   onHandleChangeQuantity: any;
   onHandleChangeCoupon: any;

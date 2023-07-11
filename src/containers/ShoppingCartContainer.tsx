@@ -19,6 +19,8 @@ const ShoppingCartContainer = () => {
     message: "",
   });
 
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const toast = useToast({
     position: "top",
     duration: 3000,
@@ -69,6 +71,8 @@ const ShoppingCartContainer = () => {
       }));
     }
 
+    setIsLoading(true);
+
     const data = await coupon.getCouponByCode(couponInput);
 
     if (data.data.length === 0) {
@@ -79,6 +83,7 @@ const ShoppingCartContainer = () => {
         isClosable: true,
       });
       setCouponData(() => {});
+      setIsLoading(false);
       return setErrorCoupon(() => ({
         isError: true,
         message: COUPON_ERROR_MESSAGE.IS_NOT_VALID_COUPON,
@@ -96,6 +101,7 @@ const ShoppingCartContainer = () => {
       status: "success",
       isClosable: true,
     });
+    setIsLoading(false);
     return setCouponData(() => data.data[0]);
   };
 
@@ -126,6 +132,7 @@ const ShoppingCartContainer = () => {
       onHandleRemoveCoupon={onHandleRemoveCoupon}
       onFocusInputCoupon={onFocusInputCoupon}
       couponInput={couponInput}
+      isLoadingCoupon={isLoading}
     />
   );
 };

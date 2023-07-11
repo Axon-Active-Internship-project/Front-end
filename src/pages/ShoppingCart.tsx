@@ -28,6 +28,7 @@ const ShoppingCart = ({
   couponData,
   errorCoupon,
   couponInput,
+  isLoadingCoupon,
   onDelete,
   onHandleChangeQuantity,
   onHandleChangeCoupon,
@@ -325,6 +326,7 @@ const ShoppingCart = ({
                     textTransform={"capitalize"}
                     backgroundColor={"black"}
                     color={"white"}
+                    isLoading={isLoadingCoupon}
                   >
                     apply
                   </Button>
