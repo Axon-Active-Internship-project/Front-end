@@ -286,7 +286,7 @@ const ProductDetail = ({
                 onClick={() =>
                   onHandleBuyNow({
                     ...data,
-                    image: images?.[0].src || NO_IMAGE,
+                    image: images?.[0]?.src || NO_IMAGE,
                     quantity,
                   })
                 }
