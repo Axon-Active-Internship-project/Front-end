@@ -71,6 +71,17 @@ const ShoppingCartContainer = () => {
       }));
     }
 
+    if (couponInput === couponData?.code) {
+      setCouponInput(() => "");
+      toast({
+        title: "Fail",
+        description: "Coupon is already effective.",
+        status: "warning",
+        isClosable: true,
+      });
+      return;
+    }
+
     setIsLoading(true);
 
     const data = await coupon.getCouponByCode(couponInput);
