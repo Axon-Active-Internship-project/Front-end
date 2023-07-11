@@ -97,7 +97,7 @@ const ShoppingCartContainer = () => {
     }));
     toast({
       title: "Successfully",
-      description: "You item already in shopping cart",
+      description: "Your Coupon is applied successfully",
       status: "success",
       isClosable: true,
     });
