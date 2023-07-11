@@ -1,47 +1,35 @@
-import { Flex, Stack, Text, RadioGroup, Radio } from "@chakra-ui/react";
-import { FILTER_RANGE, currencyVND } from "../../utils";
+import { Flex, Text } from "@chakra-ui/react";
+import { MIN_RANGE_BETWEEN_THUMB, currencyVND } from "../../utils";
 import { FilterProps } from "../../interfaces";
+import ReactSlider from "react-slider";
+import "./style.css";
 
-const Filter = ({ priceSelect, onHandleChangePriceRange }: FilterProps) => {
+const Filter = ({ max, priceRange, onHandleChangePriceRange }: FilterProps) => {
   return (
-    <Flex flexDirection={"column"} justifyContent={"center"}>
-      <RadioGroup
-        name="price"
-        defaultValue={priceSelect}
-        onChange={onHandleChangePriceRange}
-        value={priceSelect}
-      >
-        <Stack>
-          {FILTER_RANGE.map((item, index) => {
-            const { min, max } = item;
-            let label;
-
-            if (!min && !max) {
-              label = `All`;
-            }
-
-            if (!min && max) {
-              label = `Less than ${currencyVND(String(Number(max) + 1))}`;
-            }
-
-            if (min && !max) {
-              label = `More than ${currencyVND(String(Number(min) - 1))}`;
-            }
-
-            if (min && max) {
-              label = `From ${currencyVND(min)} to ${currencyVND(max)} `;
-            }
-
-            return (
-              <Radio value={String(index)} key={index}>
-                <Text fontSize={18} fontWeight={500}>
-                  {label}
-                </Text>
-              </Radio>
-            );
-          })}
-        </Stack>
-      </RadioGroup>
+    <Flex
+      flexDirection={"column"}
+      justifyContent={"center"}
+      alignItems={"center"}
+    >
+      <ReactSlider
+        className="horizontal-slider"
+        thumbClassName="example-thumb"
+        trackClassName="example-track"
+        min={0}
+        max={max}
+        defaultValue={[0, max]}
+        ariaLabel={["Lower thumb", "Upper thumb"]}
+        ariaValuetext={(state) => `Thumb value ${state.valueNow}`}
+        pearling
+        minDistance={MIN_RANGE_BETWEEN_THUMB}
+        onAfterChange={(value) =>
+          onHandleChangePriceRange({ min: value[0], max: value[1] })
+        }
+      />
+      <Text fontSize={"20px"} fontWeight={400}>
+        {currencyVND(String(priceRange.min))} -{" "}
+        {currencyVND(String(Number(priceRange.max) ? priceRange.max : max))}
+      </Text>
     </Flex>
   );
 };

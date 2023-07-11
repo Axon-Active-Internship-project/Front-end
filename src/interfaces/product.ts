@@ -1,3 +1,5 @@
+import { IPriceRange } from ".";
+
 interface IProduct {
   id: number;
   name: string;
@@ -37,7 +39,7 @@ export interface ProductProps {
   categories: ICategory[];
   categoriId: string;
   onHandleChangePriceRange: onHandleChangePriceRange;
-  priceSelect: string;
+  priceRange: IPriceRange;
   searchKey: string;
   onHandleChangePagination: any;
   onHandleChangeInput: any;
@@ -48,7 +50,13 @@ export interface ProductProps {
   onHandlePressEnter: any;
 }
 
-type onHandleChangePriceRange = (id: string) => void;
+type onHandleChangePriceRange = ({
+  min,
+  max,
+}: {
+  min?: string;
+  max: string;
+}) => void;
 export interface CardProps {
   data: IProduct;
   handleAddToCart: any;

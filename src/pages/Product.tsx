@@ -10,9 +10,10 @@ import {
   Text,
   Select,
 } from "@chakra-ui/react";
-import { ProductProps } from "../interfaces";
+import { IProduct, ProductProps } from "../interfaces";
 import { Filter, Card, Pagination } from "../components";
 import { SearchIcon } from "@chakra-ui/icons";
+import {  useMemo } from "react";
 
 const Product = ({
   data,
@@ -21,7 +22,7 @@ const Product = ({
   onHandleChangeCategory,
   categories,
   onHandleChangePriceRange,
-  priceSelect,
+  priceRange,
   onHandleChangeInput,
   searchKey,
   isErrorInput,
@@ -31,6 +32,12 @@ const Product = ({
   onHandleBuyNow,
   onHandlePressEnter,
 }: ProductProps) => {
+  const MAX = useMemo(() => {
+    return Math.max(
+      ...data.map((item: IProduct) => Number(item.regular_price))
+    );
+  }, []);
+
   return (
     <Flex flexDirection={"column"} gap={12}>
       <Flex flexDirection={"column"} alignItems={"center"} gap={2}>
@@ -92,8 +99,9 @@ const Product = ({
               by price
             </Heading>
             <Filter
+              priceRange={priceRange}
               onHandleChangePriceRange={onHandleChangePriceRange}
-              priceSelect={priceSelect}
+              max={MAX}
             />
           </Box>
           <Box paddingLeft={"12px"}>

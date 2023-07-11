@@ -29,3 +29,5 @@ export const COUPON_ERROR_MESSAGE = {
   NO_COUPON: "Enter your coupon code",
   IS_NOT_VALID_COUPON: "Your coupon isn't valid",
 };
+
+export const MIN_RANGE_BETWEEN_THUMB = 300000;

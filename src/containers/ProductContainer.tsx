@@ -1,21 +1,23 @@
 import { useQueries, useQueryClient } from "@tanstack/react-query";
 import { ErrorPage, Product } from "../pages";
 import { product } from "../services/apis";
-import { useEffect, useMemo, useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import {
-  FILTER_RANGE,
   ErrorInputMessage,
   HeaderOptions,
   REG_HTML_TAGS,
   addToCart,
 } from "../utils";
-import { ILocalStorageItem } from "../interfaces";
+import { ILocalStorageItem, IPriceRange } from "../interfaces";
 import { useNavigate } from "react-router-dom";
 
 const ProductContainer = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [categoriId, setCategoriId] = useState<string>("");
-  const [priceSelect, setPriceSelect] = useState<string>("0");
+  const [priceRange, setPriceRange] = useState<IPriceRange>({
+    min: "0",
+    max: "0",
+  });
   const [searchKey, setSearchKey] = useState<string>("");
   const [errorInput, setErrorInput] = useState<{
     isError: boolean;
@@ -25,21 +27,17 @@ const ProductContainer = () => {
 
   const navigate = useNavigate();
 
-  const filterRange = useMemo(() => {
-    return { ...FILTER_RANGE[Number(priceSelect)] };
-  }, [priceSelect]);
-
   const queryClient = useQueryClient();
 
   const result = useQueries({
     queries: [
       {
-        queryKey: ["products", currentPage, categoriId, filterRange, searchKey],
+        queryKey: ["products", currentPage, categoriId, priceRange, searchKey],
         queryFn: () =>
           product.getProduct({
             page: currentPage,
             categoryId: categoriId,
-            priceRange: filterRange,
+            priceRange: priceRange,
             searchKey: searchKey,
           }),
         keepPreviousData: true,
@@ -58,12 +56,12 @@ const ProductContainer = () => {
     const nextPage = currentPage + 1;
 
     queryClient.prefetchQuery(
-      ["products", nextPage, categoriId, filterRange, searchKey],
+      ["products", nextPage, categoriId, priceRange, searchKey],
       () =>
         product.getProduct({
           page: nextPage,
           categoryId: categoriId,
-          priceRange: filterRange,
+          priceRange: priceRange,
           searchKey: searchKey,
         })
     );
@@ -74,8 +72,11 @@ const ProductContainer = () => {
     setCurrentPage(1);
   };
 
-  const onHandleChangePriceRange = (id: string) => {
-    setPriceSelect(id);
+  const onHandleChangePriceRange = ({ min = "0", max }: IPriceRange) => {
+    setPriceRange((prev: IPriceRange) => {
+      return { ...prev, min, max };
+    });
+
     setCurrentPage(1);
   };
 
@@ -165,7 +166,7 @@ const ProductContainer = () => {
       categories={result[1].data?.data}
       categoriId={categoriId}
       onHandleChangePriceRange={onHandleChangePriceRange}
-      priceSelect={priceSelect}
+      priceRange={priceRange}
       onHandleChangeInput={onHandleChangeInput}
       searchKey={searchKey}
       isErrorInput={errorInput.isError}
