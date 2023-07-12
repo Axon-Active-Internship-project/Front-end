@@ -14,6 +14,7 @@ const useConfirm = () => {
       showCancelButton: true,
       cancelButtonText: "Cancel",
       cancelButtonColor: "red",
+      focusCancel: true,
     });
 
     return isConfirmed;
