@@ -109,20 +109,13 @@ const MyCard = ({ data, handleAddToCart, handleBuyNow }: CardProps) => {
           padding={"12px"}
         >
           <Button
-            colorScheme="yellow"
-            minW={"140px"}
-            onClick={() =>
-              handleBuyNow({
-                ...data,
-                quantity: 1,
-                image: images?.[0]?.src || NO_IMAGE,
-              })
-            }
-          >
-            Buy now
-          </Button>
-          <Button
-            colorScheme="green"
+            backgroundColor={"#2196F3"}
+            css={`
+              &:hover {
+                color: white;
+                background-color: #2196f3;
+              }
+            `}
             minW={"140px"}
             onClick={() =>
               handleAddToCart({
@@ -133,6 +126,25 @@ const MyCard = ({ data, handleAddToCart, handleBuyNow }: CardProps) => {
             }
           >
             Add to cart
+          </Button>
+          <Button
+            backgroundColor={"#00C853"}
+            css={`
+              &:hover {
+                color: white;
+                background-color: #00c853;
+              }
+            `}
+            minW={"140px"}
+            onClick={() =>
+              handleBuyNow({
+                ...data,
+                quantity: 1,
+                image: images?.[0]?.src || NO_IMAGE,
+              })
+            }
+          >
+            Buy now
           </Button>
         </Flex>
       )}
