@@ -9,9 +9,11 @@ const useConfirm = () => {
       title: title,
       text: text,
       icon: icon,
+      confirmButtonText: "Yes",
+      confirmButtonColor: "#909191",
       showCancelButton: true,
       cancelButtonText: "Cancel",
-      confirmButtonText: "Yes",
+      cancelButtonColor: "red",
     });
 
     return isConfirmed;

@@ -28,7 +28,7 @@ const ProductContainer = () => {
 
   const toast = useToast({
     position: "top",
-    duration: 3000,
+    duration: 1500,
   });
 
   const filterRange = useMemo(() => {

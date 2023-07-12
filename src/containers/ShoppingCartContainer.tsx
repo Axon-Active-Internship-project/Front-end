@@ -80,12 +80,6 @@ const ShoppingCartContainer = () => {
 
   const onHandleApplyCoupon = async () => {
     if (!couponInput) {
-      toast({
-        title: "Fail",
-        description: "Enter your voucher",
-        status: "error",
-        isClosable: true,
-      });
       setCouponData(() => {});
       return setErrorCoupon(() => ({
         isError: true,
@@ -96,7 +90,7 @@ const ShoppingCartContainer = () => {
     if (couponInput === couponData?.code) {
       setCouponInput(() => "");
       toast({
-        title: "Fail",
+        title: "Failed",
         description: "Coupon is already effective.",
         status: "warning",
         isClosable: true,
@@ -109,12 +103,6 @@ const ShoppingCartContainer = () => {
     const data = await coupon.getCouponByCode(couponInput);
 
     if (data.data.length === 0) {
-      toast({
-        title: "Fail",
-        description: "Your voucher is invalid",
-        status: "error",
-        isClosable: true,
-      });
       setCouponData(() => {});
       setIsLoading(false);
       return setErrorCoupon(() => ({

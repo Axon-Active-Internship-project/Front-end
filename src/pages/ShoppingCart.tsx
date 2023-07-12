@@ -20,8 +20,7 @@ import { AddIcon, DeleteIcon, MinusIcon } from "@chakra-ui/icons";
 import { TABLE_HEADER, currencyVND, isExistItem } from "../utils";
 import { ShoppingCartProps } from "../interfaces";
 import { useMemo } from "react";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const ShoppingCart = ({
   data,
@@ -285,7 +284,9 @@ const ShoppingCart = ({
                             h={"20px"}
                             cursor={"pointer"}
                             onClick={() => onHandleIncrementQuantity(id)}
-                            opacity={quantity > stock_quantity ? 1 : 0.3}
+                            opacity={
+                              quantity === Number(stock_quantity) ? 0.3 : 1
+                            }
                           />
                         </Flex>
                       </Td>
@@ -461,13 +462,13 @@ const ShoppingCart = ({
                     fontSize={24}
                     fontWeight={600}
                     textTransform={"capitalize"}
-                    backgroundColor={"red"}
-                    color={"white"}
+                    color={"red"}
+                    borderColor={"red"}
+                    variant={"outline"}
                     css={`
                       &:hover {
-                        color: red;
-                        background-color: white;
-                        border: 1px solid red;
+                        color: white;
+                        background-color: red;
                       }
                     `}
                   >
