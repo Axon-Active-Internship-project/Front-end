@@ -59,7 +59,7 @@ const product = {
   },
 
   getCategoryProduct: async () => {
-    const result = await instance.get(`products/categories?per_page=5`);
+    const result = await instance.get(`products/categories`);
 
     return result;
   },

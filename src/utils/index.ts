@@ -10,6 +10,7 @@ export {
   TABLE_HEADER,
   COUPON_ERROR_MESSAGE,
   CART,
+  MIN_RANGE_BETWEEN_THUMB,
 } from "./constant";
 export { currencyVND } from "./format";
 export { HeaderOptions, ErrorInputMessage } from "./enum";
