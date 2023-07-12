@@ -19,3 +19,5 @@ export type {
 } from "./shoppingCart";
 
 export type { ICouponData, IErrorCoupon } from "./coupon";
+export type { ConfirmProps } from "./confirm";
+export { IIcon } from "./confirm";

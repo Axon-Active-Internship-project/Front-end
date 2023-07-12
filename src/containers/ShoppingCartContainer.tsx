@@ -1,9 +1,9 @@
 import { ShoppingCart } from "../pages";
 import { useCallback, useRef, useState } from "react";
-import { useLocalStorage } from "./../hooks";
+import { useConfirm, useLocalStorage } from "./../hooks";
 import { CART, COUPON_ERROR_MESSAGE } from "../utils/";
 import { isExistItem } from "../utils";
-import { ICouponData, IErrorCoupon } from "../interfaces";
+import { ICouponData, IErrorCoupon, IShoppingCartItem } from "../interfaces";
 import { coupon } from "../services/apis";
 import { useToast } from "@chakra-ui/react";
 
@@ -21,39 +21,61 @@ const ShoppingCartContainer = () => {
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
+  const { onHandleConfirm, showAlert } = useConfirm();
+
   const toast = useToast({
     position: "top",
     duration: 3000,
   });
 
-  // const timer = useRef<any>(null);
-
-  const onHandleDeleteItem = useCallback(
-    (id: number) => {
+  const onHandleDeleteCartItem = useCallback(
+    async (id: number) => {
       if (!isExistItem(id)) {
         return;
       }
 
-      return setCartItems(cartItems.filter((item) => item.id !== id));
+      const isConfirmed = await onHandleConfirm({
+        title: "Deleted",
+        text: "Would you like to remove this product?",
+        icon: "warning",
+      });
+
+      if (isConfirmed) {
+        await setCartItems(
+          cartItems.filter((item: IShoppingCartItem) => item.id !== id)
+        );
+        showAlert({
+          title: "Successfully",
+          text: "Deleted item successfully!",
+          icon: "success",
+        });
+      }
     },
     [cartItems]
   );
 
+  const onHandleCleanCart = async () => {
+    const isConfirmed = await onHandleConfirm({
+      title: "Clean cart",
+      text: "Would you like to remove all product?",
+      icon: "warning",
+    });
+
+    if (isConfirmed) {
+      await setCartItems([]);
+      showAlert({
+        title: "Successfully",
+        text: "Deleted all product!",
+        icon: "success",
+      });
+    }
+  };
+
   const onHandleChangeInputCoupon = (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
-    // const timerId = timer.current;
-
-    // console.log("value => ", e.target.value);
-    // clearTimeout(timerId);
-
-    // const newTimerId = setTimeout(() => {
-
-    // }, 300);
     const value = e.target.value;
     setCouponInput(() => value);
-
-    // timer.current = newTimerId;
   };
 
   const onHandleApplyCoupon = async () => {
@@ -136,7 +158,7 @@ const ShoppingCartContainer = () => {
       data={cartItems}
       couponData={couponData}
       errorCoupon={errorCoupon}
-      onDelete={onHandleDeleteItem}
+      onDelete={onHandleDeleteCartItem}
       onHandleChangeQuantity={setCartItems}
       onHandleChangeCoupon={onHandleChangeInputCoupon}
       onHandleApplyCoupon={onHandleApplyCoupon}
@@ -144,6 +166,7 @@ const ShoppingCartContainer = () => {
       onFocusInputCoupon={onFocusInputCoupon}
       couponInput={couponInput}
       isLoadingCoupon={isLoading}
+      onCleanCart={onHandleCleanCart}
     />
   );
 };

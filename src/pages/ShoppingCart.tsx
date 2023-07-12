@@ -35,6 +35,7 @@ const ShoppingCart = ({
   onHandleApplyCoupon,
   onHandleRemoveCoupon,
   onFocusInputCoupon,
+  onCleanCart,
 }: ShoppingCartProps) => {
   const subTotal = useMemo(() => {
     return data.reduce((total, currentValue) => {
@@ -146,7 +147,25 @@ const ShoppingCart = ({
         </Flex>
       ) : (
         <Flex paddingX={"136px"} flexDirection={"column"}>
-          <Heading mb={"48px"}>Shopping cart</Heading>
+          <Flex
+            justifyContent={"space-between"}
+            alignItems={"center"}
+            mb={"48px"}
+          >
+            <Heading>Shopping cart</Heading>
+            <Button
+              variant={"outline"}
+              minW={"130px"}
+              minH={"40px"}
+              fontSize={24}
+              fontWeight={600}
+              textTransform={"capitalize"}
+              borderColor={"black"}
+              onClick={onCleanCart}
+            >
+              Clean Cart
+            </Button>
+          </Flex>
           <TableContainer mb={"32px"}>
             <Table variant={"simple"} borderWidth={"1px"} borderColor={"black"}>
               <Thead>
