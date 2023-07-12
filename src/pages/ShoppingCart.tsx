@@ -63,7 +63,10 @@ const ShoppingCart = ({
       data.map((item) => {
         if (item.id === id) {
           const newQuantity = item.quantity + 1;
-          if (item.quantity >= item?.stock_quantity && item?.stock_quantity) {
+          if (
+            item.quantity >= Number(item.stock_quantity) &&
+            item?.stock_quantity
+          ) {
             return { ...item };
           }
 
@@ -111,7 +114,7 @@ const ShoppingCart = ({
           }
 
           if (
-            Number(e.target.value) > item.stock_quantity &&
+            Number(e.target.value) > Number(item.stock_quantity) &&
             item?.stock_quantity
           ) {
             return { ...item, quantity: item?.stock_quantity };
