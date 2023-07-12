@@ -10,3 +10,14 @@ export type {
 } from "./footer";
 export type { NavItemProps, NavProps } from "./header";
 export type { UsePaginationProps, PaginationProps } from "./pagination";
+export type {
+  IShoppingCartItem,
+  ShoppingCartProps,
+  IShoppingCartData,
+  ISessionStorage,
+  ILocalStorageItem,
+} from "./shoppingCart";
+
+export type { ICouponData, IErrorCoupon } from "./coupon";
+export type { ConfirmProps } from "./confirm";
+export { IIcon } from "./confirm";

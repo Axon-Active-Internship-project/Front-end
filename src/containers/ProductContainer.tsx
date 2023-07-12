@@ -7,7 +7,11 @@ import {
   ErrorInputMessage,
   HeaderOptions,
   REG_HTML_TAGS,
+  addToCart,
 } from "../utils";
+import { ILocalStorageItem } from "../interfaces";
+import { useNavigate } from "react-router-dom";
+import { useToast } from "@chakra-ui/react";
 
 const ProductContainer = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -19,6 +23,13 @@ const ProductContainer = () => {
     message: string;
   }>({ isError: false, message: "" });
   const timer = useRef<any>(null);
+
+  const navigate = useNavigate();
+
+  const toast = useToast({
+    position: "top",
+    duration: 1500,
+  });
 
   const filterRange = useMemo(() => {
     return { ...FILTER_RANGE[Number(priceSelect)] };
@@ -141,6 +152,21 @@ const ProductContainer = () => {
     timer.current = newTimerId;
   };
 
+  const onHandleAddToCart = (item: ILocalStorageItem) => {
+    addToCart(item);
+    toast({
+      title: "Successfully",
+      description: "You item already in shopping cart",
+      status: "success",
+      isClosable: true,
+    });
+  };
+
+  const onHandleBuyNow = (item: ILocalStorageItem) => {
+    addToCart(item);
+    navigate("../shopping-cart");
+  };
+
   if (result[0].isLoading || result[1].isLoading) {
     return <p> Loading</p>;
   }
@@ -164,6 +190,8 @@ const ProductContainer = () => {
       searchKey={searchKey}
       isErrorInput={errorInput.isError}
       errorInputMessage={errorInput.message}
+      onHandleAddToCart={onHandleAddToCart}
+      onHandleBuyNow={onHandleBuyNow}
     />
   );
 };

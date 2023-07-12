@@ -11,3 +11,21 @@ export const FILTER_RANGE = [
   { min: "800001", max: "" },
 ];
 export const REG_HTML_TAGS = /<[^>]*>/g;
+export const TABLE_HEADER = [
+  "Image",
+  "Product name",
+  "Unit price",
+  "Quantity",
+  "Total",
+  "Action",
+];
+
+export const CART = {
+  KEY_WORD: "CART",
+  ACTION: {},
+};
+
+export const COUPON_ERROR_MESSAGE = {
+  NO_COUPON: "Enter your coupon code",
+  IS_NOT_VALID_COUPON: "Your coupon is invalid",
+};

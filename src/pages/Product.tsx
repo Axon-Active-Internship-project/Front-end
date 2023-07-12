@@ -28,6 +28,8 @@ const Product = ({
   isErrorInput,
   errorInputMessage,
   onHandleChangePagination,
+  onHandleAddToCart,
+  onHandleBuyNow
 }: ProductProps) => {
   return (
     <Flex flexDirection={"column"} gap={12}>
@@ -110,7 +112,12 @@ const Product = ({
             <>
               <Grid templateColumns={"repeat(3, 1fr)"} gap={"30px"}>
                 {data?.map((item) => (
-                  <Card data={item} key={item.id} />
+                  <Card
+                    data={item}
+                    key={item.id}
+                    handleAddToCart={onHandleAddToCart} 
+                    handleBuyNow = {onHandleBuyNow}
+                  />
                 ))}
               </Grid>
               <Pagination

@@ -6,7 +6,7 @@ interface IProduct {
   regular_price: string;
   sale_price?: string;
   tags: ITag[];
-  categories?: ICategory[];
+  categories: ICategory[];
   images: IImageProduct[];
   stock_status?: string;
   stock_quantity?: number;
@@ -43,17 +43,23 @@ export interface ProductProps {
   onHandleChangeInput: any;
   isErrorInput: boolean;
   errorInputMessage: string;
+  onHandleAddToCart: any;
+  onHandleBuyNow: any;
 }
 
 type onHandleChangePriceRange = (id: string) => void;
 export interface CardProps {
   data: IProduct;
+  handleAddToCart: any;
+  handleBuyNow: any;
 }
 
 export interface ProductDetailProps {
   data: IProduct;
   quantity: number;
   onHandleChangequantity: any;
+  onHandleAddToCart: any;
+  onHandleBuyNow: any;
 }
 
 export default IProduct;
