@@ -10,7 +10,8 @@ import {
 } from "../utils";
 import { ILocalStorageItem, IPriceRange } from "../interfaces";
 import { useNavigate } from "react-router-dom";
-import { useToast } from "@chakra-ui/react";
+import { Box, useToast } from "@chakra-ui/react";
+import { Loading } from "../components";
 
 const ProductContainer = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -32,7 +33,6 @@ const ProductContainer = () => {
     position: "top",
     duration: 1500,
   });
-
 
   const queryClient = useQueryClient();
 
@@ -131,6 +131,7 @@ const ProductContainer = () => {
           message: "",
         };
       });
+
       setSearchKey(() => {
         return value.trim();
       });
@@ -162,7 +163,7 @@ const ProductContainer = () => {
   };
 
   if (result[0].isLoading || result[1].isLoading) {
-    return <p> Loading</p>;
+    return <Loading />;
   }
 
   if (result[0].isError || result[1].isError) {
@@ -170,24 +171,27 @@ const ProductContainer = () => {
   }
 
   return (
-    <Product
-      data={result[0].data?.data}
-      totalPages={totalPages}
-      onHandleChangePagination={(page: number) => setCurrentPage(page)}
-      currentPage={currentPage}
-      onHandleChangeCategory={onHandleChangeCategoryId}
-      categories={result[1].data?.data}
-      categoriId={categoriId}
-      onHandleChangePriceRange={onHandleChangePriceRange}
-      priceRange={priceRange}
-      onHandleChangeInput={onHandleChangeInput}
-      searchKey={searchKey}
-      isErrorInput={errorInput.isError}
-      errorInputMessage={errorInput.message}
-      onHandleAddToCart={onHandleAddToCart}
-      onHandleBuyNow={onHandleBuyNow}
-      onHandlePressEnter={onHandlePressEnter}
-    />
+    <Box minH={"51.8vh"}>
+      <Product
+        data={result[0].data?.data}
+        totalPages={totalPages}
+        onHandleChangePagination={(page: number) => setCurrentPage(page)}
+        currentPage={currentPage}
+        onHandleChangeCategory={onHandleChangeCategoryId}
+        categories={result[1].data?.data}
+        categoriId={categoriId}
+        onHandleChangePriceRange={onHandleChangePriceRange}
+        priceRange={priceRange}
+        onHandleChangeInput={onHandleChangeInput}
+        searchKey={searchKey}
+        isErrorInput={errorInput.isError}
+        errorInputMessage={errorInput.message}
+        onHandleAddToCart={onHandleAddToCart}
+        onHandleBuyNow={onHandleBuyNow}
+        onHandlePressEnter={onHandlePressEnter}
+        isLoading={result[0].isFetched}
+      />
+    </Box>
   );
 };
 

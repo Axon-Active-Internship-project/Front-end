@@ -5,7 +5,8 @@ import { product } from "../services/apis";
 import { useState } from "react";
 import { ILocalStorageItem } from "../interfaces";
 import { addToCart } from "../utils";
-import { useToast } from "@chakra-ui/react";
+import { Box, useToast } from "@chakra-ui/react";
+import { Loading } from "../components";
 
 const ProductDetailContainer = () => {
   const { id } = useParams();
@@ -40,7 +41,7 @@ const ProductDetailContainer = () => {
   };
 
   if (isLoading) {
-    return <p>Loading</p>;
+    return <Loading />;
   }
 
   if (isError) {
@@ -52,13 +53,15 @@ const ProductDetailContainer = () => {
   }
 
   return (
-    <ProductDetail
-      data={data}
-      onHandleChangequantity={(quantity: number) => setQuantity(quantity)}
-      quantity={quantity}
-      onHandleAddToCart={onHandleAddToCart}
-      onHandleBuyNow={onHandleBuyNow}
-    />
+    <Box minH={"51.8vh"}>
+      <ProductDetail
+        data={data}
+        onHandleChangequantity={(quantity: number) => setQuantity(quantity)}
+        quantity={quantity}
+        onHandleAddToCart={onHandleAddToCart}
+        onHandleBuyNow={onHandleBuyNow}
+      />
+    </Box>
   );
 };
 

@@ -11,9 +11,9 @@ import {
   Select,
 } from "@chakra-ui/react";
 import { IProduct, ProductProps } from "../interfaces";
-import { Filter, Card, Pagination } from "../components";
+import { Filter, Card, Pagination, Loading } from "../components";
 import { SearchIcon } from "@chakra-ui/icons";
-import {  useMemo } from "react";
+import { useMemo } from "react";
 
 const Product = ({
   data,
@@ -31,6 +31,7 @@ const Product = ({
   onHandleAddToCart,
   onHandleBuyNow,
   onHandlePressEnter,
+  isLoading,
 }: ProductProps) => {
   const MAX = useMemo(() => {
     return Math.max(
@@ -137,7 +138,9 @@ const Product = ({
           </Box>
         </GridItem>
         <GridItem colStart={2} colSpan={3}>
-          {data.length > 0 ? (
+          {!isLoading ? (
+            <Loading />
+          ) : data.length > 0 ? (
             <>
               <Grid templateColumns={"repeat(3, 1fr)"} gap={"30px"}>
                 {data?.map((item) => (

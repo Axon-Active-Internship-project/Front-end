@@ -48,6 +48,7 @@ export interface ProductProps {
   onHandleAddToCart: any;
   onHandleBuyNow: any;
   onHandlePressEnter: any;
+  isLoading: boolean;
 }
 
 type onHandleChangePriceRange = ({
