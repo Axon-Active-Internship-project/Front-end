@@ -15,4 +15,4 @@ export {
 export { currencyVND } from "./format";
 export { HeaderOptions, ErrorInputMessage } from "./enum";
 export { default } from "./Storage";
-export { addToCart, getLocalStorageItems, isExistItem } from "./cart";
+export { isExistItemInArray } from "./helper";

@@ -17,7 +17,7 @@ import {
   Tr,
 } from "@chakra-ui/react";
 import { AddIcon, DeleteIcon, MinusIcon } from "@chakra-ui/icons";
-import { TABLE_HEADER, currencyVND, isExistItem } from "../utils";
+import { TABLE_HEADER, currencyVND, isExistItemInArray } from "../utils";
 import { ShoppingCartProps } from "../interfaces";
 import { useMemo } from "react";
 import { useNavigate, Link } from "react-router-dom";
@@ -55,7 +55,7 @@ const ShoppingCart = ({
   const navigate = useNavigate();
 
   const onHandleIncrementQuantity = (id: number) => {
-    if (!isExistItem) {
+    if (!isExistItemInArray(id, data)) {
       return;
     }
 
@@ -79,7 +79,7 @@ const ShoppingCart = ({
   };
 
   const onHandleReduceQuantity = (id: number) => {
-    if (!isExistItem) {
+    if (!isExistItemInArray(id, data)) {
       return;
     }
 
@@ -103,7 +103,7 @@ const ShoppingCart = ({
     id: number,
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
-    if (!isExistItem) {
+    if (!isExistItemInArray(id, data)) {
       return;
     }
     return onHandleChangeQuantity(

@@ -18,6 +18,23 @@ const data = [
 const Header = () => {
   const [size, setSize] = useState<number>(0);
 
+  const { value } = useLocalStorage(CART.KEY_WORD);
+
+  useEffect(() => {
+    setSize(() => value.length);
+    window.addEventListener(
+      "storageEvent",
+      (e) => {
+        setSize(() => JSON.parse(e?.detail.newValue).length);
+      },
+      false
+    );
+
+    return () => {
+      window.removeEventListener("storageEvent", () => {});
+    };
+  }, []);
+
   return (
     <Box p={3} position={"sticky"} mb={"24px"} w={"100%"} zIndex={100}>
       <Flex justifyContent={"center"} alignItems={"center"}>

@@ -6,12 +6,15 @@ import {
   ErrorInputMessage,
   HeaderOptions,
   REG_HTML_TAGS,
-  addToCart,
+  CART,
 } from "../utils";
 import { ILocalStorageItem, IPriceRange } from "../interfaces";
 import { useNavigate } from "react-router-dom";
+import { useToast } from "@chakra-ui/react";
+import { useLocalStorage } from "../hooks";
 import { Box, useToast } from "@chakra-ui/react";
 import { Loading } from "../components";
+
 
 const ProductContainer = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -25,6 +28,9 @@ const ProductContainer = () => {
     isError: boolean;
     message: string;
   }>({ isError: false, message: "" });
+
+  const { addToCart } = useLocalStorage(CART.KEY_WORD, []);
+
   const timer = useRef<any>(null);
 
   const navigate = useNavigate();

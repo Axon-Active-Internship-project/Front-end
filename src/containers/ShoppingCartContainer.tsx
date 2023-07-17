@@ -2,14 +2,16 @@ import { ShoppingCart } from "../pages";
 import { useCallback, useRef, useState } from "react";
 import { useConfirm, useLocalStorage } from "./../hooks";
 import { CART, COUPON_ERROR_MESSAGE } from "../utils/";
-import { isExistItem } from "../utils";
+import { isExistItemInArray } from "../utils";
 import { ICouponData, IErrorCoupon, IShoppingCartItem } from "../interfaces";
 import { coupon } from "../services/apis";
 import { useToast } from "@chakra-ui/react";
 
 const ShoppingCartContainer = () => {
-  const [cartItems, setCartItems] = useLocalStorage(CART.KEY_WORD, []);
-
+  const { value: cartItems, updateValue: setCartItems } = useLocalStorage(
+    CART.KEY_WORD,
+    []
+  );
   const [couponInput, setCouponInput] = useState<string>("");
 
   const [couponData, setCouponData] = useState<ICouponData>();
@@ -30,7 +32,7 @@ const ShoppingCartContainer = () => {
 
   const onHandleDeleteCartItem = useCallback(
     async (id: number) => {
-      if (!isExistItem(id)) {
+      if (!isExistItemInArray(id, cartItems)) {
         return;
       }
 
@@ -41,7 +43,7 @@ const ShoppingCartContainer = () => {
       });
 
       if (isConfirmed) {
-        await setCartItems(
+        setCartItems(
           cartItems.filter((item: IShoppingCartItem) => item.id !== id)
         );
         showAlert({

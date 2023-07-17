@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { ILocalStorageItem } from "../interfaces";
+import { isExistItemInArray } from "../utils";
 
 const useLocalStorage = (
   keyName: string,
@@ -20,20 +21,48 @@ const useLocalStorage = (
     }
   });
 
-  const setValue = (newValue: ILocalStorageItem[]) => {
+  const setValue = async (newValue: ILocalStorageItem[]) => {
     try {
       window.localStorage.setItem(keyName, JSON.stringify(newValue));
+      setStoredValue(() => newValue);
+
+      window.dispatchEvent(
+        new CustomEvent("storageEvent", {
+          detail: {
+            key: "myLocalStorageKey",
+            newValue: JSON.stringify(newValue),
+          },
+        })
+      );
     } catch (err) {
       console.log("err => ", err);
     }
-    return setStoredValue(() => newValue);
   };
 
-  const localStorageListener = (callback: any) => {
-    // win
-  }
+  const addToCart = (props: ILocalStorageItem) => {
+    try {
+      if (!isExistItemInArray(props.id, storedValue)) {
+        const item = {
+          ...props,
+        };
+        return setValue([item, ...storedValue]);
+      } else {
+        return setValue(
+          storedValue.map((item: any) => {
+            if (item.id === props.id) {
+              const newQuantity = (item.quantity += props.quantity);
+              return { ...item, quantity: newQuantity };
+            }
+            return item;
+          })
+        );
+      }
+    } catch (err) {
+      console.log("err => ", err);
+    }
+  };
 
-  return [storedValue, setValue];
+  return { value: storedValue, updateValue: setValue, addToCart };
 };
 
 export default useLocalStorage;

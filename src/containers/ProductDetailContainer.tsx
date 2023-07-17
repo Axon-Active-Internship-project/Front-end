@@ -4,9 +4,12 @@ import { useQuery } from "@tanstack/react-query";
 import { product } from "../services/apis";
 import { useState } from "react";
 import { ILocalStorageItem } from "../interfaces";
-import { addToCart } from "../utils";
+import { CART } from "../utils";
+import { useToast } from "@chakra-ui/react";
+import { useLocalStorage } from "../hooks";
 import { Box, useToast } from "@chakra-ui/react";
 import { Loading } from "../components";
+
 
 const ProductDetailContainer = () => {
   const { id } = useParams();
@@ -19,6 +22,8 @@ const ProductDetailContainer = () => {
   });
 
   const [quantity, setQuantity] = useState<number>(1);
+
+  const { addToCart } = useLocalStorage(CART.KEY_WORD, []);
 
   const { data, isLoading, isError } = useQuery({
     queryKey: ["product_detail", id],
