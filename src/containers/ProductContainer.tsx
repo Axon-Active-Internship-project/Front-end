@@ -10,11 +10,9 @@ import {
 } from "../utils";
 import { ILocalStorageItem, IPriceRange } from "../interfaces";
 import { useNavigate } from "react-router-dom";
-import { useToast } from "@chakra-ui/react";
 import { useLocalStorage } from "../hooks";
 import { Box, useToast } from "@chakra-ui/react";
 import { Loading } from "../components";
-
 
 const ProductContainer = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);

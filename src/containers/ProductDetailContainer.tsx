@@ -5,11 +5,9 @@ import { product } from "../services/apis";
 import { useState } from "react";
 import { ILocalStorageItem } from "../interfaces";
 import { CART } from "../utils";
-import { useToast } from "@chakra-ui/react";
 import { useLocalStorage } from "../hooks";
 import { Box, useToast } from "@chakra-ui/react";
 import { Loading } from "../components";
-
 
 const ProductDetailContainer = () => {
   const { id } = useParams();
