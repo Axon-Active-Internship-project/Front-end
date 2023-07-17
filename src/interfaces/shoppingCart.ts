@@ -29,6 +29,7 @@ export interface ShoppingCartProps {
   onHandleRemoveCoupon: any;
   onFocusInputCoupon: any;
   onCleanCart: any;
+  onPressEnterApplyCoupon: any;
 }
 
 export interface ISessionStorage {

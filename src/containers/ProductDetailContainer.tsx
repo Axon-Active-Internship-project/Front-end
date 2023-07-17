@@ -36,6 +36,7 @@ const ProductDetailContainer = () => {
       status: "success",
       isClosable: true,
     });
+    setQuantity(() => 1);
   };
 
   const onHandleBuyNow = (item: ILocalStorageItem) => {

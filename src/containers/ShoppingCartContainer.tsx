@@ -73,6 +73,14 @@ const ShoppingCartContainer = () => {
     }
   };
 
+  const onPressEnterApplyCoupon = (
+    e: React.KeyboardEvent<HTMLInputElement>
+  ) => {
+    if (e.key === "Enter") {
+      onHandleApplyCoupon();
+    }
+  };
+
   const onHandleChangeInputCoupon = (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -157,6 +165,7 @@ const ShoppingCartContainer = () => {
       couponInput={couponInput}
       isLoadingCoupon={isLoading}
       onCleanCart={onHandleCleanCart}
+      onPressEnterApplyCoupon={onPressEnterApplyCoupon}
     />
   );
 };
