@@ -63,7 +63,14 @@ const ProductDetail = ({
   };
 
   const onHandleIncrementQuantity = () => {
-    onHandleChangequantity((quantity: number) => quantity + 1);
+    onHandleChangequantity((quantity: number) => {
+      if (stock_quantity) {
+        if (quantity >= stock_quantity) {
+          return quantity;
+        }
+      }
+      return quantity + 1;
+    });
   };
 
   const onHandleReduceQuantity = () => {
@@ -80,14 +87,21 @@ const ProductDetail = ({
   ) => {
     const { value } = input.target;
 
-    if (Number(value)) {
-      return onHandleChangequantity(() => Number(value));
-    }
+    const numberValue = Number(value);
 
-    if (Math.abs(Number(value)) <= 0) {
-      return onHandleChangequantity(() => 1);
-    }
-    return onHandleChangequantity(() => 1);
+    onHandleChangequantity((prev: number) => {
+      if (!numberValue) {
+        return prev;
+      }
+
+      if (stock_quantity) {
+        if (numberValue >= stock_quantity) {
+          return stock_quantity;
+        }
+      }
+
+      return numberValue;
+    });
   };
 
   const preventMinus = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -242,6 +256,7 @@ const ProductDetail = ({
                   value={quantity}
                   fontSize={"20px"}
                   min={1}
+                  max={stock_quantity}
                   onKeyDown={preventMinus}
                 />
                 <AddIcon
@@ -252,15 +267,17 @@ const ProductDetail = ({
                 />
               </Flex>
             </Flex>
-            <HStack spacing={"30px"}>
+            <HStack spacing={"12px"}>
               <Button
                 fontSize={"26px"}
-                backgroundColor={"#000"}
-                color={"#FFF"}
+                minW={"210px"}
+                variant={"outline"}
+                borderColor={"#2196F3"}
+                color={"#2196F3"}
                 css={`
                   &:hover {
-                    color: black;
-                    backgroundcolor: white;
+                    color: white;
+                    background-color: #2196f3;
                   }
                 `}
                 onClick={() =>
@@ -274,15 +291,16 @@ const ProductDetail = ({
                 Add to cart
               </Button>
               <Button
-                fontSize={"26px"}
-                backgroundColor={"#000"}
+                backgroundColor={"#00C853"}
                 color={"#FFF"}
                 css={`
                   &:hover {
-                    color: black;
-                    backgroundcolor: red;
+                    background-color: #05ab13;
                   }
                 `}
+                variant={"solid"}
+                fontSize={"26px"}
+                minW={"210px"}
                 onClick={() =>
                   onHandleBuyNow({
                     ...data,
@@ -309,10 +327,10 @@ const ProductDetail = ({
           </TabList>
           <TabPanels>
             <TabPanel paddingY={0}>
-              <Text fontSize={"16px"}>{parse(description || "")}</Text>
+              <Text fontSize={"20px"}>{parse(description || "")}</Text>
             </TabPanel>
             <TabPanel paddingY={0}>
-              <p>two!</p>
+              <Text fontSize={"20px"}>review</Text>
             </TabPanel>
           </TabPanels>
         </Tabs>

@@ -1,23 +1,28 @@
 import { useQueries, useQueryClient } from "@tanstack/react-query";
 import { ErrorPage, Product } from "../pages";
 import { product } from "../services/apis";
-import { useEffect, useMemo, useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import {
-  FILTER_RANGE,
   ErrorInputMessage,
   HeaderOptions,
   REG_HTML_TAGS,
   CART,
 } from "../utils";
-import { ILocalStorageItem } from "../interfaces";
+import { ILocalStorageItem, IPriceRange } from "../interfaces";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@chakra-ui/react";
 import { useLocalStorage } from "../hooks";
+import { Box, useToast } from "@chakra-ui/react";
+import { Loading } from "../components";
+
 
 const ProductContainer = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [categoriId, setCategoriId] = useState<string>("");
-  const [priceSelect, setPriceSelect] = useState<string>("0");
+  const [priceRange, setPriceRange] = useState<IPriceRange>({
+    min: "0",
+    max: "0",
+  });
   const [searchKey, setSearchKey] = useState<string>("");
   const [errorInput, setErrorInput] = useState<{
     isError: boolean;
@@ -35,21 +40,17 @@ const ProductContainer = () => {
     duration: 1500,
   });
 
-  const filterRange = useMemo(() => {
-    return { ...FILTER_RANGE[Number(priceSelect)] };
-  }, [priceSelect]);
-
   const queryClient = useQueryClient();
 
   const result = useQueries({
     queries: [
       {
-        queryKey: ["products", currentPage, categoriId, filterRange, searchKey],
+        queryKey: ["products", currentPage, categoriId, priceRange, searchKey],
         queryFn: () =>
           product.getProduct({
             page: currentPage,
             categoryId: categoriId,
-            priceRange: filterRange,
+            priceRange: priceRange,
             searchKey: searchKey,
           }),
         keepPreviousData: true,
@@ -68,12 +69,12 @@ const ProductContainer = () => {
     const nextPage = currentPage + 1;
 
     queryClient.prefetchQuery(
-      ["products", nextPage, categoriId, filterRange, searchKey],
+      ["products", nextPage, categoriId, priceRange, searchKey],
       () =>
         product.getProduct({
           page: nextPage,
           categoryId: categoriId,
-          priceRange: filterRange,
+          priceRange: priceRange,
           searchKey: searchKey,
         })
     );
@@ -84,8 +85,11 @@ const ProductContainer = () => {
     setCurrentPage(1);
   };
 
-  const onHandleChangePriceRange = (id: string) => {
-    setPriceSelect(id);
+  const onHandleChangePriceRange = ({ min = "0", max }: IPriceRange) => {
+    setPriceRange((prev: IPriceRange) => {
+      return { ...prev, min, max };
+    });
+
     setCurrentPage(1);
   };
 
@@ -97,10 +101,6 @@ const ProductContainer = () => {
     const newTimerId = setTimeout(() => {
       const value = input.target.value;
       if (value.length === 1) {
-        setSearchKey(() => "");
-        setCurrentPage(() => 1);
-        setCategoriId(() => "");
-        setPriceSelect(() => "0");
         return setErrorInput((preError) => {
           return {
             ...preError,
@@ -111,10 +111,6 @@ const ProductContainer = () => {
       }
 
       if (value.length >= 100) {
-        setSearchKey(() => "");
-        setCurrentPage(() => 1);
-        setCategoriId(() => "");
-        setPriceSelect(() => "0");
         return setErrorInput((preError) => {
           return {
             ...preError,
@@ -125,10 +121,6 @@ const ProductContainer = () => {
       }
 
       if (REG_HTML_TAGS.test(value)) {
-        setSearchKey(() => "");
-        setCurrentPage(() => 1);
-        setCategoriId(() => "");
-        setPriceSelect(() => "0");
         return setErrorInput((preError) => {
           return {
             ...preError,
@@ -145,15 +137,20 @@ const ProductContainer = () => {
           message: "",
         };
       });
+
       setSearchKey(() => {
         return value.trim();
       });
       setCurrentPage(() => 1);
-      setCategoriId(() => "");
-      setPriceSelect(() => "0");
-    }, 1500);
+    }, 300);
 
     timer.current = newTimerId;
+  };
+
+  const onHandlePressEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      setSearchKey(() => e.target?.value);
+    }
   };
 
   const onHandleAddToCart = (item: ILocalStorageItem) => {
@@ -172,7 +169,7 @@ const ProductContainer = () => {
   };
 
   if (result[0].isLoading || result[1].isLoading) {
-    return <p> Loading</p>;
+    return <Loading />;
   }
 
   if (result[0].isError || result[1].isError) {
@@ -180,23 +177,27 @@ const ProductContainer = () => {
   }
 
   return (
-    <Product
-      data={result[0].data?.data}
-      totalPages={totalPages}
-      onHandleChangePagination={(page: number) => setCurrentPage(page)}
-      currentPage={currentPage}
-      onHandleChangeCategory={onHandleChangeCategoryId}
-      categories={result[1].data?.data}
-      categoriId={categoriId}
-      onHandleChangePriceRange={onHandleChangePriceRange}
-      priceSelect={priceSelect}
-      onHandleChangeInput={onHandleChangeInput}
-      searchKey={searchKey}
-      isErrorInput={errorInput.isError}
-      errorInputMessage={errorInput.message}
-      onHandleAddToCart={onHandleAddToCart}
-      onHandleBuyNow={onHandleBuyNow}
-    />
+    <Box minH={"51.8vh"}>
+      <Product
+        data={result[0].data?.data}
+        totalPages={totalPages}
+        onHandleChangePagination={(page: number) => setCurrentPage(page)}
+        currentPage={currentPage}
+        onHandleChangeCategory={onHandleChangeCategoryId}
+        categories={result[1].data?.data}
+        categoriId={categoriId}
+        onHandleChangePriceRange={onHandleChangePriceRange}
+        priceRange={priceRange}
+        onHandleChangeInput={onHandleChangeInput}
+        searchKey={searchKey}
+        isErrorInput={errorInput.isError}
+        errorInputMessage={errorInput.message}
+        onHandleAddToCart={onHandleAddToCart}
+        onHandleBuyNow={onHandleBuyNow}
+        onHandlePressEnter={onHandlePressEnter}
+        isLoading={result[0].isFetched}
+      />
+    </Box>
   );
 };
 
