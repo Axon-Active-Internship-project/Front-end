@@ -20,18 +20,22 @@ const Header = () => {
 
   const { value } = useLocalStorage(CART.KEY_WORD);
 
+  const onHandleLocalStorageChange = (e: CustomEvent) => {
+    setSize(() => JSON.parse(e?.detail.newValue).length);
+  };
+
   useEffect(() => {
     setSize(() => value.length);
     window.addEventListener(
       "storageEvent",
-      (e) => {
-        setSize(() => JSON.parse(e?.detail.newValue).length);
-      },
+      (e) => onHandleLocalStorageChange(e),
       false
     );
 
     return () => {
-      window.removeEventListener("storageEvent", () => {});
+      window.removeEventListener("storageEvent", (e) =>
+        onHandleLocalStorageChange(e)
+      );
     };
   }, []);
 
