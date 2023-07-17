@@ -137,6 +137,17 @@ const ShoppingCart = ({
     navigate("../products");
   };
 
+  const onHandleCheckout = () => {
+    navigate("../checkout", {
+      state: {
+        data,
+        subTotal,
+        coupon: couponData,
+        total,
+      },
+    });
+  };
+
   return (
     <Box minH={"650px"}>
       {data.length === 0 ? (
@@ -470,6 +481,7 @@ const ShoppingCart = ({
                     color={"red"}
                     borderColor={"red"}
                     variant={"outline"}
+                    onClick={onHandleCheckout}
                     css={`
                       &:hover {
                         color: white;

@@ -3,3 +3,4 @@ export { default as ErrorPage } from "./Error";
 export { default as Product } from "./Product";
 export { default as ProductDetail } from "./ProductDetail";
 export { default as ShoppingCart } from "./ShoppingCart";
+export { default as Checkout } from "./Checkout";

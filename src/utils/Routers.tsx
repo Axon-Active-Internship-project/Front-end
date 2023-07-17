@@ -3,6 +3,7 @@ import { MainLayuot } from "../layouts";
 import { RouteObject } from "react-router";
 import { NotFound, ErrorPage } from "../pages/";
 import {
+  CheckoutContainer,
   ProductContainer,
   ProductDetailContainer,
   ShoppingCartContainer,
@@ -26,6 +27,10 @@ const Router = () => {
         {
           path: "shopping-cart",
           element: <ShoppingCartContainer />,
+        },
+        {
+          path: "checkout",
+          element: <CheckoutContainer />,
         },
       ],
     },
