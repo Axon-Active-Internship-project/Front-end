@@ -4,9 +4,7 @@ import { Checkout } from "../pages";
 const CheckoutContainer = () => {
   const { state } = useLocation();
 
-  console.log("state => ", state);
-
-  return <Checkout />;
+  return <Checkout state={state} />;
 };
 
 export default CheckoutContainer;

@@ -9,7 +9,7 @@ export interface IShoppingCartData {
 
 export interface IShoppingCartItem {
   id: number;
-  images: IImageProduct;
+  images: IImageProduct[];
   name: string;
   quantity: number;
   regular_price: string;
