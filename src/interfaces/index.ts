@@ -21,6 +21,5 @@ export type {
 export type { ICouponData, IErrorCoupon } from "./coupon";
 export type { ConfirmProps } from "./confirm";
 export type { CheckoutProps, ICheckoutItem, ICheckoutBox } from "./checkout";
+export type { IInputText } from "./InputText";
 export { IIcon } from "./confirm";
-
-

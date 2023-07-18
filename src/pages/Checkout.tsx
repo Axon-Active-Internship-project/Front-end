@@ -1,11 +1,22 @@
-import { Box, Flex, Heading, Input } from "@chakra-ui/react";
-import { CheckoutBox, CheckoutItem } from "../components";
+import { Flex, Heading, Input } from "@chakra-ui/react";
+import {
+  CheckoutBox,
+  CheckoutItem,
+  InputCustom,
+  SelectCustom,
+} from "../components";
 import { CheckoutProps } from "../interfaces";
 
 const Checkout = (props: CheckoutProps) => {
   const { state } = props;
 
   const { data, subTotal, total, coupon } = state;
+
+  const options = [
+    { value: "option1", label: "Option 1" },
+    { value: "option2", label: "Option 2" },
+    { value: "option3", label: "Option 3" },
+  ];
   return (
     <Flex flexDirection={"column"}>
       <Heading
@@ -39,12 +50,29 @@ const Checkout = (props: CheckoutProps) => {
           </Flex>
           <Flex flexDirection={"column"} flex={2.8} rowGap={"32px"}>
             <Flex columnGap={"54px"}>
-              <Input />
-              <Input />
+              <InputCustom
+                label={"first name"}
+                name="firstName"
+                onHandleChange={() => {}}
+              />
+              <InputCustom
+                label={"last name"}
+                name="lastName"
+                onHandleChange={() => {}}
+              />
             </Flex>
             <Flex columnGap={"54px"}>
-              <Input />
-              <Input />
+              <InputCustom
+                label={"email"}
+                name="email"
+                type="email"
+                onHandleChange={() => {}}
+              />
+              <InputCustom
+                label={"phone"}
+                name="phone"
+                onHandleChange={() => {}}
+              />
             </Flex>
           </Flex>
         </Flex>
@@ -69,12 +97,16 @@ const Checkout = (props: CheckoutProps) => {
           </Flex>
           <Flex flexDirection={"column"} flex={2.8} rowGap={"32px"}>
             <Flex columnGap={"54px"}>
-              <Input />
+              <SelectCustom label={"country"} options={options} />
               <Input />
               <Input />
             </Flex>
             <Flex columnGap={"54px"}>
-              <Input />
+              <InputCustom
+                label={"address"}
+                name="address"
+                onHandleChange={() => {}}
+              />
             </Flex>
           </Flex>
         </Flex>

@@ -6,3 +6,5 @@ export { default as Pagination } from "./Pagination";
 export { default as Slides } from "./Slides";
 export { default as Loading } from "./Loading";
 export { default as CheckoutItem, CheckoutBox } from "./CheckoutItem";
+export { default as InputCustom } from "./InputCustom";
+export { default as SelectCustom } from "./SelectCustom";
