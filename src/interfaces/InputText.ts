@@ -2,5 +2,7 @@ export interface IInputText {
   label: string;
   name: string;
   type?: string;
-  onHandleChange: () => void;
+  // onHandleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  errors?: any;
+  register?: any;
 }

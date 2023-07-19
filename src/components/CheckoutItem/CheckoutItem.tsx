@@ -20,7 +20,7 @@ const CheckoutItem = (props: ICheckoutItem) => {
       gap={"24px"}
     >
       <Image src={image} w={"150px"} h={"150px"} />
-      <Flex flexDirection={"column"}>
+      <Flex flexDirection={"column"} justifyContent={"space-between"}>
         <Text fontSize={"24px"} fontWeight={400} textTransform={"capitalize"}>
           {name}
         </Text>

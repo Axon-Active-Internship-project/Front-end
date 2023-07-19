@@ -1,6 +1,6 @@
 import { ICouponData, IShoppingCartItem } from ".";
 
-export interface IFomrCheckout {
+export interface IUserCheckout {
   firstName: string;
   lastName: string;
   email: string;
@@ -17,6 +17,8 @@ interface IAddress {
 
 export interface CheckoutProps {
   state: IStateCheckoutProps;
+  onHandleChangePaymentMethod: (value: string) => void;
+  onHandlePlaceOrder: (data: any) => void;
 }
 
 interface IStateCheckoutProps {
@@ -36,4 +38,41 @@ export interface ICheckoutItem {
 export interface ICheckoutBox {
   label: string;
   value: string;
+}
+
+export interface PaymentItemProps {
+  name?: string;
+  value?: string;
+  isChecked?: boolean;
+  "data-radiogroup"?: boolean;
+  children?: any;
+  onChange?: () => void;
+  image?: string;
+}
+
+export interface PaymentGroupProps {
+  name: string;
+  data: IPaymentGroupData[];
+  onChange: (value: string) => void;
+}
+
+export interface IPaymentGroupData {
+  name: string;
+  image: string;
+}
+
+export interface ISelectCustomOptions {
+  id: number;
+  name: string;
+  iso2: string;
+  country_id?: number;
+  country_code?: string;
+}
+
+export interface SelectCustomProps {
+  label: string;
+  options: ISelectCustomOptions[];
+  // onHandleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  errors: any;
+  register: any;
 }
