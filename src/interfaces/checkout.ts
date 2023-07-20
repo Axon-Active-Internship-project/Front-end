@@ -17,7 +17,6 @@ interface IAddress {
 
 export interface CheckoutProps {
   state: IStateCheckoutProps;
-  onHandleChangePaymentMethod: (value: string) => void;
   onHandlePlaceOrder: (data: any) => void;
 }
 
@@ -75,4 +74,9 @@ export interface SelectCustomProps {
   // onHandleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   errors: any;
   register: any;
+}
+
+export interface FromHookProps {
+  children: React.ReactNode;
+  onHandleSubmit: (data: any) => void;
 }

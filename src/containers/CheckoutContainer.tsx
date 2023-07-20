@@ -1,27 +1,32 @@
 import { useLocation } from "react-router-dom";
 import { Checkout } from "../pages";
-import { useState } from "react";
+import { order } from "../services/apis";
 
 const CheckoutContainer = () => {
   const { state } = useLocation();
 
-  const [paymentMethod, setPaymentMethod] = useState<string>("vnpay");
-
-  const onHandleChangePaymentMethod = (value: string) => {
-    setPaymentMethod(value);
+  const onHandlePlaceOrder = async (data: any) => {
+    await order.createOrder({
+      billing: {
+        ...data,
+      },
+      shipping: {
+        ...data,
+      },
+      line_items: [
+        {
+          product_id: 194,
+          quantity: 2,
+        },
+        {
+          product_id: 171,
+          quantity: 1,
+        },
+      ],
+    });
   };
 
-  const onHandlePlaceOrder = (data: any) => {
-    console.log(data);
-  };
-
-  return (
-    <Checkout
-      state={state}
-      onHandleChangePaymentMethod={onHandleChangePaymentMethod}
-      onHandlePlaceOrder={onHandlePlaceOrder}
-    />
-  );
+  return <Checkout state={state} onHandlePlaceOrder={onHandlePlaceOrder} />;
 };
 
 export default CheckoutContainer;

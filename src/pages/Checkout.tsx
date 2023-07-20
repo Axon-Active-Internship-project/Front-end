@@ -1,4 +1,4 @@
-import { Button, Flex, Heading, Radio } from "@chakra-ui/react";
+import { Flex, Heading } from "@chakra-ui/react";
 import {
   CheckoutBox,
   CheckoutItem,
@@ -12,12 +12,9 @@ import {
   SelectControl,
   SubmitButton,
 } from "react-hook-form-chakra";
-import PaymentItem from "../components/PaymentItem/PaymentItem";
 
 const Checkout = (props: CheckoutProps) => {
-  const { state, onHandleChangePaymentMethod, onHandlePlaceOrder } = props;
-
-
+  const { state, onHandlePlaceOrder } = props;
 
   const { data, subTotal, total, coupon } = state;
 
@@ -61,7 +58,7 @@ const Checkout = (props: CheckoutProps) => {
       >
         checkout
       </Heading>
-      <FormHook>
+      <FormHook onHandleSubmit={onHandlePlaceOrder}>
         <Flex flexDirection={"column"} alignItems={"flex-end"}>
           <Flex
             flexDirection={"row"}
@@ -83,12 +80,15 @@ const Checkout = (props: CheckoutProps) => {
             </Flex>
             <Flex flexDirection={"column"} flex={2.8} rowGap={"32px"}>
               <Flex columnGap={"54px"}>
-                <InputControl name="firstName" label="First Name" />
-                <InputControl name="firstName" label="First Name" />
+                <InputControl
+                  name="first_name"
+                  label="First Name"
+                />
+                <InputControl name="last_name" label="Last Name" />
               </Flex>
               <Flex columnGap={"54px"}>
-                <InputControl name="firstName" label="First Name" />
-                <InputControl name="firstName" label="First Name" />
+                <InputControl name="email" label="Email" />
+                <InputControl name="phone" label="Phone Number" />
               </Flex>
             </Flex>
           </Flex>
@@ -114,8 +114,8 @@ const Checkout = (props: CheckoutProps) => {
             <Flex flexDirection={"column"} flex={2.8} rowGap={"32px"}>
               <Flex columnGap={"54px"}>
                 <SelectControl
-                  name="callbackTime"
-                  label="Preferred callback time"
+                  name="country"
+                  label="Select Your Country"
                   selectProps={{ placeholder: "Select option" }}
                 >
                   <option value="morning">Morning</option>
@@ -123,8 +123,8 @@ const Checkout = (props: CheckoutProps) => {
                   <option value="evening">Evening</option>
                 </SelectControl>
                 <SelectControl
-                  name="callbackTime"
-                  label="Preferred callback time"
+                  name="city"
+                  label="Select Your City"
                   selectProps={{ placeholder: "Select option" }}
                 >
                   <option value="morning">Morning</option>
@@ -132,8 +132,8 @@ const Checkout = (props: CheckoutProps) => {
                   <option value="evening">Evening</option>
                 </SelectControl>
                 <SelectControl
-                  name="callbackTime"
-                  label="Preferred callback time"
+                  name="town"
+                  label="Select Your Town"
                   selectProps={{ placeholder: "Select option" }}
                 >
                   <option value="morning">Morning</option>
@@ -142,7 +142,7 @@ const Checkout = (props: CheckoutProps) => {
                 </SelectControl>
               </Flex>
               <Flex columnGap={"54px"}>
-                <InputControl name="firstName" label="First Name" />
+                <InputControl name="address_1" label="Address" />
               </Flex>
             </Flex>
           </Flex>
@@ -212,17 +212,20 @@ const Checkout = (props: CheckoutProps) => {
               </Heading>
             </Flex>
             <Flex flexDirection={"column"} flex={2.8} rowGap={"32px"}>
-      
-              <RadioGroupControl name="favoriteColor" label="Favorite Color">
-                <PaymentItem name="vnpay" value="vnpay" />
-                <PaymentItem name="vnpay" />
-
+              <RadioGroupControl
+                name="paymentMethod"
+                label="Payment method"
+                w={"100%"}
+              >
+                <PaymentGroup
+                  data={paymentItems}
+                  name="paymentMethod"
+                  onChange={() => {}}
+                />
               </RadioGroupControl>
-              
-            
             </Flex>
           </Flex>
-          {/* <Button
+          <SubmitButton
             maxW={"355px"}
             minW={"355px"}
             fontSize={"24px"}
@@ -235,12 +238,9 @@ const Checkout = (props: CheckoutProps) => {
               backgroundColor: "#f17346",
               color: "#FFFFFF",
             }}
-            type="submit"
-            isLoading={isSubmitting}
           >
             place order
-          </Button> */}
-          <SubmitButton>Submit</SubmitButton>
+          </SubmitButton>
         </Flex>
       </FormHook>
     </Flex>

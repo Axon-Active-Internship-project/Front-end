@@ -1,50 +1,39 @@
-import React from "react";
 import { FormProvider, useForm, useWatch } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Box } from "@chakra-ui/react";
+import { FromHookProps } from "../../interfaces";
 
 const validationSchema = Yup.object({
-  firstName: Yup.string().required("First Name is required"),
-  lastName: Yup.string().required("Last Name is required"),
-  age: Yup.number()
-    .required("Age is required")
-    .min(18, "Applicant must be at least 18 years old")
-    .typeError("Please enter a number"),
-  phoneNumber: Yup.string(),
-  confirmationPin: Yup.string(),
-  website: Yup.string(),
-  willingToRelocate: Yup.boolean().equals(
-    [true],
-    "Applicant must be able to relocate"
+  first_name: Yup.string().required("First Name is required"),
+  last_name: Yup.string().required("Last Name is required"),
+  phone: Yup.string().matches(
+    /(0[3|5|7|8|9])+([0-9]{8})\b/g,
+    "Input phone Vietnam"
   ),
-  favoriteColor: Yup.string(),
-  preferredShift: Yup.array().min(2, "Please select at least 2 shifts"),
-  additionalNotes: Yup.string().required(),
-  previousExperience: Yup.boolean(),
-  callbackTime: Yup.string().required("Please select a callback time"),
-  excitementScale: Yup.number(),
-  password: Yup.string(),
+  email: Yup.string()
+    .required("Emial is required")
+    .email("Please input vaild email"),
+  country: Yup.string().required("Country is required"),
+  city: Yup.string().required("City is required"),
+  town: Yup.string().required("Town is required"),
+  address_1: Yup.string().required("Address is required"),
+  paymentMethod: Yup.string().required("Choose your payment method"),
 });
 
 const defaultValues = {
-  firstName: "",
-  lastName: "",
-  age: 0,
-  phoneNumber: "",
-  confirmationPin: "",
-  website: "",
-  willingToRelocate: true,
-  favoriteColor: "",
-  preferredShift: ["afternoons"],
-  additionalNotes: "",
-  previousExperience: false,
-  callbackTime: "",
-  excitementScale: 5,
-  password: "",
+  first_name: "",
+  last_name: "",
+  phone: "",
+  email: "",
+  country: "",
+  city: "",
+  town: "",
+  address_1: "",
+  paymentMethod: "",
 };
 
-const FormHook = ({ children }: { children: React.ReactNode }) => {
+const FormHook = ({ children, onHandleSubmit }: FromHookProps) => {
   const methods = useForm({
     resolver: yupResolver(validationSchema),
     defaultValues,
@@ -52,15 +41,10 @@ const FormHook = ({ children }: { children: React.ReactNode }) => {
   });
 
   const values = useWatch({ control: methods.control });
-  const onSubmit = (data: any) => {
-    console.log(data);
-  };
-
-  console.log(methods);
 
   return (
     <FormProvider {...methods}>
-      <Box w={"100%"} as="form" onSubmit={methods.handleSubmit(onSubmit)}>
+      <Box w={"100%"} as="form" onSubmit={methods.handleSubmit(onHandleSubmit)}>
         {children}
       </Box>
     </FormProvider>
