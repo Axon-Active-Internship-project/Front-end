@@ -4,3 +4,4 @@ export { default as Product } from "./Product";
 export { default as ProductDetail } from "./ProductDetail";
 export { default as ShoppingCart } from "./ShoppingCart";
 export { default as Checkout } from "./Checkout";
+export { default as Thankyou } from "./Thankyou";

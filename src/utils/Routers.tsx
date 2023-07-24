@@ -7,6 +7,7 @@ import {
   ProductContainer,
   ProductDetailContainer,
   ShoppingCartContainer,
+  ThankyouContainer,
 } from "../containers";
 
 const Router = () => {
@@ -31,6 +32,10 @@ const Router = () => {
         {
           path: "checkout",
           element: <CheckoutContainer />,
+        },
+        {
+          path: "thankyou",
+          element: <ThankyouContainer />,
         },
       ],
     },

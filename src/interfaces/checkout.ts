@@ -17,7 +17,12 @@ interface IAddress {
 
 export interface CheckoutProps {
   state: IStateCheckoutProps;
+  countries: ICountry[];
+  states: IState[];
+  cities: ICity[];
   onHandlePlaceOrder: (data: any) => void;
+  onHandleChangeCountryCode: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  isLoading: boolean;
 }
 
 interface IStateCheckoutProps {
@@ -80,4 +85,21 @@ export interface SelectCustomProps {
 export interface FormHookProps {
   children: React.ReactNode;
   onHandleSubmit: (data: any) => void;
+}
+
+export interface ICountry {
+  name: string;
+  isoCode: string;
+}
+
+export interface IState {
+  name: string;
+  isoCode: string;
+  countryCode: string;
+}
+
+export interface ICity {
+  name: string;
+  stateCode: string;
+  countryCode: string;
 }

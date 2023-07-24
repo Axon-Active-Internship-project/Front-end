@@ -5,7 +5,13 @@ import {
   FormHook,
   PaymentGroup,
 } from "../components";
-import { CheckoutProps, IPaymentGroupData } from "../interfaces";
+import {
+  CheckoutProps,
+  IPaymentGroupData,
+  ICountry,
+  IState,
+  ICity,
+} from "../interfaces";
 import {
   InputControl,
   RadioGroupControl,
@@ -14,7 +20,15 @@ import {
 } from "react-hook-form-chakra";
 
 const Checkout = (props: CheckoutProps) => {
-  const { state, onHandlePlaceOrder } = props;
+  const {
+    state,
+    countries,
+    states,
+    cities,
+    isLoading,
+    onHandlePlaceOrder,
+    onHandleChangeCountryCode,
+  } = props;
 
   const { data, subTotal, total, coupon } = state;
 
@@ -95,31 +109,48 @@ const Checkout = (props: CheckoutProps) => {
             <Flex flexDirection={"column"} flex={2.8} rowGap={"32px"}>
               <Flex columnGap={"54px"}>
                 <SelectControl
-                  name="country"
+                  name="countryCode"
                   label="Select Your Country"
                   selectProps={{ placeholder: "Select option" }}
+                  onChange={onHandleChangeCountryCode}
                 >
-                  <option value="morning">Morning</option>
-                  <option value="afternoon">Afternoon</option>
-                  <option value="evening">Evening</option>
+                  {countries.map((country: ICountry) => {
+                    const { isoCode, name } = country;
+                    return (
+                      <option value={isoCode} key={isoCode}>
+                        {name}
+                      </option>
+                    );
+                  })}
+                </SelectControl>
+                <SelectControl
+                  name="stateCode"
+                  label="Select Your City"
+                  selectProps={{ placeholder: "Select option" }}
+                  onChange={onHandleChangeCountryCode}
+                >
+                  {states.map((state: IState) => {
+                    const { isoCode, name } = state;
+                    return (
+                      <option value={isoCode} key={isoCode}>
+                        {name}
+                      </option>
+                    );
+                  })}
                 </SelectControl>
                 <SelectControl
                   name="city"
-                  label="Select Your City"
-                  selectProps={{ placeholder: "Select option" }}
-                >
-                  <option value="morning">Morning</option>
-                  <option value="afternoon">Afternoon</option>
-                  <option value="evening">Evening</option>
-                </SelectControl>
-                <SelectControl
-                  name="town"
                   label="Select Your Town"
                   selectProps={{ placeholder: "Select option" }}
                 >
-                  <option value="morning">Morning</option>
-                  <option value="afternoon">Afternoon</option>
-                  <option value="evening">Evening</option>
+                  {cities.map((city: ICity, index: number) => {
+                    const { name } = city;
+                    return (
+                      <option value={name} key={index}>
+                        {name}
+                      </option>
+                    );
+                  })}
                 </SelectControl>
               </Flex>
               <Flex columnGap={"54px"}>
@@ -215,6 +246,7 @@ const Checkout = (props: CheckoutProps) => {
               backgroundColor: "#f17346",
               color: "#FFFFFF",
             }}
+            isLoading={isLoading}
           >
             place order
           </SubmitButton>

@@ -62,7 +62,11 @@ const useLocalStorage = (
     }
   };
 
-  return { value: storedValue, updateValue: setValue, addToCart };
+  const clearCart = () => {
+    return setValue([]);
+  };
+
+  return { value: storedValue, updateValue: setValue, addToCart, clearCart };
 };
 
 export default useLocalStorage;

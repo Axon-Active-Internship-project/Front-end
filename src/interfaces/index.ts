@@ -30,7 +30,12 @@ export type {
   IUserCheckout,
   SelectCustomProps,
   ISelectCustomOptions,
-  FormHookProps
+  FormHookProps,
+  ICountry,
+  ICity,
+  IState,
 } from "./checkout";
-export type { IInputText } from "./InputText";
+
+export type { ThankyouProps } from "./thankyou";
+
 export { IIcon } from "./confirm";

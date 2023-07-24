@@ -1,9 +1,45 @@
-import React from 'react'
+import React, { useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { Thankyou } from "../pages";
+import { order } from "../services/apis";
+import { useQuery } from "@tanstack/react-query";
+import { Loading } from "../components";
 
 const ThankyouContainer = () => {
-  return (
-    <div>ThankyouContainer</div>
-  )
-}
+  const { state } = useLocation();
 
-export default ThankyouContainer
+  const navigate = useNavigate();
+
+  const { id } = state;
+
+  useEffect(() => {
+    if (state === null) {
+      navigate("../products", {
+        replace: true,
+      });
+    }
+  }, []);
+
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["order"],
+    queryFn: () => order.getOrderById(id),
+  });
+
+  const onHandleBackToShop = () => {
+    navigate("../products", {
+      replace: true,
+    });
+  };
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  if (isError) {
+    return <p>error</p>;
+  }
+
+  return <Thankyou data={data} onHandleBackToShop={onHandleBackToShop} />;
+};
+
+export default ThankyouContainer;
