@@ -3,6 +3,7 @@ import { Box, Flex, Image, Text, forwardRef, useRadio } from "@chakra-ui/react";
 const PaymentItem = forwardRef(({ children, ...props }, ref) => {
   const { getInputProps, getRadioProps } = useRadio(props);
 
+
   const input = getInputProps({ ref });
   const checkbox = getRadioProps();
 
@@ -19,7 +20,7 @@ const PaymentItem = forwardRef(({ children, ...props }, ref) => {
       py={3}
       justifyContent={"space-between"}
       alignItems={"center"}
->
+    >
       <input {...input} />
       <Flex alignItems={"center"} gap={"24px"}>
         <Image src={props.image} w={"50px"} h={"40px"} objectFit={"cover"} />

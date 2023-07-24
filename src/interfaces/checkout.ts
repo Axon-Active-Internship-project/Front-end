@@ -58,6 +58,7 @@ export interface PaymentGroupProps {
 export interface IPaymentGroupData {
   name: string;
   image: string;
+  value: string;
 }
 
 export interface ISelectCustomOptions {
@@ -76,7 +77,7 @@ export interface SelectCustomProps {
   register: any;
 }
 
-export interface FromHookProps {
+export interface FormHookProps {
   children: React.ReactNode;
   onHandleSubmit: (data: any) => void;
 }

@@ -30,7 +30,7 @@ export type {
   IUserCheckout,
   SelectCustomProps,
   ISelectCustomOptions,
-  FromHookProps
+  FormHookProps
 } from "./checkout";
 export type { IInputText } from "./InputText";
 export { IIcon } from "./confirm";

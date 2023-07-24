@@ -18,13 +18,14 @@ const PaymentGroup = forwardRef(
 
     const group = getRootProps();
 
+
     return (
       <HStack {...group} w={"100%"}>
         {props.data.map((item: PaymentItemProps) => {
-          const { image, name } = item;
-          const radio = getRadioProps({ value: name });
+          const { image, name, value } = item;
+          const radio = getRadioProps({ value });
           return (
-            <PaymentItem key={name} {...radio} image={image}>
+            <PaymentItem key={name} {...radio} value={value} image={image}>
               {name}
             </PaymentItem>
           );

@@ -1,8 +1,8 @@
-import { FormProvider, useForm, useWatch } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Box } from "@chakra-ui/react";
-import { FromHookProps } from "../../interfaces";
+import { FormHookProps } from "../../interfaces";
 
 const validationSchema = Yup.object({
   first_name: Yup.string().required("First Name is required"),
@@ -17,7 +17,7 @@ const validationSchema = Yup.object({
   country: Yup.string().required("Country is required"),
   city: Yup.string().required("City is required"),
   town: Yup.string().required("Town is required"),
-  address_1: Yup.string().required("Address is required"),
+  street: Yup.string().required("Address is required"),
   paymentMethod: Yup.string().required("Choose your payment method"),
 });
 
@@ -29,18 +29,16 @@ const defaultValues = {
   country: "",
   city: "",
   town: "",
-  address_1: "",
+  street: "",
   paymentMethod: "",
 };
 
-const FormHook = ({ children, onHandleSubmit }: FromHookProps) => {
+const FormHook = ({ children, onHandleSubmit }: FormHookProps) => {
   const methods = useForm({
     resolver: yupResolver(validationSchema),
     defaultValues,
     mode: "onBlur",
   });
-
-  const values = useWatch({ control: methods.control });
 
   return (
     <FormProvider {...methods}>

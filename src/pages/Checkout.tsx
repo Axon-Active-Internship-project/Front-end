@@ -18,32 +18,16 @@ const Checkout = (props: CheckoutProps) => {
 
   const { data, subTotal, total, coupon } = state;
 
-  const options = [
-    {
-      id: 101,
-      name: "India",
-      iso2: "IN",
-    },
-    {
-      id: 102,
-      name: "Viet Nam",
-      iso2: "VN",
-    },
-    {
-      id: 103,
-      name: "United States",
-      iso2: "US",
-    },
-  ];
-
   const paymentItems: IPaymentGroupData[] = [
     {
       name: "vnpay",
-      image: "http://localhost/wordpress/wp-content/uploads/2023/07/bo.jpg",
+      value: "vnpay",
+      image: "http://localhost/wordpress/wp-content/uploads/2023/07/vnpay.png",
     },
     {
       name: "cash",
-      image: "http://localhost/wordpress/wp-content/uploads/2023/07/khobo.jpg",
+      value: "bacs",
+      image: "http://localhost/wordpress/wp-content/uploads/2023/07/cash.png",
     },
   ];
 
@@ -80,10 +64,7 @@ const Checkout = (props: CheckoutProps) => {
             </Flex>
             <Flex flexDirection={"column"} flex={2.8} rowGap={"32px"}>
               <Flex columnGap={"54px"}>
-                <InputControl
-                  name="first_name"
-                  label="First Name"
-                />
+                <InputControl name="first_name" label="First Name" />
                 <InputControl name="last_name" label="Last Name" />
               </Flex>
               <Flex columnGap={"54px"}>
@@ -142,7 +123,7 @@ const Checkout = (props: CheckoutProps) => {
                 </SelectControl>
               </Flex>
               <Flex columnGap={"54px"}>
-                <InputControl name="address_1" label="Address" />
+                <InputControl name="street" label="Street" />
               </Flex>
             </Flex>
           </Flex>
@@ -217,11 +198,7 @@ const Checkout = (props: CheckoutProps) => {
                 label="Payment method"
                 w={"100%"}
               >
-                <PaymentGroup
-                  data={paymentItems}
-                  name="paymentMethod"
-                  onChange={() => {}}
-                />
+                <PaymentGroup data={paymentItems} name="paymentMethod" />
               </RadioGroupControl>
             </Flex>
           </Flex>
