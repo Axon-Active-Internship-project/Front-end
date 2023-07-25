@@ -11,6 +11,7 @@ import { IProduct, ThankyouProps } from "../interfaces";
 import { currencyVND } from "../utils";
 import dateFormat from "dateformat";
 import { Loading } from "../components";
+// import "src/assets/images/thankyou.png";
 
 const Thankyou = ({ data, onHandleBackToShop }: ThankyouProps) => {
   const { line_items, total, shipping, date_created } = data;
@@ -38,9 +39,7 @@ const Thankyou = ({ data, onHandleBackToShop }: ThankyouProps) => {
       <Box flex={1}>
         <Image
           w={"100%"}
-          src={
-            "http://localhost/wordpress/wp-content/uploads/2023/07/thankyou.png"
-          }
+          src={"src/assets/images/thankyou.png"}
           objectFit={"contain"}
         />
       </Box>
