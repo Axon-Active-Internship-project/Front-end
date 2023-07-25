@@ -18,6 +18,7 @@ import {
   SelectControl,
   SubmitButton,
 } from "react-hook-form-chakra";
+import { NO_IMAGE } from "../utils";
 
 const Checkout = (props: CheckoutProps) => {
   const {
@@ -193,7 +194,7 @@ const Checkout = (props: CheckoutProps) => {
                     name={name}
                     quantity={quantity}
                     unit_price={sale_price || regular_price}
-                    image={images?.[0].src}
+                    image={images?.[0]?.src || NO_IMAGE}
                   />
                 );
               })}
