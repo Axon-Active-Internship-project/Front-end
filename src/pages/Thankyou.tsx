@@ -11,7 +11,6 @@ import { IProduct, ThankyouProps } from "../interfaces";
 import { currencyVND } from "../utils";
 import dateFormat from "dateformat";
 import { Loading } from "../components";
-// import "src/assets/images/thankyou.png";
 
 const Thankyou = ({ data, onHandleBackToShop }: ThankyouProps) => {
   const { line_items, total, shipping, date_created } = data;
