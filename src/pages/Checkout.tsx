@@ -8,12 +8,13 @@ import {
 import {
   CheckoutProps,
   IPaymentGroupData,
-  ICountry,
-  IState,
-  ICity,
+  IProvince,
+  IDistrict,
+  IWard,
 } from "../interfaces";
 import {
   InputControl,
+  NumberInputControl,
   RadioGroupControl,
   SelectControl,
   SubmitButton,
@@ -23,9 +24,9 @@ import { NO_IMAGE } from "../utils";
 const Checkout = (props: CheckoutProps) => {
   const {
     state,
-    countries,
-    states,
-    cities,
+    provinces,
+    districts,
+    wards,
     isLoading,
     onHandlePlaceOrder,
     onHandleChangeCountryCode,
@@ -79,12 +80,31 @@ const Checkout = (props: CheckoutProps) => {
             </Flex>
             <Flex flexDirection={"column"} flex={2.8} rowGap={"32px"}>
               <Flex columnGap={"54px"}>
-                <InputControl name="first_name" label="First Name" />
-                <InputControl name="last_name" label="Last Name" />
+                <InputControl
+                  name="first_name"
+                  label="First Name"
+                  inputProps={{
+                    maxLength: 40,
+                  }}
+                />
+                <InputControl
+                  name="last_name"
+                  label="Last Name"
+                  inputProps={{
+                    maxLength: 40,
+                  }}
+                />
               </Flex>
               <Flex columnGap={"54px"}>
-                <InputControl name="email" label="Email" />
+                <InputControl
+                  name="email"
+                  label="Email"
+                  inputProps={{
+                    maxLength: 256,
+                  }}
+                />
                 <InputControl name="phone" label="Phone Number" />
+                {/* <NumberInputControl name="phone" label="Phone Number" /> */}
               </Flex>
             </Flex>
           </Flex>
@@ -110,44 +130,45 @@ const Checkout = (props: CheckoutProps) => {
             <Flex flexDirection={"column"} flex={2.8} rowGap={"32px"}>
               <Flex columnGap={"54px"}>
                 <SelectControl
-                  name="countryCode"
-                  label="Select Your Country"
-                  selectProps={{ placeholder: "Select option" }}
+                  name="provinceCode"
+                  label="Select Your Province/City"
+                  selectProps={{ placeholder: "Select your province" }}
                   onChange={onHandleChangeCountryCode}
                 >
-                  {countries.map((country: ICountry) => {
-                    const { isoCode, name } = country;
+                  {provinces.map((province: IProvince) => {
+                    const { code, name } = province;
                     return (
-                      <option value={isoCode} key={isoCode}>
+                      <option value={code} key={code}>
                         {name}
                       </option>
                     );
                   })}
                 </SelectControl>
                 <SelectControl
-                  name="stateCode"
-                  label="Select Your City"
-                  selectProps={{ placeholder: "Select option" }}
+                  name="districtCode"
+                  label="Select Your District"
+                  selectProps={{ placeholder: "Select your district" }}
                   onChange={onHandleChangeCountryCode}
                 >
-                  {states.map((state: IState) => {
-                    const { isoCode, name } = state;
+                  {districts.map((district: IDistrict) => {
+                    const { code, name } = district;
                     return (
-                      <option value={isoCode} key={isoCode}>
+                      <option value={code} key={code}>
                         {name}
                       </option>
                     );
                   })}
                 </SelectControl>
                 <SelectControl
-                  name="city"
-                  label="Select Your Town"
-                  selectProps={{ placeholder: "Select option" }}
+                  name="wardCode"
+                  label="Select Your Ward"
+                  selectProps={{ placeholder: "Select your ward" }}
+                  onChange={onHandleChangeCountryCode}
                 >
-                  {cities.map((city: ICity, index: number) => {
-                    const { name } = city;
+                  {wards.map((ward: IWard) => {
+                    const { name, code } = ward;
                     return (
-                      <option value={name} key={index}>
+                      <option value={code} key={code}>
                         {name}
                       </option>
                     );
@@ -155,7 +176,7 @@ const Checkout = (props: CheckoutProps) => {
                 </SelectControl>
               </Flex>
               <Flex columnGap={"54px"}>
-                <InputControl name="street" label="Street" />
+                <InputControl name="street" label="Your Street" />
               </Flex>
             </Flex>
           </Flex>

@@ -31,9 +31,9 @@ export type {
   SelectCustomProps,
   ISelectCustomOptions,
   FormHookProps,
-  ICountry,
-  ICity,
-  IState,
+  IDistrict,
+  IProvince,
+  IWard,
 } from "./checkout";
 
 export type { ThankyouProps } from "./thankyou";

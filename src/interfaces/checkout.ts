@@ -17,9 +17,9 @@ interface IAddress {
 
 export interface CheckoutProps {
   state: IStateCheckoutProps;
-  countries: ICountry[];
-  states: IState[];
-  cities: ICity[];
+  provinces: IProvince[];
+  districts: IDistrict[];
+  wards: IWard[];
   onHandlePlaceOrder: (data: any) => void;
   onHandleChangeCountryCode: (e: React.ChangeEvent<HTMLInputElement>) => void;
   isLoading: boolean;
@@ -87,19 +87,19 @@ export interface FormHookProps {
   onHandleSubmit: (data: any) => void;
 }
 
-export interface ICountry {
+export interface IProvince {
+  code: string;
   name: string;
-  isoCode: string;
 }
 
-export interface IState {
+export interface IDistrict {
   name: string;
-  isoCode: string;
-  countryCode: string;
+  code: string;
+  province_code: string;
 }
 
-export interface ICity {
+export interface IWard {
   name: string;
-  stateCode: string;
-  countryCode: string;
+  code: string;
+  district_code: string;
 }

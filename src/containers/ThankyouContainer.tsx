@@ -21,9 +21,9 @@ const ThankyouContainer = () => {
   }, []);
 
   const { data, isLoading, isError } = useQuery({
-    queryKey: ["order"],
+    queryKey: [`order${id}`],
     queryFn: () => order.getOrderById(id),
-    refetchInterval: 2000,
+    refetchInterval: 5000,
   });
 
   const onHandleBackToShop = () => {

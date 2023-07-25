@@ -16,3 +16,5 @@ export { currencyVND } from "./format";
 export { HeaderOptions, ErrorInputMessage } from "./enum";
 export { default } from "./Storage";
 export { isExistItemInArray } from "./helper";
+ 
+export {getDistrictWithDetail, getWardWithDetail} from './customVietNamProvinceAPI'

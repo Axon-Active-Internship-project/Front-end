@@ -51,11 +51,13 @@ const Header = () => {
             <Icon as={AiOutlineShoppingCart} boxSize={7} />
             <Badge
               colorScheme="red"
-              background={"#FB7844"}
+              background={"#EB5A3E"}
               pos={"absolute"}
               top={-2}
               left={5}
               borderRadius={"99px"}
+              color={"#ffffff"}
+              textAlign={"center"}
             >
               {size}
             </Badge>

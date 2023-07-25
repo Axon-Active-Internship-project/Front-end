@@ -41,6 +41,7 @@
     "react-spinners": "^0.13.8",
     "sweetalert2": "^11.7.16",
     "swiper": "^9.4.1",
+    "vietnam-provinces": "^0.0.4",
     "yup": "^1.2.0"
   },
   "devDependencies": {

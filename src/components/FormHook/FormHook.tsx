@@ -3,20 +3,35 @@ import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Box } from "@chakra-ui/react";
 import { FormHookProps } from "../../interfaces";
+import "./style.css";
 
 const validationSchema = Yup.object({
-  first_name: Yup.string().required("First Name is required"),
-  last_name: Yup.string().required("Last Name is required"),
-  phone: Yup.string().matches(
-    /(0[3|5|7|8|9])+([0-9]{8})\b/g,
-    "Input phone Vietnam"
-  ),
+  first_name: Yup.string()
+    .required("First Name is required")
+    .matches(
+      /[A-Za-z]\b|^([^0-9|$&+,:;=?@#|'<>.-^*()%!]*)$/g,
+      "First Name can not includes number and special charaters "
+    )
+    .max(40, "First Name "),
+  last_name: Yup.string()
+    .required("Last Name is required")
+    .matches(
+      /^([^0-9|$&+,:;=?@#|'<>.-^*()%!]*)$/g,
+      "Last Name can not includes number and special characters "
+    ),
+  phone: Yup.string()
+    .required("Phone is required")
+    .matches(
+      /(0[3|5|7|8|9])+([0-9]{8})\b|^([^A-Za-z]*)$/g,
+      "Invaild phone number"
+    ),
   email: Yup.string()
     .required("Emial is required")
-    .email("Please input vaild email"),
-  countryCode: Yup.string().required("Country is required"),
-  stateCode: Yup.string().required("City is required"),
-  city: Yup.string().required("Town is required"),
+    .email("Please input vaild email")
+    .max(265, ""),
+  provinceCode: Yup.string().required("Province is required"),
+  districtCode: Yup.string().required("District is required"),
+  wardCode: Yup.string().required("Ward is required"),
   street: Yup.string().required("Address is required"),
   paymentMethod: Yup.string().required("Choose your payment method"),
 });
@@ -26,9 +41,9 @@ const defaultValues = {
   last_name: "",
   phone: "",
   email: "",
-  countryCode: "",
-  stateCode: "",
-  city: "",
+  provinceCode: "",
+  districtCode: "",
+  wardCode: "",
   street: "",
   paymentMethod: "",
 };

@@ -1,12 +1,17 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { Checkout } from "../pages";
 import { order } from "../services/apis";
-import { ICity, ICountry, IShoppingCartItem, IState } from "../interfaces";
+import { IDistrict, IProvince, IShoppingCartItem, IWard } from "../interfaces";
 import { useMutation } from "@tanstack/react-query";
-import { Country, State, City } from "country-state-city";
 import { useEffect, useState } from "react";
-import { CART } from "../utils";
+import { CART, getDistrictWithDetail, getWardWithDetail } from "../utils";
 import { useLocalStorage } from "../hooks";
+import {
+  getProvinces,
+  getDistricts,
+  getWards,
+  getProvincesWithDetail,
+} from "vietnam-provinces";
 
 const CheckoutContainer = () => {
   const { state } = useLocation();
@@ -15,38 +20,49 @@ const CheckoutContainer = () => {
 
   const { clearCart } = useLocalStorage(CART.KEY_WORD);
 
-  const [countryCode, setCountryCode] = useState<string>("");
-  const [stateCode, setStateCode] = useState<string>("");
+  const [provinceCode, setProvinceCode] = useState<string>("");
+  const [districtCode, setDistrictCode] = useState<string>("");
+  const [wardCode, setWardCode] = useState<string>("");
 
-  const [countries, setCountries] = useState<ICountry[]>(() => {
-    try {
-      return Country.getAllCountries();
-    } catch (error) {
-      return [];
-    }
-  });
-  const [states, setStates] = useState<IState[]>([]);
-  const [cities, setCities] = useState<ICity[]>([]);
+  const [provinces, setProvinces] = useState<IProvince[]>([]);
+  const [districts, setDistricts] = useState<IDistrict[]>([]);
+  const [wards, setWards] = useState<IWard[]>([]);
 
   useEffect(() => {
-    setStates(() => {
+    setProvinces(() => {
       try {
-        return State.getStatesOfCountry(countryCode);
+        return getProvinces();
       } catch (error) {
         return [];
       }
     });
-  }, [countryCode]);
+  }, []);
 
   useEffect(() => {
-    setCities(() => {
+    setDistricts(() => {
       try {
-        return City.getCitiesOfState(countryCode, stateCode);
+        if (!provinceCode) {
+          return [];
+        }
+        return getDistricts(provinceCode);
       } catch (error) {
         return [];
       }
     });
-  }, [countryCode, stateCode]);
+  }, [provinceCode]);
+
+  useEffect(() => {
+    setWards(() => {
+      try {
+        if (!provinceCode || !districtCode) {
+          return [];
+        }
+        return getWards(districtCode);
+      } catch (error) {
+        return [];
+      }
+    });
+  }, [provinceCode, districtCode]);
 
   const mutationOrder = useMutation({
     mutationFn: order.createOrder,
@@ -71,26 +87,29 @@ const CheckoutContainer = () => {
   });
 
   const onHandlePlaceOrder = async (data: any) => {
-    const { paymentMethod, countryCode, stateCode, ...restData } = data;
+    const { paymentMethod, stateCode, ...restData } = data;
 
-    const countryName = Country.getCountryByCode(countryCode)?.name;
-    const stateName = State.getStateByCodeAndCountry(
-      stateCode,
-      countryCode
+    const provinceName = getProvincesWithDetail(provinceCode).name;
+
+    const districtName = getDistrictWithDetail(
+      provinceCode,
+      districtCode
     )?.name;
+
+    const wardName = getWardWithDetail(districtCode, wardCode)?.name;
 
     const billing = {
       ...restData,
-      country: countryName,
-      state: stateName,
-      address_1: data.street,
+      country: "Việt Nam",
+      state: provinceName,
+      address_1: `${data.street}, ${districtName}, ${wardName}`,
     };
 
     const shipping = {
       ...restData,
-      country: countryName,
-      state: stateName,
-      address_1: data.street,
+      country: "Việt Nam",
+      state: provinceName,
+      address_1: `${data.street}, ${districtName}, ${wardName}`,
     };
 
     const line_items = [
@@ -121,10 +140,19 @@ const CheckoutContainer = () => {
   const onHandleChangeCountryCode = (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
-    if (e.target.name === "countryCode") {
-      setCountryCode(e.target.value);
-    } else if (e.target.name === "stateCode") {
-      setStateCode(e.target.value);
+    if (e.target.name === "provinceCode") {
+      setProvinceCode(e.target.value);
+      setDistrictCode("");
+      setWardCode("");
+    }
+
+    if (e.target.name === "districtCode") {
+      setDistrictCode(e.target.value);
+      setWardCode("");
+    }
+
+    if (e.target.name === "wardCode") {
+      setWardCode(e.target.value);
     }
   };
 
@@ -132,9 +160,9 @@ const CheckoutContainer = () => {
     <Checkout
       state={state}
       onHandlePlaceOrder={onHandlePlaceOrder}
-      countries={countries}
-      states={states}
-      cities={cities}
+      provinces={provinces}
+      districts={districts}
+      wards={wards}
       onHandleChangeCountryCode={onHandleChangeCountryCode}
       isLoading={mutationOrder.isLoading}
     />
