@@ -118,8 +118,6 @@ const CheckoutContainer = () => {
     });
   };
 
-  console.log(state);
-
   const onHandleChangeCountryCode = (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {

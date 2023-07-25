@@ -10,11 +10,29 @@ import {
 import { IProduct, ThankyouProps } from "../interfaces";
 import { currencyVND } from "../utils";
 import dateFormat from "dateformat";
+import { Loading } from "../components";
 
 const Thankyou = ({ data, onHandleBackToShop }: ThankyouProps) => {
   const { line_items, total, shipping, date_created } = data;
   const { first_name, last_name, phone, country, state, city, address_1 } =
     shipping;
+
+  if (data.status === "pending" || data.status === "on-hold") {
+    return (
+      <Flex
+        paddingX={"32px"}
+        gap={"48px"}
+        minH={"51.8vh"}
+        justifyContent={"center"}
+        alignItems={"center"}
+        flexDirection={"column"}
+      >
+        <Heading textTransform={"capitalize"}>Waitting payment</Heading>
+        <Loading />
+      </Flex>
+    );
+  }
+
   return (
     <Flex paddingX={"32px"} gap={"48px"} minH={"51.8vh"}>
       <Box flex={1}>

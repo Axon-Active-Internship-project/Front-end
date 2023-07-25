@@ -4,8 +4,6 @@ const order = {
   createOrder: async (data: any) => {
     let url = `orders`;
 
-    console.log(data);
-
     const result = (await axiosInstance.post(url, data)).data;
 
     return result;

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Thankyou } from "../pages";
 import { order } from "../services/apis";
@@ -23,6 +23,7 @@ const ThankyouContainer = () => {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["order"],
     queryFn: () => order.getOrderById(id),
+    refetchInterval: 2000,
   });
 
   const onHandleBackToShop = () => {
