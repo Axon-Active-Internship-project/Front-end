@@ -3,30 +3,26 @@ import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Box } from "@chakra-ui/react";
 import { FormHookProps } from "../../interfaces";
-import "./style.css";
 
 const validationSchema = Yup.object({
   first_name: Yup.string()
     .required("First Name is required")
     .matches(
-      /[A-Za-z]\b|^([^0-9|$&+,:;=?@#|'<>.-^*()%!]*)$/g,
-      "First Name can not includes number and special charaters "
+      /^[A-Za-z ]+$/g,
+      "First Name can not include numbers and special characters"
     )
     .max(40, "First Name "),
   last_name: Yup.string()
     .required("Last Name is required")
     .matches(
-      /^([^0-9|$&+,:;=?@#|'<>.-^*()%!]*)$/g,
-      "Last Name can not includes number and special characters "
+      /^[A-Za-z ]+$/g,
+      "Last Name can not include number and special characters "
     ),
   phone: Yup.string()
     .required("Phone is required")
-    .matches(
-      /(0[3|5|7|8|9])+([0-9]{8})\b|^([^A-Za-z]*)$/g,
-      "Invaild phone number"
-    ),
+    .matches(/(0[3|5|7|8|9])+([0-9]{8})\b/g, "Invaild phone number"),
   email: Yup.string()
-    .required("Emial is required")
+    .required("Email is required")
     .email("Please input vaild email")
     .max(265, ""),
   provinceCode: Yup.string().required("Province is required"),

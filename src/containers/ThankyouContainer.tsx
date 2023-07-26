@@ -4,13 +4,17 @@ import { Thankyou } from "../pages";
 import { order } from "../services/apis";
 import { useQuery } from "@tanstack/react-query";
 import { Loading } from "../components";
+import { useLocalStorage } from "../hooks";
+import { CART } from "../utils";
 
 const ThankyouContainer = () => {
+  const { clearCart } = useLocalStorage(CART.KEY_WORD);
+
   const { state } = useLocation();
 
   const navigate = useNavigate();
 
-  const { id } = state;
+  const { id, data: dataOrder, subTotal, coupon, total } = state;
 
   useEffect(() => {
     if (state === null) {
@@ -26,8 +30,28 @@ const ThankyouContainer = () => {
     refetchInterval: 5000,
   });
 
+  useEffect(() => {
+    if (data?.status === "processing") {
+      clearCart();
+    }
+  }, [data?.status]);
+
+  console.log(window.history.state);
+
   const onHandleBackToShop = () => {
     navigate("../products", {
+      replace: true,
+    });
+  };
+
+  const onHandleReorder = () => {
+    navigate("../checkout", {
+      state: {
+        data: dataOrder,
+        subTotal,
+        coupon,
+        total,
+      },
       replace: true,
     });
   };
@@ -40,7 +64,13 @@ const ThankyouContainer = () => {
     return <p>error</p>;
   }
 
-  return <Thankyou data={data} onHandleBackToShop={onHandleBackToShop} />;
+  return (
+    <Thankyou
+      data={data}
+      onHandleBackToShop={onHandleBackToShop}
+      onHandleReorder={onHandleReorder}
+    />
+  );
 };
 
 export default ThankyouContainer;

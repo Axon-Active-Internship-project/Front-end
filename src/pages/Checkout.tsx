@@ -14,7 +14,6 @@ import {
 } from "../interfaces";
 import {
   InputControl,
-  NumberInputControl,
   RadioGroupControl,
   SelectControl,
   SubmitButton,
@@ -85,6 +84,7 @@ const Checkout = (props: CheckoutProps) => {
                   label="First Name"
                   inputProps={{
                     maxLength: 40,
+                    placeholder: "First name",
                   }}
                 />
                 <InputControl
@@ -92,6 +92,7 @@ const Checkout = (props: CheckoutProps) => {
                   label="Last Name"
                   inputProps={{
                     maxLength: 40,
+                    placeholder: "Last name",
                   }}
                 />
               </Flex>
@@ -101,10 +102,17 @@ const Checkout = (props: CheckoutProps) => {
                   label="Email"
                   inputProps={{
                     maxLength: 256,
+                    placeholder: "Email",
                   }}
                 />
-                <InputControl name="phone" label="Phone Number" />
-                {/* <NumberInputControl name="phone" label="Phone Number" /> */}
+                <InputControl
+                  name="phone"
+                  label="Phone Number"
+                  inputProps={{
+                    placeholder: "Phone number",
+                    type: "number",
+                  }}
+                />
               </Flex>
             </Flex>
           </Flex>
@@ -176,7 +184,13 @@ const Checkout = (props: CheckoutProps) => {
                 </SelectControl>
               </Flex>
               <Flex columnGap={"54px"}>
-                <InputControl name="street" label="Your Street" />
+                <InputControl
+                  name="street"
+                  label="Your Street"
+                  inputProps={{
+                    placeholder: "Your street",
+                  }}
+                />
               </Flex>
             </Flex>
           </Flex>
@@ -246,11 +260,7 @@ const Checkout = (props: CheckoutProps) => {
               </Heading>
             </Flex>
             <Flex flexDirection={"column"} flex={2.8} rowGap={"32px"}>
-              <RadioGroupControl
-                name="paymentMethod"
-                label="Payment method"
-                w={"100%"}
-              >
+              <RadioGroupControl name="paymentMethod" w={"100%"}>
                 <PaymentGroup data={paymentItems} name="paymentMethod" />
               </RadioGroupControl>
             </Flex>

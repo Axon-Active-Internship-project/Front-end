@@ -4,8 +4,8 @@ import { order } from "../services/apis";
 import { IDistrict, IProvince, IShoppingCartItem, IWard } from "../interfaces";
 import { useMutation } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
-import { CART, getDistrictWithDetail, getWardWithDetail } from "../utils";
-import { useLocalStorage } from "../hooks";
+import { getDistrictWithDetail, getWardWithDetail } from "../utils";
+
 import {
   getProvinces,
   getDistricts,
@@ -17,8 +17,6 @@ const CheckoutContainer = () => {
   const { state } = useLocation();
 
   const navigate = useNavigate();
-
-  const { clearCart } = useLocalStorage(CART.KEY_WORD);
 
   const [provinceCode, setProvinceCode] = useState<string>("");
   const [districtCode, setDistrictCode] = useState<string>("");
@@ -67,7 +65,6 @@ const CheckoutContainer = () => {
   const mutationOrder = useMutation({
     mutationFn: order.createOrder,
     onSuccess(data) {
-      clearCart();
       if (data.payment_method === "vnpay") {
         window.open(data.payment_url, "_blank");
         navigate("../thankyou", {
@@ -80,6 +77,10 @@ const CheckoutContainer = () => {
       navigate("../thankyou", {
         state: {
           id: data.id,
+          data: state.data,
+          subTotal: state.subTotal,
+          coupon: state.coupon,
+          total: state.total,
         },
         replace: true,
       });
