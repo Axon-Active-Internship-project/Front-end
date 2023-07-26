@@ -1,4 +1,4 @@
-import { FormProvider, useForm, useWatch } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Box } from "@chakra-ui/react";
@@ -51,7 +51,6 @@ const FormHook = ({ children, onHandleSubmit }: FormHookProps) => {
     mode: "onBlur",
   });
 
-  const values = useWatch({ control: methods.control });
 
   return (
     <FormProvider {...methods}>

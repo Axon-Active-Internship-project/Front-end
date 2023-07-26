@@ -1,7 +1,7 @@
 export interface ICouponData {
-  id: number;
-  code: string;
-  amount: string;
+  id?: number;
+  code?: string;
+  amount?: string;
 }
 
 export interface IErrorCoupon {
