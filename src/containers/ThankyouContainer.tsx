@@ -36,8 +36,6 @@ const ThankyouContainer = () => {
     }
   }, [data?.status]);
 
-  console.log(window.history.state);
-
   const onHandleBackToShop = () => {
     navigate("../products", {
       replace: true,

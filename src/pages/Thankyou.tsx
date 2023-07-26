@@ -172,7 +172,7 @@ const Thankyou = ({
             }}
             onClick={onHandleReorder}
           >
-            reorder
+            re_order
           </Button>
 
           <Button
@@ -204,8 +204,13 @@ const Thankyou = ({
           objectFit={"contain"}
         />
       </Box>
-      <Flex flexDirection={"column"} alignItems={"flex-end"}>
-        <Flex flex={1} flexDirection={"column"} alignItems={"center"}>
+      <Flex
+        flexDirection={"column"}
+        alignItems={"flex-end"}
+        flex={1}
+        maxW={"50%"}
+      >
+        <Flex flexDirection={"column"} alignItems={"center"}>
           <Heading fontSize={"32px"} fontWeight={"700"} mb={"32px"}>
             Thank You For Your Ordering
           </Heading>
@@ -218,6 +223,7 @@ const Thankyou = ({
             gap={"18px"}
             textTransform={"capitalize"}
             mb={"32px"}
+            wordBreak={"break-word"}
           >
             <VStack alignItems={"flex-start"} gap={0} w={"100%"}>
               <Text fontSize={"20px"} fontWeight={"700"}>
