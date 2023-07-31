@@ -20,4 +20,22 @@ export type {
 
 export type { ICouponData, IErrorCoupon } from "./coupon";
 export type { ConfirmProps } from "./confirm";
+export type {
+  CheckoutProps,
+  ICheckoutItem,
+  ICheckoutBox,
+  PaymentGroupProps,
+  PaymentItemProps,
+  IPaymentGroupData,
+  IUserCheckout,
+  SelectCustomProps,
+  ISelectCustomOptions,
+  FormHookProps,
+  IDistrict,
+  IProvince,
+  IWard,
+} from "./checkout";
+
+export type { ThankyouProps } from "./thankyou";
+
 export { IIcon } from "./confirm";

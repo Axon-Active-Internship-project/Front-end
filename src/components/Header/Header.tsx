@@ -4,7 +4,7 @@ import { Badge, Box, Flex, Spacer } from "@chakra-ui/react";
 import { Icon } from "@chakra-ui/icons";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { Link } from "react-router-dom";
-import { useMemo, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useLocalStorage } from "../../hooks";
 import { CART } from "../../utils";
 
@@ -25,7 +25,7 @@ const Header = () => {
   };
 
   useEffect(() => {
-    setSize(() => value.length);
+    setSize(() => value?.length || 0);
     window.addEventListener(
       "storageEvent",
       (e) => onHandleLocalStorageChange(e),
@@ -51,11 +51,13 @@ const Header = () => {
             <Icon as={AiOutlineShoppingCart} boxSize={7} />
             <Badge
               colorScheme="red"
-              background={"#FB7844"}
+              background={"#EB5A3E"}
               pos={"absolute"}
               top={-2}
               left={5}
               borderRadius={"99px"}
+              color={"#ffffff"}
+              textAlign={"center"}
             >
               {size}
             </Badge>
