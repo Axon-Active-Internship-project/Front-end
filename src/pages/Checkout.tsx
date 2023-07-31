@@ -111,6 +111,7 @@ const Checkout = (props: CheckoutProps) => {
                   inputProps={{
                     placeholder: "Phone number",
                     type: "number",
+                    maxLength: 10,
                   }}
                 />
               </Flex>
