@@ -110,9 +110,10 @@ const MyCard = ({ data, handleAddToCart, handleBuyNow }: CardProps) => {
         >
           <Button
             backgroundColor={"#2196F3"}
+            color="white"
             css={`
               &:hover {
-                color: white;
+                color: black;
                 background-color: #2196f3;
               }
             `}
@@ -129,9 +130,10 @@ const MyCard = ({ data, handleAddToCart, handleBuyNow }: CardProps) => {
           </Button>
           <Button
             backgroundColor={"#00C853"}
+            color="white"
             css={`
               &:hover {
-                color: white;
+                color: black;
                 background-color: #00c853;
               }
             `}

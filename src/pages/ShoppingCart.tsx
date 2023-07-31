@@ -181,18 +181,17 @@ const ShoppingCart = ({
             </Button>
           </Flex>
           <TableContainer mb={"32px"}>
-            <Table variant={"simple"} borderWidth={"1px"} borderColor={"black"}>
+            <Table variant={"simple"}>
               <Thead>
                 <Tr>
                   {TABLE_HEADER.map((item, index) => (
                     <Th
                       key={index}
                       textAlign={"center"}
-                      borderWidth={"1px"}
-                      borderColor={"black"}
                       color={"black"}
                       fontSize={"20px"}
                       fontWeight={700}
+                      borderColor={"#c7c7c7"}
                     >
                       {item}
                     </Th>
@@ -216,17 +215,15 @@ const ShoppingCart = ({
                   return (
                     <Tr
                       key={id}
-                      borderWidth={"1px"}
-                      borderColor={"black"}
                       color={"black"}
                       fontSize={"20px"}
                       fontWeight={400}
                       textTransform={"capitalize"}
                     >
                       <Td
-                        borderWidth={"1px"}
-                        borderColor={"black"}
+                        borderBottom={"1px"}
                         color={"black"}
+                        borderColor={"#e2e8f0"}
                       >
                         <Link to={`/product/${id}`}>
                           <Image
@@ -240,17 +237,16 @@ const ShoppingCart = ({
                         </Link>
                       </Td>
                       <Td
-                        borderWidth={"1px"}
-                        borderColor={"black"}
-                        color={"black"}
+                        borderBottom={"1px"}
+                        borderColor={"#e2e8f0"}
                         textAlign={"center"}
                         whiteSpace={"break-spaces"}
                       >
                         <Link to={`/product/${id}`}>{name}</Link>
                       </Td>
                       <Td
-                        borderWidth={"1px"}
-                        borderColor={"black"}
+                        borderBottom={"1px"}
+                        borderColor={"#e2e8f0"}
                         color={"black"}
                         textAlign={"center"}
                         whiteSpace={"break-spaces"}
@@ -258,8 +254,8 @@ const ShoppingCart = ({
                         {currencyVND(sale_price || regular_price || "0")}
                       </Td>
                       <Td
-                        borderWidth={"1px"}
-                        borderColor={"black"}
+                        borderBottom={"1px"}
+                        borderColor={"#e2e8f0"}
                         color={"black"}
                         textAlign={"center"}
                       >
@@ -306,8 +302,8 @@ const ShoppingCart = ({
                         </Flex>
                       </Td>
                       <Td
-                        borderWidth={"1px"}
-                        borderColor={"black"}
+                        borderBottom={"1px"}
+                        borderColor={"#e2e8f0"}
                         color={"black"}
                         textAlign={"center"}
                         whiteSpace={"break-spaces"}
@@ -317,8 +313,8 @@ const ShoppingCart = ({
                         {currencyVND(String(totalPrice))}
                       </Td>
                       <Td
-                        borderWidth={"1px"}
-                        borderColor={"black"}
+                        borderBottom={"1px"}
+                        borderColor={"#e2e8f0"}
                         color={"black"}
                         textAlign={"center"}
                       >

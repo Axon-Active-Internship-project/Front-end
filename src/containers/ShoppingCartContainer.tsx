@@ -1,5 +1,5 @@
 import { ShoppingCart } from "../pages";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useState } from "react";
 import { useConfirm, useLocalStorage } from "./../hooks";
 import { CART, COUPON_ERROR_MESSAGE } from "../utils/";
 import { isExistItemInArray } from "../utils";
@@ -37,7 +37,7 @@ const ShoppingCartContainer = () => {
       }
 
       const isConfirmed = await onHandleConfirm({
-        title: "Deleted",
+        title: "Delete",
         text: "Would you like to remove this product?",
         icon: "warning",
       });
@@ -58,7 +58,7 @@ const ShoppingCartContainer = () => {
 
   const onHandleCleanCart = async () => {
     const isConfirmed = await onHandleConfirm({
-      title: "Clean cart",
+      title: "Clear",
       text: "Would you like to remove all product?",
       icon: "warning",
     });
@@ -90,7 +90,7 @@ const ShoppingCartContainer = () => {
 
   const onHandleApplyCoupon = async () => {
     if (!couponInput) {
-      setCouponData(() => {});
+      setCouponData({});
       return setErrorCoupon(() => ({
         isError: true,
         message: COUPON_ERROR_MESSAGE.NO_COUPON,
@@ -113,7 +113,7 @@ const ShoppingCartContainer = () => {
     const data = await coupon.getCouponByCode(couponInput);
 
     if (data.data.length === 0) {
-      setCouponData(() => {});
+      setCouponData({});
       setIsLoading(false);
       return setErrorCoupon(() => ({
         isError: true,
@@ -137,7 +137,7 @@ const ShoppingCartContainer = () => {
   };
 
   const onHandleRemoveCoupon = () => {
-    setCouponData(() => {});
+    setCouponData({});
     return setErrorCoupon(() => ({
       isError: false,
       message: "",

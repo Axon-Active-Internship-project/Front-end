@@ -17,8 +17,7 @@ const Thankyou = ({
   onHandleReorder,
 }: ThankyouProps) => {
   const { line_items, total, shipping, date_created } = data;
-  const { first_name, last_name, phone, country, state, city, address_1 } =
-    shipping;
+  const { first_name, last_name, phone, country, state, address_1 } = shipping;
 
   if (data.status === "pending" || data.status === "on-hold") {
     return (
