@@ -53,13 +53,13 @@ const product = {
     if (id) {
       const result = await instance.get(`products/${id}`);
 
-      return result;
+      return result.data;
     }
     return null;
   },
 
   getCategoryProduct: async () => {
-    const result = await instance.get(`products/categories?per_page=5`);
+    const result = await instance.get(`products/categories`);
 
     return result;
   },

@@ -1,3 +1,5 @@
+import { IPriceRange } from ".";
+
 interface IProduct {
   id: number;
   name: string;
@@ -6,7 +8,7 @@ interface IProduct {
   regular_price: string;
   sale_price?: string;
   tags: ITag[];
-  categories?: ICategory[];
+  categories: ICategory[];
   images: IImageProduct[];
   stock_status?: string;
   stock_quantity?: number;
@@ -37,23 +39,37 @@ export interface ProductProps {
   categories: ICategory[];
   categoriId: string;
   onHandleChangePriceRange: onHandleChangePriceRange;
-  priceSelect: string;
+  priceRange: IPriceRange;
   searchKey: string;
   onHandleChangePagination: any;
   onHandleChangeInput: any;
   isErrorInput: boolean;
   errorInputMessage: string;
+  onHandleAddToCart: any;
+  onHandleBuyNow: any;
+  onHandlePressEnter: any;
+  isLoading: boolean;
 }
 
-type onHandleChangePriceRange = (id: string) => void;
+type onHandleChangePriceRange = ({
+  min,
+  max,
+}: {
+  min?: string;
+  max: string;
+}) => void;
 export interface CardProps {
   data: IProduct;
+  handleAddToCart: any;
+  handleBuyNow: any;
 }
 
 export interface ProductDetailProps {
   data: IProduct;
   quantity: number;
   onHandleChangequantity: any;
+  onHandleAddToCart: any;
+  onHandleBuyNow: any;
 }
 
 export default IProduct;

@@ -7,6 +7,12 @@ export {
   FILTER_RANGE,
   REG_HTML_TAGS,
   NO_IMAGE,
+  TABLE_HEADER,
+  COUPON_ERROR_MESSAGE,
+  CART,
+  MIN_RANGE_BETWEEN_THUMB,
 } from "./constant";
 export { currencyVND } from "./format";
 export { HeaderOptions, ErrorInputMessage } from "./enum";
+export { default } from "./Storage";
+export { isExistItemInArray } from "./helper";

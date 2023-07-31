@@ -13,7 +13,7 @@ import {
 } from "@chakra-ui/react";
 import { ProductDetailProps } from "../interfaces/product";
 import { Slides } from "../components";
-import { currencyVND } from "../utils";
+import { NO_IMAGE, currencyVND } from "../utils";
 import { AddIcon, MinusIcon } from "@chakra-ui/icons";
 import parse from "html-react-parser";
 import { useState, useRef, useEffect } from "react";
@@ -22,6 +22,8 @@ const ProductDetail = ({
   data,
   onHandleChangequantity,
   quantity,
+  onHandleAddToCart,
+  onHandleBuyNow,
 }: ProductDetailProps) => {
   const {
     name,
@@ -61,7 +63,14 @@ const ProductDetail = ({
   };
 
   const onHandleIncrementQuantity = () => {
-    onHandleChangequantity((quantity: number) => quantity + 1);
+    onHandleChangequantity((quantity: number) => {
+      if (stock_quantity) {
+        if (quantity >= stock_quantity) {
+          return quantity;
+        }
+      }
+      return quantity + 1;
+    });
   };
 
   const onHandleReduceQuantity = () => {
@@ -78,14 +87,21 @@ const ProductDetail = ({
   ) => {
     const { value } = input.target;
 
-    if (Number(value)) {
-      return onHandleChangequantity(() => Number(value));
-    }
+    const numberValue = Number(value);
 
-    if (Math.abs(Number(value)) <= 0) {
-      return onHandleChangequantity(() => 1);
-    }
-    return onHandleChangequantity(() => 1);
+    onHandleChangequantity((prev: number) => {
+      if (!numberValue) {
+        return prev;
+      }
+
+      if (stock_quantity) {
+        if (numberValue >= stock_quantity) {
+          return stock_quantity;
+        }
+      }
+
+      return numberValue;
+    });
   };
 
   const preventMinus = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -251,30 +267,47 @@ const ProductDetail = ({
                 />
               </Flex>
             </Flex>
-            <HStack spacing={"30px"}>
+            <HStack spacing={"12px"}>
               <Button
                 fontSize={"26px"}
-                backgroundColor={"#000"}
-                color={"#FFF"}
+                minW={"210px"}
+                variant={"outline"}
+                borderColor={"#2196F3"}
+                color={"#2196F3"}
                 css={`
                   &:hover {
-                    color: black;
-                    backgroundcolor: white;
+                    color: white;
+                    background-color: #2196f3;
                   }
                 `}
+                onClick={() =>
+                  onHandleAddToCart({
+                    ...data,
+                    image: images?.[0]?.src || NO_IMAGE,
+                    quantity,
+                  })
+                }
               >
                 Add to cart
               </Button>
               <Button
-                fontSize={"26px"}
-                backgroundColor={"#000"}
+                backgroundColor={"#00C853"}
                 color={"#FFF"}
                 css={`
                   &:hover {
-                    color: black;
-                    backgroundcolor: red;
+                    background-color: #05ab13;
                   }
                 `}
+                variant={"solid"}
+                fontSize={"26px"}
+                minW={"210px"}
+                onClick={() =>
+                  onHandleBuyNow({
+                    ...data,
+                    image: images?.[0]?.src || NO_IMAGE,
+                    quantity,
+                  })
+                }
               >
                 Buy now
               </Button>

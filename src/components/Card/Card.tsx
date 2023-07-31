@@ -14,7 +14,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { NO_IMAGE, currencyVND } from "../../utils";
 
-const MyCard = ({ data }: CardProps) => {
+const MyCard = ({ data, handleAddToCart, handleBuyNow }: CardProps) => {
   const [isHovering, setIsHovering] = useState(false);
 
   const handleMouseOver = () => {
@@ -100,16 +100,52 @@ const MyCard = ({ data }: CardProps) => {
       </Link>
       {isHovering && (
         <Flex
-          gap={5}
-          justifyContent={"flex-end"}
+          gap={2}
+          justifyContent={"center"}
           pos={"absolute"}
           bottom={55}
           right={0}
           left={0}
           padding={"12px"}
         >
-          <Button colorScheme="yellow">Buy now</Button>
-          <Button colorScheme="green">Add to cart</Button>
+          <Button
+            backgroundColor={"#2196F3"}
+            css={`
+              &:hover {
+                color: white;
+                background-color: #2196f3;
+              }
+            `}
+            minW={"140px"}
+            onClick={() =>
+              handleAddToCart({
+                ...data,
+                quantity: 1,
+                image: images?.[0]?.src || NO_IMAGE,
+              })
+            }
+          >
+            Add to cart
+          </Button>
+          <Button
+            backgroundColor={"#00C853"}
+            css={`
+              &:hover {
+                color: white;
+                background-color: #00c853;
+              }
+            `}
+            minW={"140px"}
+            onClick={() =>
+              handleBuyNow({
+                ...data,
+                quantity: 1,
+                image: images?.[0]?.src || NO_IMAGE,
+              })
+            }
+          >
+            Buy now
+          </Button>
         </Flex>
       )}
     </Card>

@@ -2,7 +2,11 @@ import { useRoutes } from "react-router-dom";
 import { MainLayuot } from "../layouts";
 import { RouteObject } from "react-router";
 import { NotFound, ErrorPage } from "../pages/";
-import { ProductContainer, ProductDetailContainer } from "../containers";
+import {
+  ProductContainer,
+  ProductDetailContainer,
+  ShoppingCartContainer,
+} from "../containers";
 
 const Router = () => {
   const routers: RouteObject[] = [
@@ -18,6 +22,10 @@ const Router = () => {
         {
           path: "product/:id",
           element: <ProductDetailContainer />,
+        },
+        {
+          path: "shopping-cart",
+          element: <ShoppingCartContainer />,
         },
       ],
     },
