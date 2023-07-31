@@ -35,7 +35,6 @@ const ShoppingCart = ({
   onHandleRemoveCoupon,
   onFocusInputCoupon,
   onCleanCart,
-  onPressEnterApplyCoupon,
 }: ShoppingCartProps) => {
   const subTotal = useMemo(() => {
     return data.reduce((total, currentValue) => {
@@ -346,7 +345,6 @@ const ShoppingCart = ({
                     fontSize={20}
                     borderColor={"black"}
                     placeholder="Your voucher"
-                    onKeyDown={(e) => onPressEnterApplyCoupon(e)}
                   />
 
                   <Button

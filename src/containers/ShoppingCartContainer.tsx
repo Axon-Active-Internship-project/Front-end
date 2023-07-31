@@ -73,13 +73,6 @@ const ShoppingCartContainer = () => {
     }
   };
 
-  const onPressEnterApplyCoupon = (
-    e: React.KeyboardEvent<HTMLInputElement>
-  ) => {
-    if (e.key === "Enter") {
-      onHandleApplyCoupon();
-    }
-  };
 
   const onHandleChangeInputCoupon = (
     e: React.ChangeEvent<HTMLInputElement>
@@ -90,7 +83,7 @@ const ShoppingCartContainer = () => {
 
   const onHandleApplyCoupon = async () => {
     if (!couponInput) {
-      setCouponData({});
+      setCouponData(() => {});
       return setErrorCoupon(() => ({
         isError: true,
         message: COUPON_ERROR_MESSAGE.NO_COUPON,
@@ -113,7 +106,7 @@ const ShoppingCartContainer = () => {
     const data = await coupon.getCouponByCode(couponInput);
 
     if (data.data.length === 0) {
-      setCouponData({});
+      setCouponData(() => {});
       setIsLoading(false);
       return setErrorCoupon(() => ({
         isError: true,
@@ -137,7 +130,7 @@ const ShoppingCartContainer = () => {
   };
 
   const onHandleRemoveCoupon = () => {
-    setCouponData({});
+    setCouponData(() => {});
     return setErrorCoupon(() => ({
       isError: false,
       message: "",
@@ -165,7 +158,6 @@ const ShoppingCartContainer = () => {
       couponInput={couponInput}
       isLoadingCoupon={isLoading}
       onCleanCart={onHandleCleanCart}
-      onPressEnterApplyCoupon={onPressEnterApplyCoupon}
     />
   );
 };
